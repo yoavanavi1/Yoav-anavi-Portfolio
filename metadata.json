@@ -1,0 +1,8 @@
+{
+  "name": "Yoav Anavi Portfolio",
+  "description": "A premium editorial-style portfolio for Yoav Anavi, featuring high-end interactions, minimalist luxury aesthetics, and mobile-first design leadership.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
