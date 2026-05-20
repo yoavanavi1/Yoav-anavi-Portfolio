@@ -143,7 +143,7 @@ const FloatingLogo = () => {
   return (
     <motion.div 
       style={{ opacity, y }}
-      className="fixed top-8 left-8 z-[60] group pointer-events-auto"
+      className="fixed top-6 left-6 md:top-8 md:left-8 z-[60] group pointer-events-auto"
     >
       <motion.div
         whileHover={{ 
@@ -153,7 +153,7 @@ const FloatingLogo = () => {
         }}
         animate={{ y: [0, -5, 0] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        className="h-14 md:h-16 w-14 md:w-16 bg-white rounded-full border border-ink/5 shadow-xl shadow-accent/5 overflow-hidden flex items-center justify-center relative transition-colors duration-500 cursor-pointer"
+        className="h-12 w-12 md:h-16 md:w-16 bg-white rounded-full border border-ink/5 shadow-xl shadow-accent/5 overflow-hidden flex items-center justify-center relative transition-colors duration-500 cursor-pointer"
         onClick={() => {
           document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' });
         }}
@@ -176,7 +176,7 @@ const FloatingLogo = () => {
         <img 
           src="https://i.postimg.cc/WFGLJfbW/Gemini-Generated-Image-i4jauyi4jauyi4ja.png" 
           alt="Yoav Anavi Logo" 
-          className="w-[60%] h-[60%] object-contain transition-transform duration-500 group-hover:scale-110 relative z-10"
+          className="w-[80%] h-[80%] md:w-[60%] md:h-[60%] object-contain transition-transform duration-500 group-hover:scale-110 relative z-10"
         />
       </motion.div>
     </motion.div>
@@ -344,7 +344,7 @@ const JOURNEY_CARDS = [
 
 const SectionHeader = ({ title, subtitle }: { title: string, subtitle?: string }) => (
   <SectionReveal>
-    <div className="flex flex-col sm:flex-row sm:items-baseline justify-between border-b border-ink/10 pb-6 mb-12 lg:mb-20 gap-4">
+    <div className="flex flex-col sm:flex-row sm:items-baseline justify-between border-b border-ink/10 pb-6 mb-4 md:mb-12 lg:mb-20 gap-4">
       <h4 className="text-5xl md:text-[8vw] lg:text-[7vw] font-black font-display uppercase tracking-[-0.05em] italic hover:text-accent transition-colors duration-500">{title}</h4>
       {subtitle && (
         <span className="text-[10px] font-black uppercase tracking-[0.8em] text-ink/30 italic sm:text-right">{subtitle}</span>
@@ -404,10 +404,10 @@ const ProjectModal = ({ project, isOpen, onClose }: { project: any, isOpen: bool
             {/* Close Button - Technical Pill */}
             <button 
               onClick={onClose}
-              className="absolute top-10 right-10 z-50 flex items-center gap-4 bg-white/20 backdrop-blur-md border border-ink/10 px-8 py-4 rounded-full hover:bg-accent hover:text-white transition-all group"
+              className="absolute top-4 right-4 md:top-10 md:right-10 z-[60] flex items-center gap-2 md:gap-4 bg-white/20 md:bg-white/20 backdrop-blur-md border border-ink/10 px-4 py-2 md:px-8 md:py-4 rounded-full hover:bg-accent hover:text-white transition-all group"
             >
-              <span className="text-xs font-black uppercase tracking-[0.2em]">Close</span>
-              <X className="w-5 h-5" />
+              <span className="text-[10px] md:text-xs font-black uppercase tracking-[0.2em]">Close</span>
+              <X className="w-4 h-4 md:w-5 md:h-5" />
             </button>
 
             {/* Visual Side (45%) */}
@@ -422,12 +422,12 @@ const ProjectModal = ({ project, isOpen, onClose }: { project: any, isOpen: bool
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
               
-              <div className="absolute bottom-16 left-16 right-16">
-                 <div className="flex items-center gap-4 mb-4">
-                   <div className="h-[1px] w-12 bg-white/30" />
-                   <span className="text-[10px] font-black uppercase tracking-[0.6em] text-white/50">{project.details.contextValue}</span>
+              <div className="absolute bottom-6 left-6 right-6 md:bottom-16 md:left-16 md:right-16 z-10">
+                 <div className="flex items-center gap-2 md:gap-4 mb-2 md:mb-4">
+                   <div className="h-[1px] w-8 md:w-12 bg-white/30" />
+                   <span className="text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em] md:tracking-[0.6em] text-white/80 md:text-white/50">{project.details.contextValue}</span>
                  </div>
-                 <h4 className="text-4xl md:text-5xl font-black font-display uppercase tracking-tight text-white leading-none">
+                 <h4 className="text-3xl md:text-5xl font-black font-display uppercase tracking-tight text-white leading-none">
                    The Vision
                  </h4>
               </div>
@@ -436,7 +436,7 @@ const ProjectModal = ({ project, isOpen, onClose }: { project: any, isOpen: bool
             {/* Content Side (55%) */}
             <div 
               ref={contentRef}
-              className="w-full md:w-[55%] p-10 md:p-20 overflow-y-auto custom-scrollbar bg-[#FAF9F6] relative"
+              className="w-full md:w-[55%] p-6 md:p-20 overflow-y-auto custom-scrollbar bg-[#FAF9F6] relative"
             >
                {/* Background Decorative Text */}
                <div className="absolute top-20 right-10 text-[15vw] font-black font-display text-ink opacity-[0.02] pointer-events-none select-none">
@@ -488,7 +488,7 @@ const ProjectModal = ({ project, isOpen, onClose }: { project: any, isOpen: bool
                         rel="noopener noreferrer"
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                        className="inline-flex items-center justify-between gap-12 bg-black text-white px-12 py-8 rounded-full font-black uppercase tracking-[0.2em] text-xs md:text-sm shadow-2xl hover:bg-accent transition-all group w-full sm:w-auto"
+                        className="inline-flex items-center justify-between gap-6 md:gap-12 bg-black text-white px-6 py-5 md:px-12 md:py-8 rounded-full font-black uppercase tracking-[0.1em] md:tracking-[0.2em] text-[10px] md:text-sm shadow-2xl hover:bg-accent transition-all group w-full sm:w-auto"
                       >
                         {project.details.buttonLabel || "Explore Full Narrative"} 
                         <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white/20">
@@ -516,9 +516,9 @@ const ProjectItem = ({ project, index, onOpen }: { project: any, index: number, 
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
       onClick={() => onOpen(project)}
-      className="group cursor-pointer min-h-[70vh] flex flex-col justify-center py-24 md:py-32"
+      className="group cursor-pointer min-h-[50vh] md:min-h-[70vh] flex flex-col justify-center py-12 md:py-32 border-b border-ink/10 md:border-none last:border-none"
     >
-      <div className={`grid lg:grid-cols-12 gap-12 md:gap-20 items-center`}>
+      <div className={`grid lg:grid-cols-12 gap-8 md:gap-20 items-center`}>
         
         {/* Image Container */}
         <div className={`lg:col-span-7 ${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
@@ -563,6 +563,71 @@ const ProjectItem = ({ project, index, onOpen }: { project: any, index: number, 
 };
 
 
+const MobileJourneyCarousel = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const nextCard = () => {
+    if (activeIndex < JOURNEY_CARDS.length - 1) setActiveIndex(activeIndex + 1);
+  };
+  const prevCard = () => {
+    if (activeIndex > 0) setActiveIndex(activeIndex - 1);
+  };
+
+  return (
+    <div className="w-full flex flex-col items-center bg-stone-50/50 rounded-[2rem] border border-ink/5 p-4 py-8 mb-8 overflow-hidden relative">
+      <div className="w-full relative h-[320px] flex items-center justify-center perspective-1000">
+        {JOURNEY_CARDS.map((card, i) => {
+          const diff = i - activeIndex;
+          const isActive = diff === 0;
+
+          return (
+            <motion.div
+              key={i}
+              className={`absolute w-[260px] aspect-square bg-white/90 backdrop-blur-md border border-white/40 rounded-[2rem] p-8 flex flex-col justify-between`}
+              initial={false}
+              animate={{ 
+                x: diff * 220, 
+                scale: isActive ? 1.05 : 0.85,
+                opacity: Math.abs(diff) > 1 ? 0 : (isActive ? 1 : 0.6),
+                zIndex: isActive ? 10 : 0,
+                boxShadow: isActive ? "0 30px 60px -15px rgba(0,0,0,0.15)" : "0 10px 20px -10px rgba(0,0,0,0.05)",
+                filter: isActive ? "blur(0px)" : "blur(2px)"
+              }}
+              transition={{ type: "spring", stiffness: 300, damping: 25 }}
+              onClick={() => setActiveIndex(i)}
+            >
+              <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center text-accent">
+                {card.icon}
+              </div>
+              <div className="space-y-4">
+                <h4 className="text-xl font-black font-display uppercase tracking-tight">{card.title}</h4>
+                <p className="text-[12px] font-medium text-ink/60 leading-relaxed">{card.description}</p>
+              </div>
+            </motion.div>
+          );
+        })}
+      </div>
+
+      <div className="flex items-center gap-4 mt-6 z-20">
+        <button 
+          onClick={prevCard} 
+          disabled={activeIndex === 0}
+          className="w-12 h-12 rounded-full bg-white border border-ink/10 flex items-center justify-center text-ink hover:bg-accent hover:text-white transition-colors disabled:opacity-30 disabled:hover:bg-white disabled:hover:text-ink shadow-sm"
+        >
+          <ChevronLeft className="w-6 h-6" />
+        </button>
+        <button 
+          onClick={nextCard} 
+          disabled={activeIndex === JOURNEY_CARDS.length - 1}
+          className="w-12 h-12 rounded-full bg-white border border-ink/10 flex items-center justify-center text-ink hover:bg-accent hover:text-white transition-colors disabled:opacity-30 disabled:hover:bg-white disabled:hover:text-ink shadow-sm"
+        >
+          <ChevronRight className="w-6 h-6" />
+        </button>
+      </div>
+    </div>
+  );
+};
+
 const DraggableJourney = () => {
   const [activeCard, setActiveCard] = useState<number | null>(null);
   const [zIndices, setZIndices] = useState<number[]>(JOURNEY_CARDS.map((_, i) => i));
@@ -583,6 +648,10 @@ const DraggableJourney = () => {
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  if (isMobile) {
+    return <MobileJourneyCarousel />;
+  }
 
   const getInitialPos = (i: number) => {
     const total = JOURNEY_CARDS.length;
@@ -606,7 +675,7 @@ const DraggableJourney = () => {
 
   return (
     <div 
-      className="relative h-[800px] md:h-[950px] w-full bg-stone-50/50 rounded-[3rem] md:rounded-[5rem] overflow-hidden border border-ink/5 p-8 flex items-center justify-center perspective-1000 mb-12"
+      className="relative h-[650px] md:h-[950px] w-full bg-stone-50/50 rounded-[3rem] md:rounded-[5rem] overflow-hidden border border-ink/5 p-4 md:p-8 flex items-center justify-center perspective-1000 mb-12"
       onClick={handleContainerClick}
     >
       {/* Interactive Helper Overlay */}
@@ -876,16 +945,16 @@ export default function App() {
       {/* Navigation */}
       <motion.nav 
         style={{ opacity: navOpacity, y: navY }}
-        className="fixed top-8 left-1/2 -translate-x-1/2 z-50 h-14 md:h-16 px-8 flex items-center bg-white/70 backdrop-blur-2xl rounded-full border border-ink/5 shadow-2xl shadow-accent/5"
+        className="fixed bottom-8 top-auto md:bottom-auto md:top-8 left-1/2 -translate-x-1/2 z-50 h-[50px] md:h-16 px-4 md:px-8 flex items-center justify-between w-[92vw] md:w-auto bg-white/70 backdrop-blur-2xl rounded-full border border-ink/5 shadow-2xl shadow-accent/5 overflow-x-auto whitespace-nowrap scrollbar-hide"
       >
-        <div className="flex gap-4 sm:gap-6 md:gap-8 items-center">
+        <div className="flex gap-1 sm:gap-6 md:gap-8 items-center w-full justify-between md:justify-start">
           {["Home", "About", "Projects", "Contact"].map((item) => (
              <motion.a 
                key={item} 
                href={`#${item.toLowerCase()}`} 
                onMouseEnter={() => setHoveredNav(item)}
                onMouseLeave={() => setHoveredNav(null)}
-               className="relative px-4 py-2 text-xs md:text-base font-black uppercase tracking-[0.2em] md:tracking-[0.3em] hover:text-white transition-colors duration-300 block z-10"
+               className="relative px-3 sm:px-3 md:px-4 py-2 text-[10px] sm:text-[11px] md:text-base font-black uppercase tracking-[0.05em] sm:tracking-[0.1em] md:tracking-[0.3em] hover:text-white transition-colors duration-300 block z-10 text-center flex-1 md:flex-none"
              >
                <span className="relative z-10">{item}</span>
                {hoveredNav === item && (
@@ -903,43 +972,43 @@ export default function App() {
          </div>
       </motion.nav>
 
-      <div className="px-6 md:px-12 max-w-screen-2xl mx-auto space-y-16 md:space-y-24">
+      <div className="px-4 md:px-12 max-w-screen-2xl mx-auto space-y-12 md:space-y-24">
         
         {/* Intro Section */}
         <section id="home" ref={heroRef} className="min-h-screen pt-32 md:pt-48 pb-16 flex flex-col justify-center relative overflow-hidden">
           <FloatingElements />
           
           <div id="about" className="w-full relative z-10 pt-16">
-            <div className="grid lg:grid-cols-12 gap-16 md:gap-32 items-center">
+            <div className="grid lg:grid-cols-12 gap-8 md:gap-32 items-center">
             <SectionReveal className="lg:col-span-7">
               <div className="inline-flex items-center gap-3 bg-white/50 backdrop-blur-md px-4 py-2 rounded-full border border-ink/5 shadow-sm mb-12">
                 <div className="w-2 h-2 rounded-full bg-[#00FF00] animate-pulse shadow-[0_0_10px_rgba(0,255,0,0.5)]" />
                 <span className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/60 italic">Available for new projects</span>
               </div>
               
-              <h3 className="text-5xl sm:text-7xl md:text-8xl lg:text-[8.5vw] font-black font-display uppercase tracking-[-0.04em] leading-[0.9] mb-12 hover:text-accent transition-colors duration-500 overflow-visible py-4">
+              <h3 className="text-5xl sm:text-7xl md:text-8xl lg:text-[8.5vw] font-black font-display uppercase tracking-[-0.04em] leading-[0.9] mb-4 md:mb-12 hover:text-accent transition-colors duration-500 overflow-visible py-4">
                 UX UI <br /> <span className="italic text-accent">Designer.</span>
               </h3>
 
-              <div className="space-y-12 max-w-2xl">
-                <p className="max-w-xl text-xl md:text-2xl font-light leading-relaxed text-ink/60 hover:text-accent transition-colors duration-500">
+              <div className="space-y-8 md:space-y-12 max-w-2xl">
+                <p className="max-w-xl text-lg md:text-2xl font-light leading-relaxed text-ink/60 hover:text-accent transition-colors duration-500">
                   A second-year Communications student specializing in HCI at Reichman University. A UX/UI designer who bridges the gap between people, design, and systems. Leveraging a strong technical and analytical background alongside practical experience in prototyping to solve complex problems. Focused on end-to-end digital product design, utilizing modern workflows and AI tools while maintaining a clean and premium visual style.
                 </p>
                 
-                <div className="flex flex-col sm:flex-row flex-wrap xl:flex-nowrap items-center justify-center lg:justify-start gap-4 pt-12 overflow-visible translate-x-2 md:translate-x-4 w-[110%] sm:w-auto">
+                <div className="flex flex-row flex-wrap xl:flex-nowrap items-center justify-center lg:justify-start gap-2 sm:gap-4 pt-8 md:pt-12 overflow-visible w-[90%] mx-auto sm:mx-0 sm:w-auto">
                   <motion.a 
                     href="#projects"
                     whileHover={{ scale: 1.05, y: -5 }}
                     whileTap={{ scale: 0.95 }}
-                    className="w-[190px] h-[56px] bg-black text-white rounded-full font-black uppercase tracking-[0.1em] text-[13px] sm:text-sm shadow-xl shadow-ink/10 hover:bg-accent hover:shadow-accent/30 transition-all flex items-center justify-center gap-3 group relative z-10"
+                    className="w-[48%] sm:w-[190px] min-w-0 sm:min-w-[190px] h-[40px] sm:h-[56px] bg-black text-white rounded-full font-black uppercase tracking-[0.1em] text-[10px] sm:text-[13px] md:text-sm shadow-xl shadow-ink/10 hover:bg-accent hover:shadow-accent/30 transition-all flex items-center justify-center gap-1 sm:gap-3 group relative z-10 px-2 sm:px-4"
                   >
-                    <span className="relative z-10">View Projects</span> <ArrowRight className="w-[18px] h-[18px] group-hover:translate-x-1 transition-transform relative z-10" />
+                    <span className="relative z-10">View Projects</span> <ArrowRight className="w-[12px] h-[12px] sm:w-[18px] sm:h-[18px] group-hover:translate-x-1 transition-transform relative z-10" />
                   </motion.a>
                   <motion.a 
                     href="#contact"
                     whileHover={{ scale: 1.05, y: -5 }}
                     whileTap={{ scale: 0.95 }}
-                    className="w-[190px] h-[56px] bg-white border border-ink/10 rounded-full font-black uppercase tracking-[0.1em] text-[14px] transition-all flex items-center justify-center gap-3 shadow-sm hover:shadow-md relative z-10"
+                    className="w-[48%] sm:w-[190px] min-w-0 sm:min-w-[190px] h-[40px] sm:h-[56px] bg-white border border-ink/10 rounded-full font-black uppercase tracking-[0.1em] text-[10px] sm:text-[14px] transition-all flex items-center justify-center gap-1 sm:gap-3 shadow-sm hover:shadow-md relative z-10 px-2 sm:px-4"
                   >
                     <span className="relative z-10">Get in touch</span>
                   </motion.a>
@@ -950,9 +1019,9 @@ export default function App() {
                     download="CV- Yoav Anavi.pdf"
                     whileHover={{ scale: 1.05, y: -5 }}
                     whileTap={{ scale: 0.95 }}
-                    className="w-[190px] h-[56px] bg-accent text-white rounded-full font-black uppercase tracking-[0.1em] text-[14px] transition-all flex items-center justify-center gap-3 shadow-xl shadow-accent/20 relative z-10"
+                    className="w-[98%] sm:w-[190px] sm:flex-none h-[40px] sm:h-[56px] bg-accent text-white rounded-full font-black uppercase tracking-[0.1em] text-[10px] sm:text-[14px] transition-all flex items-center justify-center gap-2 sm:gap-3 shadow-xl shadow-accent/20 relative z-10 mt-2 sm:mt-0"
                   >
-                    <span className="relative z-10 whitespace-nowrap">Download CV</span> <Download className="w-[18px] h-[18px] relative z-10" />
+                    <span className="relative z-10 whitespace-nowrap">Download CV</span> <Download className="w-[12px] h-[12px] sm:w-[18px] sm:h-[18px] relative z-10" />
                   </motion.a>
                 </div>
               </div>
@@ -962,9 +1031,9 @@ export default function App() {
               <motion.div 
                 whileHover={{ rotateY: -10, rotateX: 5, scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 100, damping: 20 }}
-                className="relative perspective-1000"
+                className="relative perspective-1000 w-[85%] mx-auto md:w-full mt-8 md:mt-0"
               >
-                <div className="relative aspect-[4/5] rounded-[2.5rem] md:rounded-[4rem] overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.15)] group border-8 border-white bg-white">
+                <div className="relative aspect-[4/5] rounded-[2.5rem] md:rounded-[4rem] overflow-hidden shadow-none md:shadow-[0_50px_100px_-20px_rgba(0,0,0,0.15)] group border-8 border-white bg-white">
                   <img 
                     src="https://i.postimg.cc/bNnyxPYD/Whats-App-Image-2026-05-18-at-11-26-11.jpg" 
                     alt="Yoav Anavi" 
@@ -987,7 +1056,7 @@ export default function App() {
         </section>
 
         {/* Work Section */}
-        <section id="projects" className="py-12 md:py-24">
+        <section id="projects" className="pt-12 pb-4 md:py-24">
           <SectionHeader title="Projects" />
 
           <div className="space-y-0">
@@ -1004,19 +1073,19 @@ export default function App() {
         />
 
         {/* Journey Section */}
-        <section id="journey" className="py-12 md:py-24">
+        <section id="journey" className="pt-4 pb-4 md:pb-24 md:pt-24">
           <SectionHeader title="Skills" />
           <SectionReveal>
             <DraggableJourney />
           </SectionReveal>
           
-          <div className="mt-16">
+          <div className="mt-4 md:mt-16">
             <Marquee text="Figma ✦ Generative AI ✦ UI/UX ✦ User Research ✦ Wireframing ✦ Strategy" speed={30} />
           </div>
         </section>
 
         {/* Contact Section */}
-        <footer id="contact" className="py-16 md:py-24 flex flex-col items-center w-full">
+        <footer id="contact" className="py-8 md:py-24 flex flex-col items-center w-full">
           <SectionReveal className="w-full">
             <div className="flex flex-col items-center text-center">
               <div className="relative group">
@@ -1094,7 +1163,7 @@ export default function App() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
-                        className="bg-white/40 backdrop-blur-xl p-10 md:p-16 rounded-[3rem] border border-ink/5 shadow-2xl text-left"
+                        className="bg-white/40 backdrop-blur-xl p-6 md:p-16 rounded-[2rem] md:rounded-[3rem] border border-ink/5 shadow-2xl text-left"
                       >
                         <div className="flex justify-between items-center mb-10">
                           <div>
@@ -1292,7 +1361,7 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="flex flex-col md:flex-row gap-12 border-t border-ink/10 pt-16 w-full justify-between items-center text-[10px] font-black uppercase tracking-[0.5em] text-ink/10 italic">
+              <div className="flex flex-col md:flex-row gap-8 md:gap-12 border-t border-ink/10 pt-8 md:pt-16 w-full justify-between items-center text-[10px] font-black uppercase tracking-[0.3em] md:tracking-[0.5em] text-ink/10 italic text-center md:text-left">
                  <p>Tel Aviv, Israel Based ✦ Global Creative Services</p>
                  <div className="flex items-center gap-4">
                    <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
@@ -1311,7 +1380,7 @@ export default function App() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.5, y: 20 }}
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="fixed bottom-8 right-8 md:bottom-12 md:right-12 z-[100] w-12 h-12 md:w-14 md:h-14 bg-black text-white hover:bg-accent rounded-full flex items-center justify-center shadow-xl shadow-ink/20 hover:-translate-y-1 hover:shadow-accent/30 transition-all group cursor-pointer"
+              className="fixed bottom-28 right-6 md:bottom-12 md:right-12 z-[100] w-12 h-12 md:w-14 md:h-14 bg-black text-white hover:bg-accent rounded-full flex items-center justify-center shadow-xl shadow-ink/20 hover:-translate-y-1 hover:shadow-accent/30 transition-all group cursor-pointer"
             >
               <ArrowUp className="w-5 h-5 md:w-6 md:h-6 group-hover:-translate-y-1 transition-transform" />
             </motion.button>
