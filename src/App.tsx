@@ -954,6 +954,22 @@ export default function App() {
                href={`#${item.toLowerCase()}`} 
                onMouseEnter={() => setHoveredNav(item)}
                onMouseLeave={() => setHoveredNav(null)}
+               onClick={(e) => {
+                 e.preventDefault();
+                 const element = document.getElementById(item.toLowerCase());
+                 if (element) {
+                   const offset = 80;
+                   const bodyRect = document.body.getBoundingClientRect().top;
+                   const elementRect = element.getBoundingClientRect().top;
+                   const elementPosition = elementRect - bodyRect;
+                   const offsetPosition = elementPosition - offset;
+                   
+                   window.scrollTo({
+                     top: offsetPosition,
+                     behavior: 'smooth'
+                   });
+                 }
+               }}
                className="relative px-3 sm:px-3 md:px-4 py-2 text-[10px] sm:text-[11px] md:text-base font-black uppercase tracking-[0.05em] sm:tracking-[0.1em] md:tracking-[0.3em] hover:text-white transition-colors duration-300 block z-10 text-center flex-1 md:flex-none"
              >
                <span className="relative z-10">{item}</span>
@@ -1013,10 +1029,10 @@ export default function App() {
                     <span className="relative z-10">Get in touch</span>
                   </motion.a>
                   <motion.a 
-                    href="/CV-%20Yoav%20Anavi.pdf"
+                    href="/קורות חיים (2).pdf"
                     target="_blank"
                     rel="noopener noreferrer"
-                    download="CV- Yoav Anavi.pdf"
+                    download="קורות חיים (2).pdf"
                     whileHover={{ scale: 1.05, y: -5 }}
                     whileTap={{ scale: 0.95 }}
                     className="w-[98%] sm:w-[190px] sm:flex-none h-[40px] sm:h-[56px] bg-accent text-white rounded-full font-black uppercase tracking-[0.1em] text-[10px] sm:text-[14px] transition-all flex items-center justify-center gap-2 sm:gap-3 shadow-xl shadow-accent/20 relative z-10 mt-2 sm:mt-0"
