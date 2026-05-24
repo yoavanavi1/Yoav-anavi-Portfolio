@@ -1029,10 +1029,10 @@ export default function App() {
                     <span className="relative z-10">Get in touch</span>
                   </motion.a>
                   <motion.a 
-                    href="/קורות חיים (2).pdf"
+                    href="/Yoav Anavi- CV.pdf?v=2"
                     target="_blank"
                     rel="noopener noreferrer"
-                    download="קורות חיים (2).pdf"
+                    download="Yoav Anavi- CV.pdf"
                     whileHover={{ scale: 1.05, y: -5 }}
                     whileTap={{ scale: 0.95 }}
                     className="w-[98%] sm:w-[190px] sm:flex-none h-[40px] sm:h-[56px] bg-accent text-white rounded-full font-black uppercase tracking-[0.1em] text-[10px] sm:text-[14px] transition-all flex items-center justify-center gap-2 sm:gap-3 shadow-xl shadow-accent/20 relative z-10 mt-2 sm:mt-0"
