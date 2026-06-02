@@ -1011,11 +1011,27 @@ export default function App() {
                   A second-year Communications student specializing in HCI at Reichman University. A UX/UI designer who bridges the gap between people, design, and systems. Leveraging a strong technical and analytical background alongside practical experience in prototyping to solve complex problems. Focused on end-to-end digital product design, utilizing modern workflows and AI tools while maintaining a clean and premium visual style.
                 </p>
                 
-                <div className="flex flex-row flex-wrap xl:flex-nowrap items-center justify-center lg:justify-start gap-2 sm:gap-4 pt-8 md:pt-12 overflow-visible w-[90%] mx-auto sm:mx-0 sm:w-auto">
+                <div className="flex flex-row flex-wrap xl:flex-nowrap items-center justify-center lg:justify-start gap-2 sm:gap-4 pt-2 md:pt-12 overflow-visible w-[90%] mx-auto sm:mx-0 sm:w-auto">
                   <motion.a 
                     href="#projects"
                     whileHover={{ scale: 1.05, y: -5 }}
                     whileTap={{ scale: 0.95 }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const element = document.getElementById("projects");
+                      if (element) {
+                        const offset = 80;
+                        const bodyRect = document.body.getBoundingClientRect().top;
+                        const elementRect = element.getBoundingClientRect().top;
+                        const elementPosition = elementRect - bodyRect;
+                        const offsetPosition = elementPosition - offset;
+                        
+                        window.scrollTo({
+                          top: offsetPosition,
+                          behavior: 'smooth'
+                        });
+                      }
+                    }}
                     className="w-[48%] sm:w-[190px] min-w-0 sm:min-w-[190px] h-[40px] sm:h-[56px] bg-black text-white rounded-full font-black uppercase tracking-[0.1em] text-[10px] sm:text-[13px] md:text-sm shadow-xl shadow-ink/10 hover:bg-accent hover:shadow-accent/30 transition-all flex items-center justify-center gap-1 sm:gap-3 group relative z-10 px-2 sm:px-4"
                   >
                     <span className="relative z-10">View Projects</span> <ArrowRight className="w-[12px] h-[12px] sm:w-[18px] sm:h-[18px] group-hover:translate-x-1 transition-transform relative z-10" />
@@ -1024,15 +1040,31 @@ export default function App() {
                     href="#contact"
                     whileHover={{ scale: 1.05, y: -5 }}
                     whileTap={{ scale: 0.95 }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const element = document.getElementById("contact");
+                      if (element) {
+                        const offset = 80;
+                        const bodyRect = document.body.getBoundingClientRect().top;
+                        const elementRect = element.getBoundingClientRect().top;
+                        const elementPosition = elementRect - bodyRect;
+                        const offsetPosition = elementPosition - offset;
+                        
+                        window.scrollTo({
+                          top: offsetPosition,
+                          behavior: 'smooth'
+                        });
+                      }
+                    }}
                     className="w-[48%] sm:w-[190px] min-w-0 sm:min-w-[190px] h-[40px] sm:h-[56px] bg-white border border-ink/10 rounded-full font-black uppercase tracking-[0.1em] text-[10px] sm:text-[14px] transition-all flex items-center justify-center gap-1 sm:gap-3 shadow-sm hover:shadow-md relative z-10 px-2 sm:px-4"
                   >
                     <span className="relative z-10">Get in touch</span>
                   </motion.a>
                   <motion.a 
-                    href="/Yoav Anavi- CV.pdf?v=2"
+                    href="/Yoav_Anavi_CV.pdf?v=3"
                     target="_blank"
                     rel="noopener noreferrer"
-                    download="Yoav Anavi- CV.pdf"
+                    download="Yoav_Anavi_CV.pdf"
                     whileHover={{ scale: 1.05, y: -5 }}
                     whileTap={{ scale: 0.95 }}
                     className="w-[98%] sm:w-[190px] sm:flex-none h-[40px] sm:h-[56px] bg-accent text-white rounded-full font-black uppercase tracking-[0.1em] text-[10px] sm:text-[14px] transition-all flex items-center justify-center gap-2 sm:gap-3 shadow-xl shadow-accent/20 relative z-10 mt-2 sm:mt-0"
