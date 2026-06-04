@@ -217,36 +217,6 @@ const Marquee = ({ text, speed = 25 }: { text: string; speed?: number }) => {
 
 const PROJECTS = [
   {
-    title: "Chef & Dine",
-    id: "r48",
-    category: "End-to-end mobile app design",
-    description: "An academic project designing a clean and focused mobile app for the luxury chef restaurant R48, bringing an exclusive dining experience into a digital product.",
-    image: "https://i.postimg.cc/90G2Dzky/image.png",
-    year: "2024",
-    details: {
-      headline: "PROJECT OVERVIEW: CHEF & DINE (R48)",
-      contextLabel: "CONTEXT",
-      contextValue: "END-TO-END MOBILE APP DESIGN",
-      overview: "This project was created as a university assignment, where the goal was to choose a restaurant or a chef and build a focused mobile app from scratch. My main challenge was to bring the premium feel and unique atmosphere of a fine-dining restaurant onto a mobile screen. The goal was to create an interface that feels like a luxury magazine, while keeping it simple, functional, and user-friendly.",
-      focusAreas: [
-        {
-          title: "Visual Strategy & Hierarchy",
-          description: "Instead of a crowded photo gallery, I organized the visual content based on the restaurant’s daily hours (Breakfast, Lunch, and Dinner). This division lets users feel the changing vibe of the place throughout the day. It gives each menu its own space using large images, clean white space, and elegant typography."
-        },
-        {
-          title: "UX & Frictionless Reservation",
-          description: "Fine-dining customers usually look for a quick and straightforward experience. With that in mind, I designed a short and fast table reservation flow. The flow guides the user to complete the action quickly, without any unnecessary steps or fields, while keeping a premium feel the entire time."
-        },
-        {
-          title: "Figma Infrastructure & Scope",
-          description: "The original university requirement was to design only a few single screens. However, I decided to take the project a step forward and designed 15 full screens to create a complete and realistic user flow. On the technical side, I built a full design system in Figma using components and consistent styles (buttons, icons, and text) to ensure a pixel-perfect design that is ready for development."
-        }
-      ],
-      figmaLink: "https://www.figma.com/design/8ufhTM0iu2tDSdA192a8JM/Project-1--Chef?node-id=0-1&t=OBNJlhNGk2IwvhKp-1",
-      buttonLabel: "EXPLORE FULL FLOW IN FIGMA"
-    }
-  },
-  {
     title: "CANDLE&CO",
     id: "candle",
     category: "e-commerce platform optimized for both desktop and mobile web",
@@ -254,26 +224,56 @@ const PROJECTS = [
     image: "https://i.postimg.cc/MXkYrFPs/lwgw-'bh-bly-rq'.png",
     year: "2023",
     details: {
-      headline: "PROJECT OVERVIEW: CANDLE & CO.",
+      headline: "CASE STUDY: CANDLE & CO.",
       contextLabel: "CONTEXT",
       contextValue: "E-COMMERCE PLATFORM OPTIMIZED FOR BOTH DESKTOP AND MOBILE WEB",
-      overview: "This project is a full E-commerce website that I designed and built for my personal handmade candle brand. The site was created to solve a real business need: to serve as the digital storefront for the brand, and to create a smooth transition from our Instagram marketing directly into an independent shopping experience.",
+      overview: "This project is an E-commerce website I designed and built on Wix for my own handmade candle brand. The goal was to solve a real business need: creating a digital storefront that makes it easy for customers to move from our Instagram page directly to shopping.",
       focusAreas: [
         {
-          title: "Visual Identity & Trust",
-          description: "As a boutique brand, it was highly important to create a clean, aesthetic, and premium visual language. The design matches the look and feel of our social media channels to give customers a strong sense of trust, quality, and credibility the moment they enter the site."
+          title: "01 | Visual Identity & Trust",
+          description: "Since it's a boutique brand, I focused on a clean and premium visual design. The website matches our social media style. This consistency helps build trust and makes the brand look professional the moment users enter the site."
         },
         {
-          title: "Product Optimization & UX",
-          description: "Before building the website, sales were done manually, which required answering many customer questions. To make the process more efficient, I turned the site into an organized digital catalog. The mobile and desktop user experience (UX) was optimized for quick and easy navigation, showing every product clearly with a strong call-to-action (CTA). This allowed customers to explore the collection and buy independently."
+          title: "02 | Product Optimization & UX",
+          description: "Before this website, I managed sales manually, which meant answering a lot of customer questions. To fix this, I created an organized digital catalog. I optimized the experience for quick and easy navigation, focusing especially on a mobile-first approach. Now, customers can clearly see every product and buy on their own."
         },
         {
-          title: "End-to-End Product Management",
-          description: "This project represents full, end-to-end product management. I built and managed the entire platform using Wix. I handled all operations, including product photography and editing, copywriting, and managing new collection updates and promotions based on business needs."
+          title: "03 | End-to-End Product Management",
+          description: "This project shows my ability to manage a product from start to finish. I built and managed the entire platform using Wix. I also handled everything behind the scenes: product photography, writing the text, and updating the site for new collections and promotions."
         }
       ],
       figmaLink: "https://candleandcogroup.wixsite.com/my-site-2",
       buttonLabel: "EXPLORE TO THE WEBSITE"
+    }
+  },
+  {
+    title: "Chef & Dine",
+    id: "r48",
+    category: "End-to-end mobile app design",
+    description: "An academic project designing a clean and focused mobile app for the luxury chef restaurant R48, bringing an exclusive dining experience into a digital product.",
+    image: "https://i.postimg.cc/90G2Dzky/image.png",
+    year: "2024",
+    details: {
+      headline: "CASE STUDY: CHEF & DINE (R48)",
+      contextLabel: "CONTEXT",
+      contextValue: "END-TO-END MOBILE APP DESIGN",
+      overview: "This project is a mobile app concept for a fine-dining restaurant. The main challenge was to take a luxury atmosphere and turn it into a simple and easy-to-use digital experience.",
+      focusAreas: [
+        {
+          title: "01 | Visual Strategy",
+          description: "Instead of a crowded photo gallery, I organized the design by the time of day: Breakfast, Lunch, and Dinner. I used clean white space, big images, and elegant text. This makes the app feel like a premium magazine, while keeping everything clear and easy to read."
+        },
+        {
+          title: "02 | UX & Fast Reservation",
+          description: "Customers at high-end restaurants expect a fast and smooth experience. Because of this, I created a very short table reservation flow. I removed all unnecessary steps so users can book a table quickly, while still feeling the premium vibe."
+        },
+        {
+          title: "03 | Figma & Design System",
+          description: "To show a real user flow, I built a fully interactive prototype with 5 complete screens. I also created a full Design System in Figma. I used components and variants to make sure the final design is pixel-perfect and ready for developers."
+        }
+      ],
+      figmaLink: "https://www.figma.com/design/8ufhTM0iu2tDSdA192a8JM/Project-1--Chef?node-id=0-1&t=OBNJlhNGk2IwvhKp-1",
+      buttonLabel: "EXPLORE FULL FLOW IN FIGMA"
     }
   },
   {
@@ -284,30 +284,53 @@ const PROJECTS = [
     image: "https://i.postimg.cc/vmP4323h/image.png",
     year: "2024",
     details: {
-      headline: "PROJECT OVERVIEW: UX/UI CLUB APP",
+      headline: "CASE STUDY: UX/UI CLUB APP",
       contextLabel: "CONTEXT",
       contextValue: "COMMUNITY PLATFORM DESIGN",
-      overview: "As the manager of the UX/UI Club at Reichman University, I led the community's transition from a physical campus to a digital platform following the outbreak of the war. The challenge was to quickly build an accessible digital experience that centralizes all club activities, allowing students to learn about workshops and register in a simple, intuitive, and smooth way.",
+      overview: "This project is an app for the UX/UI Club at Reichman University, where I serve as the community manager. I led the digital transformation of our club registration, creating a centralized platform to replace physical fairs and make everything accessible online.",
       focusAreas: [
         {
-          title: "Product Strategy & PRD",
-          description: "The project started with close teamwork on building an organized Product Requirement Document (PRD). We defined the exact needs of the students against the goals of the club. This document served as our roadmap, ensuring that every screen and interface we designed actually solved a real user problem, without adding unnecessary features."
+          title: "01 | Product Strategy & PRD",
+          description: "The project started with strategy. I co-authored the Product Requirement Document (PRD) with my team. We defined exactly what the students needed and used this document as our roadmap to ensure every screen solved a real problem without adding unnecessary features."
         },
         {
-          title: "Team Leadership & Execution",
-          description: "I managed and coordinated our team's workflow to deliver a working product under tight deadlines before club registration week. I divided tasks, led parallel tracks for UX research and UI design, and kept everyone aligned to launch the application right on time."
+          title: "02 | Team Leadership & Execution",
+          description: "I managed a design team to deliver a working product under tight deadlines before registration week. I divided tasks, guided the UX and UI processes, and kept everyone aligned to launch the application right on time."
         },
         {
-          title: "Information Architecture & UX",
-          description: "To bring immediate value, we built a clear information hierarchy that shows students exactly what the club is about. The interface highlights the management team, testimonials from past members, and examples from previous sessions. At the same time, we designed a short and focused registration flow that removes unnecessary questions and lets students join the community in just a few clicks."
+          title: "03 | Information Architecture & UX",
+          description: "To bring immediate value, we defined a clear Information Architecture (IA). We highlighted the management team, past testimonials, and workshop examples. At the same time, we designed a frictionless user flow, removing unnecessary questions so students can join the community in just a few clicks."
         },
         {
-          title: "Branding & Visual Identity",
-          description: "As part of this transition, I also led the redesign of the club's new logo. It was important to create perfect synergy and a consistent visual language between the logo, the brand, and the app itself. The new visual identity projects professionalism, innovation, and a strong sense of community from the very first glance."
+          title: "04 | Branding & Visual Identity",
+          description: "As part of this transition, I also crafted the club's new visual identity and logo. It was important to keep a consistent design language across the brand and the app to show professionalism and a strong sense of community."
         }
       ],
       figmaLink: "https://www.figma.com/design/lvp6sJ9Smfk8ROWRk6Fziw/project-3--UXUI-club-app?node-id=0-1&t=wEFy2xW4YroNhftT-1",
       buttonLabel: "EXPLORE FULL FLOW IN FIGMA"
+    }
+  },
+  {
+    title: "Social Robot\nGroup",
+    id: "social-robot",
+    category: "Co-designed human-robot interaction design",
+    description: "Coming Soon.",
+    image: "https://i.postimg.cc/FR0dmRZg/Whats-App-Image-2026-05-25-at-12-52-18.jpg",
+    year: "Coming Soon",
+    isComingSoon: true,
+    details: {
+      headline: "CASE STUDY: SOCIAL ROBOT GROUP",
+      contextLabel: "CONTEXT",
+      contextValue: "CO-DESIGNED EXPERIENCE & ADVANCED ROBOTIC INTERACTIONS",
+      overview: "Details about this design and interaction case study are coming very soon.",
+      focusAreas: [
+        {
+          title: "01 | Research & Architecture",
+          description: "Coming soon."
+        }
+      ],
+      figmaLink: "#",
+      buttonLabel: "COMING SOON"
     }
   }
 ];
@@ -382,15 +405,15 @@ const ProjectModal = ({ project, isOpen, onClose }: { project: any, isOpen: bool
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[200] flex items-center justify-center p-4 md:p-8"
+          onClick={onClose}
+          className="fixed inset-0 z-[200] flex items-center justify-center p-4 md:p-8 overflow-hidden touch-none"
         >
           {/* Immersive Overlay */}
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="absolute inset-0 bg-bg/98 backdrop-blur-3xl cursor-pointer"
+            className="absolute inset-0 bg-bg/80 backdrop-blur-xl cursor-pointer"
           />
           
           {/* Modal Container */}
@@ -399,7 +422,8 @@ const ProjectModal = ({ project, isOpen, onClose }: { project: any, isOpen: bool
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 100, scale: 0.9 }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="relative w-full max-w-7xl h-full max-h-[90vh] bg-[#FAF9F6] rounded-[3rem] shadow-2xl overflow-hidden flex flex-col md:flex-row border border-ink/5"
+            onClick={(e) => e.stopPropagation()}
+            className="relative w-full max-w-7xl h-full max-h-[90vh] bg-[#FAF9F6] rounded-[3rem] shadow-2xl overflow-hidden flex flex-col md:flex-row border border-ink/5 select-text touch-auto"
           >
             {/* Close Button - Technical Pill */}
             <button 
@@ -449,7 +473,7 @@ const ProjectModal = ({ project, isOpen, onClose }: { project: any, isOpen: bool
                    <div className="w-8 h-[1px] bg-accent/20" />
                  </div>
 
-                 <h3 className="text-5xl md:text-7xl lg:text-[5.5vw] font-black font-display uppercase tracking-[-0.05em] leading-[0.82] mb-12 text-[#1F1F1F]">
+                 <h3 className="text-3xl md:text-4xl lg:text-[3vw] font-black font-display uppercase tracking-[-0.03em] leading-tight mb-8 text-[#1F1F1F]">
                    {project.details.headline}
                  </h3>
                  
@@ -515,13 +539,17 @@ const ProjectItem = ({ project, index, onOpen }: { project: any, index: number, 
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-      onClick={() => onOpen(project)}
-      className="group cursor-pointer min-h-[50vh] md:min-h-[70vh] flex flex-col justify-center py-12 md:py-32 border-b border-ink/10 md:border-none last:border-none"
+      onClick={() => {
+        if (!project.isComingSoon) {
+          onOpen(project);
+        }
+      }}
+      className={`group min-h-[50vh] md:min-h-[70vh] flex flex-col justify-center py-12 md:py-32 border-b border-ink/10 md:border-none last:border-none ${project.isComingSoon ? "cursor-default" : "cursor-pointer"}`}
     >
-      <div className={`grid lg:grid-cols-12 gap-8 md:gap-20 items-center`}>
+      <div className={`grid lg:grid-cols-12 gap-8 md:gap-20 items-start`}>
         
         {/* Image Container */}
-        <div className={`lg:col-span-7 ${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
+        <div className={`lg:col-span-6 ${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
           <div className="relative overflow-hidden rounded-2xl md:rounded-[3rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] transition-all duration-700 group-hover:shadow-[0_45px_90px_-20px_rgba(139,92,246,0.2)]">
             <img 
               src={project.image} 
@@ -532,27 +560,42 @@ const ProjectItem = ({ project, index, onOpen }: { project: any, index: number, 
             {/* View Project Overlay on Desktop */}
             <div className="absolute inset-0 bg-accent/0 group-hover:bg-accent/5 transition-colors duration-500 flex items-center justify-center">
               <span className="opacity-0 group-hover:opacity-100 bg-white/40 backdrop-blur-md border border-white/40 text-black px-10 py-5 rounded-full text-xs md:text-sm font-black uppercase tracking-[0.2em] translate-y-4 group-hover:translate-y-0 transition-all duration-500">
-                View Project
+                {project.isComingSoon ? "Coming Soon" : "View Project"}
               </span>
             </div>
           </div>
         </div>
 
         {/* Typography Content */}
-        <div className={`lg:col-span-5 ${isEven ? 'lg:order-2 lg:pl-8' : 'lg:order-1 lg:pr-8 text-right'}`}>
-          <div className={`space-y-6 md:space-y-8 flex flex-col ${isEven ? 'items-start' : 'items-end'}`}>
-            <h3 className="text-4xl md:text-6xl lg:text-[4.5vw] font-black font-display text-ink uppercase tracking-tight leading-[0.9] group-hover:text-accent transition-colors duration-500 whitespace-pre-line">
-              {project.title}
-            </h3>
+        <div className={`lg:col-span-6 ${isEven ? 'lg:order-2 lg:pl-12' : 'lg:order-1 lg:pr-12'}`}>
+          <div className="space-y-6 md:space-y-8 flex flex-col items-start pt-2 lg:pt-6">
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center gap-2 flex-wrap">
+                {project.isComingSoon && (
+                  <span className="bg-[#8B5CF6]/10 text-[#8B5CF6] border border-[#8B5CF6]/20 text-[9px] font-black uppercase tracking-[0.2em] px-3 py-1 rounded-full italic animate-pulse">
+                    Coming Soon
+                  </span>
+                )}
+              </div>
+              <h3 className="text-4xl md:text-6xl lg:text-[4vw] font-black font-display text-ink uppercase tracking-tight leading-[0.9] group-hover:text-accent transition-colors duration-500 whitespace-pre-line text-left">
+                {project.title}
+              </h3>
+            </div>
             
-            <p className="text-lg md:text-xl font-medium text-ink/40 leading-relaxed max-w-md">
+            <p className="text-lg md:text-xl font-medium text-ink/40 leading-relaxed max-w-md text-left">
               {project.description.split('.')[0]}.
             </p>
 
             <div className="pt-4 overflow-hidden">
-              <span className="inline-flex items-center justify-center gap-3 bg-accent text-white px-8 py-4 rounded-full text-xs md:text-sm font-black uppercase tracking-[0.15em] shadow-sm shadow-accent/10 group-hover:shadow-md group-hover:shadow-accent/20 group-hover:-translate-y-1 transition-all duration-300 border border-accent/20 hover:bg-white hover:text-accent group-hover:bg-white group-hover:text-accent hover:border-ink/10 group-hover:border-ink/10">
-                View Project <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
-              </span>
+              {project.isComingSoon ? (
+                <span className="inline-flex items-center justify-center gap-3 bg-[#8B5CF6]/5 text-[#8B5CF6]/60 px-8 py-4 rounded-full text-xs md:text-sm font-black uppercase tracking-[0.15em] border border-[#8B5CF6]/15 hover:bg-[#8B5CF6]/10 transition-all duration-300">
+                  Coming Soon
+                </span>
+              ) : (
+                <span className="inline-flex items-center justify-center gap-3 bg-accent text-white px-8 py-4 rounded-full text-xs md:text-sm font-black uppercase tracking-[0.15em] shadow-sm shadow-accent/10 group-hover:shadow-md group-hover:shadow-accent/20 group-hover:-translate-y-1 transition-all duration-300 border border-accent/20 hover:bg-white hover:text-accent group-hover:bg-white group-hover:text-accent hover:border-ink/10 group-hover:border-ink/10">
+                  View Project <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+                </span>
+              )}
             </div>
           </div>
         </div>
