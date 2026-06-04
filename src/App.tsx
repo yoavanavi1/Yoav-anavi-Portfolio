@@ -478,8 +478,8 @@ const ProjectModal = ({ project, isOpen, onClose }: { project: any, isOpen: bool
                  </h3>
                  
                  <div className="space-y-16">
-                   <div className="relative">
-                     <div className="absolute -left-10 top-0 w-1 h-full bg-accent/10 rounded-full" />
+                   <div className="relative pl-6 md:pl-10">
+                     <div className="absolute left-0 top-0 w-1 h-full bg-accent/10 rounded-full" />
                      <p className="text-xl md:text-2xl font-light text-[#4A4A4A] leading-relaxed italic">
                        {project.details.overview}
                      </p>
@@ -490,14 +490,14 @@ const ProjectModal = ({ project, isOpen, onClose }: { project: any, isOpen: bool
                        {project.details.focusAreas.map((area: any, i: number) => (
                          <div key={i} className="group relative">
                            <div className="flex items-baseline gap-6 mb-4">
-                             <span className="text-4xl font-display font-black text-accent/10 group-hover:text-accent/30 transition-colors">
+                             <span className="text-3xl md:text-4xl font-display font-black text-accent/10 group-hover:text-accent/30 transition-colors shrink-0">
                                0{i+1}
                              </span>
-                             <h5 className="text-xs font-black uppercase tracking-[0.4em] text-accent">
+                             <h5 className="text-[11px] md:text-xs font-black uppercase tracking-[0.3em] md:tracking-[0.4em] text-accent">
                                {area.title}
                              </h5>
                            </div>
-                           <p className="text-lg font-medium text-ink/50 leading-relaxed pl-16 group-hover:text-ink transition-colors">
+                           <p className="text-base md:text-lg font-medium text-ink/50 leading-relaxed pl-10 md:pl-16 group-hover:text-ink transition-colors">
                              {area.description}
                            </p>
                          </div>
@@ -577,7 +577,7 @@ const ProjectItem = ({ project, index, onOpen }: { project: any, index: number, 
                   </span>
                 )}
               </div>
-              <h3 className="text-4xl md:text-6xl lg:text-[4vw] font-black font-display text-ink uppercase tracking-tight leading-[0.9] group-hover:text-accent transition-colors duration-500 whitespace-pre-line text-left">
+              <h3 className="text-4xl md:text-6xl lg:text-[4vw] font-black font-display text-ink uppercase tracking-tight leading-[0.98] group-hover:text-accent transition-colors duration-500 whitespace-pre-line text-left">
                 {project.title}
               </h3>
             </div>
@@ -626,7 +626,7 @@ const MobileJourneyCarousel = () => {
           return (
             <motion.div
               key={i}
-              className={`absolute w-[260px] aspect-square bg-white/90 backdrop-blur-md border border-white/40 rounded-[2rem] p-8 flex flex-col justify-between`}
+              className={`absolute w-[260px] h-[280px] bg-white/90 backdrop-blur-md border border-white/40 rounded-[2rem] p-7 flex flex-col justify-between`}
               initial={false}
               animate={{ 
                 x: diff * 220, 
@@ -1266,7 +1266,7 @@ export default function App() {
                         <form onSubmit={handleContactSubmit} className="space-y-6">
                           <div className="grid sm:grid-cols-2 gap-6">
                             <div className="space-y-2">
-                              <label className="text-[10px] font-black uppercase tracking-widest text-ink/40 ml-4">Full Name</label>
+                              <label className="text-[10px] font-black uppercase tracking-widest text-ink/40 ml-8">Full Name</label>
                               <input 
                                 required
                                 type="text" 
@@ -1278,7 +1278,7 @@ export default function App() {
                               />
                             </div>
                             <div className="space-y-2">
-                              <label className="text-[10px] font-black uppercase tracking-widest text-ink/40 ml-4">Your Email</label>
+                              <label className="text-[10px] font-black uppercase tracking-widest text-ink/40 ml-8">Your Email</label>
                               <input 
                                 required
                                 type="email" 
@@ -1291,7 +1291,7 @@ export default function App() {
                             </div>
                           </div>
                           <div className="space-y-2">
-                            <label className="text-[10px] font-black uppercase tracking-widest text-ink/40 ml-4">Message</label>
+                            <label className="text-[10px] font-black uppercase tracking-widest text-ink/40 ml-8">Message</label>
                             <textarea 
                               required
                               name="message"
