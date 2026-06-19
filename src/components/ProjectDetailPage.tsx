@@ -9,7 +9,9 @@ import {
   Layers,
   ChevronRight,
   Sparkles,
-  ExternalLink
+  ExternalLink,
+  AlertCircle,
+  Lightbulb
 } from "lucide-react";
 
 import { Project, PROJECTS_LIST_REFERENCE } from "../utils/projectsData";
@@ -161,52 +163,37 @@ export default function ProjectDetailPage({ project, onBack, onNextProject }: Pr
     ? "https://i.postimg.cc/ZR6BQrw2/Screenshot-2026-06-16-at-15-14-21.png" 
     : project.image;
 
-  // Dynamic gallery item captions
-  let galleryCaptions = {
-    img1Title: "Exhibit A: UI Structure & Typography Hierarchy",
-    img1Tag: "Figma Layer Block",
-    img2Title: "Exhibit B: Flow Mockup",
-    img2Desc: "Optimized interactive mobile blueprint viewport",
-    img3Title: "Exhibit C: Component System Assembly",
-    img3Tag: "Widescreen Layout Preview"
-  };
+  // Custom mapped problem and solution details for higher contextual fidelity
+  const problemText = project.id === "candle" 
+    ? "Customers could only discover products through social media — no central, organized place to browse."
+    : project.id === "r48"
+    ? "Fine dining reservations and menu browsing can feel rigid and complex on traditional restaurant websites."
+    : project.id === "club"
+    ? "Student registrations and workshop info were scattered across physical fairs and messy sheets."
+    : project.id === "tamir-carmel"
+    ? "Mature property owners struggled with complex, cluttered interfaces on real estate portals."
+    : "Human-robot interaction interfaces often lack cohesive multi-sensory feedback.";
 
-  if (project.id === "candle") {
-    galleryCaptions = {
-      img1Title: "Exhibit A: Custom Wix Desktop Storefront",
-      img1Tag: "Live Storefront System",
-      img2Title: "Exhibit B: Production Catalog UX",
-      img2Desc: "Streamlined browsing with responsive, tactile card previews",
-      img3Title: "Exhibit C: Wix Mobile Cart & Checkout UX",
-      img3Tag: "Mobile Checkout Screen"
-    };
-  } else if (project.id === "tamir-carmel") {
-    galleryCaptions = {
-      img1Title: "Exhibit A: Interactive Projects Map",
-      img1Tag: "Tactile Map Interaction",
-      img2Title: "Exhibit B: Mobile Accessibility Optimization",
-      img2Desc: "High-contrast text sizing and spacious grid navigation for all audiences",
-      img3Title: "Exhibit C: Unified Design System Architecture",
-      img3Tag: "Desktop Portal System"
-    };
-  } else if (project.id === "r48") {
-    galleryCaptions = {
-      img1Title: "Exhibit A: Gastronomy Presentation Interface",
-      img1Tag: "Framer Design Showcase",
-      img2Title: "Exhibit B: Interactive Reservation System",
-      img2Desc: "High-fidelity micro-interactions for rapid table bookings",
-      img3Title: "Exhibit C: Spatial Brand Cohesion",
-      img3Tag: "Modular Visual System"
-    };
-  } else if (project.id === "club") {
-    galleryCaptions = {
-      img1Title: "Exhibit A: UX Strategy Sessions",
-      img1Tag: "Product Definition Phase",
-      img2Title: "Exhibit B: Figma Component Library & Variables",
-      img2Desc: "Systematized structures and elements optimized for rapid iterations",
-      img3Title: "Exhibit C: Peer Interactive Environments",
-      img3Tag: "Student Community Hub"
-    };
+  const solutionText = project.id === "candle"
+    ? "Designed and built a dedicated e-commerce experience that brings all products into one clean, structured space."
+    : project.id === "r48"
+    ? "Designed an intuitive mobile app prioritizing mood-based hours, stunning visuals, and a streamlined booking flow."
+    : project.id === "club"
+    ? "Architected a unified mobile app with a clean PRD, centralized schedule, and simplified sign-up flow."
+    : project.id === "tamir-carmel"
+    ? "Engineered an accessible, high-contrast, and spacious website layout tailored for users aged 50+."
+    : "Constructed sensory testing loops and advanced behavioral script flows to guide user comfort.";
+
+  // Title rendering calculations to highlight the last word elegantly in italics
+  const titleWords = project.title.toUpperCase().replace("\n", " ").split(" ");
+  let firstWords = "";
+  let lastWord = "";
+  if (titleWords.length > 1) {
+    lastWord = titleWords[titleWords.length - 1];
+    firstWords = titleWords.slice(0, -1).join(" ");
+  } else {
+    lastWord = titleWords[0] || "";
+    firstWords = "";
   }
 
   return (
@@ -261,196 +248,179 @@ export default function ProjectDetailPage({ project, onBack, onNextProject }: Pr
       </motion.div>
 
       {/* Main Container */}
-      <main className="px-4 md:px-12 max-w-7xl mx-auto mt-28 md:mt-36 space-y-20 md:space-y-32 relative z-10">
+      <main className="px-4 md:px-12 max-w-7xl mx-auto mt-28 md:mt-36 space-y-16 md:space-y-24 relative z-10">
         
-        {/* Intro Hero Section */}
-        <section className="space-y-8 md:space-y-12">
-          {/* Tag & Year */}
-          <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-[#1A1A1D]/60">
-            <span className="bg-[#1A1A1D]/5 px-4 py-2 rounded-full uppercase tracking-widest text-[10px] font-bold">
-              {project.category}
-            </span>
-          </div>
+        {/* --- HERO SECTION --- */}
+        <section className="relative overflow-hidden bg-white rounded-[2.5rem] border border-zinc-200/60 p-6 sm:p-8 md:p-12 shadow-[0_20px_50px_rgba(0,0,0,0.02)]">
+          {/* Decorative Circle 1: Top Right */}
+          <div className="absolute w-[280px] h-[280px] rounded-full bg-accent/[0.03] border border-accent/[0.08] -top-20 -right-20 pointer-events-none" />
+          {/* Decorative Circle 2: Bottom Center-Left */}
+          <div className="absolute w-[200px] h-[200px] rounded-full bg-accent/[0.02] border border-accent/[0.05] -bottom-16 left-[20%] pointer-events-none" />
 
-          {/* Large Editorial Headline */}
-          <h1 className="text-4xl sm:text-6xl md:text-8xl font-black font-display text-[#1A1A1D] leading-[0.9] tracking-tight uppercase whitespace-pre-line max-w-5xl">
-            {project.title.replace("\n", " ")}
-          </h1>
-
-          {!project.isComingSoon && (
-            <>
-              <div className="w-full h-[1px] bg-zinc-200/60" />
-
-              {/* Parameters Metadata Grid */}
-              <div className="w-full relative overflow-hidden rounded-[2.5rem] bg-white border border-zinc-200/60 p-6 md:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.02)] transition-all duration-500 hover:shadow-[0_30px_70px_rgba(79,70,229,0.04)] group/param mt-8">
-                {/* Accent glow mimicking the home screen cards */}
-                <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-accent/0 via-accent/30 to-accent/0 opacity-0 group-hover/param:opacity-100 transition-opacity duration-700" />
-                
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 relative z-10">
-                  
-                  {/* Design Role */}
-                  <div className="space-y-3 flex flex-col md:border-r border-zinc-200/60 md:pr-8 last:border-r-0">
-                    <div className="flex items-center gap-2.5">
-                      <div className="p-2 rounded-xl bg-accent/5 text-accent border border-accent/10">
-                        <Briefcase className="w-4 h-4" />
-                      </div>
-                      <span className="text-[10px] font-extrabold uppercase tracking-[0.25em] text-[#1A1A1D]/40 font-mono">My Design Role</span>
-                    </div>
-                    <p className="text-lg font-black text-[#1A1A1D] tracking-tight pl-0.5">{role}</p>
-                  </div>
-
-                  {/* Project Context / Client */}
-                  <div className="space-y-3 flex flex-col md:border-r border-zinc-200/60 md:px-8 last:border-r-0">
-                    <div className="flex items-center gap-2.5">
-                      <div className="p-2 rounded-xl bg-accent/5 text-accent border border-accent/10">
-                        <Calendar className="w-4 h-4" />
-                      </div>
-                      <span className="text-[10px] font-extrabold uppercase tracking-[0.25em] text-[#1A1A1D]/40 font-mono">Context / Client</span>
-                    </div>
-                    <p className="text-lg font-black text-[#1A1A1D] tracking-tight pl-0.5">{client}</p>
-                  </div>
-
-                  {/* Scope & Deliverables */}
-                  <div className="space-y-4 flex flex-col md:pl-8">
-                    <div className="flex items-center gap-2.5">
-                      <div className="p-2 rounded-xl bg-accent/5 text-accent border border-accent/10">
-                        <Layers className="w-4 h-4" />
-                      </div>
-                      <span className="text-[10px] font-extrabold uppercase tracking-[0.25em] text-[#1A1A1D]/40 font-mono">Scope & Deliverables</span>
-                    </div>
-                    <div className="flex flex-wrap gap-1.5 pt-0.5">
-                      {deliverables.map((item, index) => (
-                        <span 
-                          key={index} 
-                          className="bg-zinc-50 hover:bg-[#1A1A1D] hover:text-white text-[#1A1A1D]/80 text-[9px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full border border-zinc-200/80 shadow-sm transition-all duration-300 hover:scale-105 active:scale-95 cursor-default select-none"
-                        >
-                          {item}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                </div>
+          <div className="relative z-10 space-y-6 sm:space-y-8">
+            {/* Top Row: Category Left & CTA Right */}
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              {/* Category tag */}
+              <div className="flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-accent">
+                <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+                <span>{project.category}</span>
               </div>
-            </>
-          )}
+
+              {/* Primary CTA button on the right */}
+              {!project.isComingSoon && project.details.figmaLink && (
+                <motion.a
+                  href={project.details.figmaLink}
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="inline-flex items-center gap-2 bg-accent hover:bg-zinc-900 text-white px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-wider transition-all duration-300 hover:shadow-lg hover:shadow-accent/20"
+                >
+                  <span>{project.id === "candle" || project.id === "tamir-carmel" ? "Visit Website" : "View Project"}</span>
+                  <ArrowUpRight className="w-4 h-4" />
+                </motion.a>
+              )}
+            </div>
+
+            {/* Center: project title */}
+            <div className="py-6 sm:py-10">
+              <h1 className="text-4xl sm:text-6xl md:text-[5vw] font-black font-display text-[#1A1A1D] leading-[1.05] tracking-tight uppercase text-center max-w-4xl mx-auto whitespace-pre-line">
+                {firstWords}{" "}
+                <span className="italic text-accent font-serif font-normal normal-case block sm:inline">
+                  {lastWord}
+                </span>
+              </h1>
+            </div>
+
+            {/* Bottom Meta Bar: 3 columns, separated by accent/8 gaps */}
+            {!project.isComingSoon && (
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-[1px] bg-accent/10 rounded-2xl overflow-hidden mt-6">
+                
+                {/* Col 1: My Role */}
+                <div className="bg-[#F7F8FA] p-4 sm:p-5 flex flex-col justify-center">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-[#1A1A1D]/40 block mb-1">
+                    My Role
+                  </span>
+                  <p className="text-sm font-black text-[#1A1A1D] uppercase tracking-tight">
+                    {role}
+                  </p>
+                </div>
+
+                {/* Col 2: Platform / Client */}
+                <div className="bg-[#F7F8FA] p-4 sm:p-5 flex flex-col justify-center">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-[#1A1A1D]/40 block mb-1">
+                    Platform / Client
+                  </span>
+                  <p className="text-sm font-black text-[#1A1A1D] uppercase tracking-tight">
+                    {client}
+                  </p>
+                </div>
+
+                {/* Col 3: Deliverables */}
+                <div className="bg-[#F7F8FA] p-4 sm:p-5 flex flex-col justify-center">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-[#1A1A1D]/40 block mb-2">
+                    Deliverables
+                  </span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {deliverables.map((item, index) => (
+                      <span 
+                        key={index} 
+                        className="bg-accent/5 hover:bg-accent hover:text-white text-accent text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full border border-accent/10 transition-all duration-300 select-none"
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+              </div>
+            )}
+          </div>
         </section>
 
-        {/* Huge Edge-to-Edge Feature Visual Cover */}
-        <section className="relative overflow-hidden rounded-[3rem] shadow-2xl shadow-black/5 bg-zinc-100 group">
-          <img 
-            src={coverImage} 
-            alt={project.title} 
-            className={`w-full object-cover aspect-[21/9] min-h-[300px] md:min-h-[500px] brightness-90 transition-all duration-[1.5s] ${project.isComingSoon ? "grayscale group-hover:scale-100" : "grayscale group-hover:grayscale-0 group-hover:scale-[1.01]"}`}
-            style={{ contentVisibility: "auto" }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent pointer-events-none" />
-          
-          {project.isComingSoon ? (
-            <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 bg-black/40 backdrop-blur-[2px]">
-              <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 0.2, duration: 0.6 }}
-                className="space-y-4 max-w-md"
-              >
+        {/* --- MOCKUP SECTION --- */}
+        <section className="relative w-full bg-accent/[0.03] rounded-[2rem] p-4 sm:p-8 md:p-12 min-h-[240px] flex items-center justify-center overflow-hidden">
+          <div className="relative rounded-[1rem] overflow-hidden shadow-xl shadow-accent/10 w-full max-w-5xl">
+            <img 
+              src={coverImage} 
+              alt={project.title} 
+              className={`w-full object-cover aspect-[21/9] min-h-[200px] md:min-h-[420px] ${project.isComingSoon ? "grayscale brightness-75" : "brightness-95 hover:scale-[1.01] transition-transform duration-[1.5s]"}`}
+            />
+            {project.isComingSoon && (
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 bg-black/40 backdrop-blur-[2px]">
                 <span className="inline-block bg-accent text-white text-[11px] font-extrabold uppercase tracking-[0.4em] px-6 py-2.5 rounded-full shadow-lg">
                   Coming Soon
                 </span>
-                <p className="text-white/85 text-sm md:text-base font-medium px-4 tracking-wide">
-                  This creative interaction and HRI research case study is currently being assembled and will be available soon.
-                </p>
-              </motion.div>
-            </div>
-          ) : (
-            <div className="absolute bottom-8 left-8 right-8 text-white hidden md:flex items-center justify-between">
-              <span className="text-sm font-mono tracking-wider font-semibold">Primary Cover Interface Showcase</span>
-              <span className="text-xs tracking-widest uppercase italic bg-white/20 backdrop-blur-md px-4 py-2 rounded-full border border-white/20">Active Prototyping</span>
-            </div>
-          )}
+              </div>
+            )}
+          </div>
         </section>
 
-        {/* Narrative columns: The Challenge & Approach */}
+        {/* --- PROBLEM / SOLUTION ROW --- */}
         {!project.isComingSoon && (
-          <section className="grid lg:grid-cols-12 gap-12 md:gap-20 items-start">
-            <div className="lg:col-span-5 space-y-6">
-              <div className="inline-flex items-center gap-3">
-                <span className="text-[11px] font-black uppercase tracking-[0.4em] text-accent font-mono italic">Creative Statement</span>
-                <div className="w-8 h-[1px] bg-accent/30" />
+          <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Problem card */}
+            <motion.div 
+              whileHover={{ y: -2 }}
+              transition={{ duration: 0.3 }}
+              className="bg-white border border-ink/5 rounded-[1.5rem] p-6 sm:p-8 flex flex-col gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.01)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.02)] transition-all duration-300"
+            >
+              <div className="flex items-center gap-2 text-accent">
+                <AlertCircle className="w-4 h-4 text-accent" />
+                <span className="text-[10px] uppercase tracking-widest font-black">
+                  Problem
+                </span>
               </div>
-              <h2 className="text-3xl md:text-5xl font-black font-display uppercase tracking-tight text-[#1A1A1D] leading-tight">
-                The Objective & Strategy
-              </h2>
-              <p className="text-lg md:text-xl font-light text-[#1A1A1D]/60 leading-relaxed italic border-l-2 border-accent/40 pl-6">
-                {project.details.overview}
+              <p className="text-sm md:text-base text-ink/70 leading-relaxed font-normal">
+                {problemText}
               </p>
-            </div>
-
-            {/* Phases / Focus Areas Card Layout */}
-            <div className="lg:col-span-7 space-y-12">
-              <div className="grid gap-8">
-                {project.details.focusAreas && project.details.focusAreas.map((area, i) => (
-                  <motion.div 
-                    key={i}
-                    whileHover={{ y: -6, boxShadow: "0 20px 40px rgba(0,0,0,0.03)" }}
-                    className="bg-white/60 p-8 md:p-10 rounded-[2.5rem] border border-zinc-200/50 transition-all duration-300 relative group overflow-hidden"
-                  >
-                    <div className="absolute top-0 right-0 p-8 text-5xl font-black font-display text-accent/5 select-none leading-none">
-                      PHASE 0{i + 1}
-                    </div>
-                    
-                    <div className="relative z-10 space-y-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center text-[10px] font-bold text-accent">
-                          {i + 1}
-                        </div>
-                        <h4 className="text-xs font-black uppercase tracking-[0.3em] text-zinc-500/90 font-mono">
-                          {area.title}
-                        </h4>
-                      </div>
-                      <div className="w-10 h-[1.5px] bg-accent/40 rounded-full" />
-                      <p className="text-base md:text-lg text-zinc-600 font-medium leading-relaxed">
-                        {area.description}
-                      </p>
-                    </div>
-                  </motion.div>
-                ))}
+            </motion.div>
+ 
+            {/* Solution card */}
+            <motion.div 
+              whileHover={{ y: -2 }}
+              transition={{ duration: 0.3 }}
+              className="bg-white border border-ink/5 rounded-[1.5rem] p-6 sm:p-8 flex flex-col gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.01)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.02)] transition-all duration-300"
+            >
+              <div className="flex items-center gap-2 text-accent">
+                <Lightbulb className="w-4 h-4 text-accent" />
+                <span className="text-[10px] uppercase tracking-widest font-black">
+                  Solution
+                </span>
               </div>
-            </div>
+              <p className="text-sm md:text-base text-ink/70 leading-relaxed font-normal">
+                {solutionText}
+              </p>
+            </motion.div>
           </section>
         )}
-
-
-
-        {/* Large Premium Call to Action */}
-        {!project.isComingSoon && project.details.figmaLink && (
-          <section className="bg-zinc-900 text-white rounded-[2.5rem] p-6 md:p-10 relative overflow-hidden shadow-xl flex flex-col md:flex-row items-center justify-between gap-8 group select-none">
-            {/* Ambient Background Light */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-accent/10 to-transparent pointer-events-none select-none blur-3xl" />
-            
-            <div className="space-y-4 max-w-xl z-10 relative">
-              <span className="bg-white/10 text-white border border-white/20 text-[10px] font-extrabold uppercase tracking-[0.4em] px-4 py-2 rounded-full italic inline-block inline-flex items-center gap-2">
-                <Sparkles className="w-3 h-3 text-white" /> {(project.id === "candle" || project.id === "tamir-carmel") ? "Live Website Platform" : "Live Prototype Check"}
-              </span>
-              <h4 className="text-2xl md:text-4xl font-black font-display uppercase tracking-tight leading-none text-white">
-                {(project.id === "candle" || project.id === "tamir-carmel") ? "Experience the platform live" : "Experience the design in real-time"}
-              </h4>
-            </div>
-
-            <div className="z-10 relative shrink-0 w-full md:w-auto">
-              <motion.a 
-                href={project.details.figmaLink}
-                target="_blank" 
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-full md:w-auto inline-flex items-center justify-center gap-5 bg-[#F7F8FA] text-black hover:bg-accent hover:text-white px-8 py-5 md:px-10 md:py-6 rounded-full font-black uppercase tracking-[0.2em] text-xs transition-all duration-300 shadow-xl group border border-transparent"
-              >
-                {project.details.buttonLabel || "Explore Project Prototype"}
-                <div className="w-8 h-8 rounded-full bg-black/5 group-hover:bg-white/20 flex items-center justify-center text-black group-hover:text-white transition-all">
-                  <ArrowUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform duration-300" />
+ 
+        {/* --- DESIGN PROCESS SECTION --- */}
+        {!project.isComingSoon && project.details.focusAreas && (
+          <section className="bg-white border border-ink/5 rounded-[1.5rem] p-6 md:p-8 shadow-[0_4px_20px_rgba(0,0,0,0.01)]">
+            <h4 className="text-xs md:text-sm uppercase text-[#1A1A1D]/50 tracking-widest mb-6 font-extrabold flex items-center gap-2">
+              <span className="inline-block w-1.5 h-1.5 bg-accent/40 rounded-full" />
+              Design Process
+            </h4>
+            <div className="flex flex-col">
+              {project.details.focusAreas.map((area, i) => (
+                <div key={i} className="py-5 border-b border-ink/5 last:border-none flex gap-4 md:gap-6 hover:bg-zinc-50/30 rounded-xl px-1 sm:px-2 -mx-1 sm:-mx-2 transition-colors duration-300">
+                  <div className="w-[36px] h-[36px] shrink-0 rounded-full border border-accent/20 bg-accent/5 flex items-center justify-center text-xs md:text-sm font-black text-accent text-center">
+                    0{i + 1}
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center flex-wrap gap-2.5">
+                      <span className="text-base md:text-lg font-black text-[#1A1A1D]">{area.title}</span>
+                      <span className="bg-accent/8 text-accent text-[10px] px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider">
+                        Phase 0{i + 1}
+                      </span>
+                    </div>
+                    <p className="text-sm md:text-base text-[#1A1A1D]/65 leading-relaxed mt-2">
+                      {area.description}
+                    </p>
+                  </div>
                 </div>
-              </motion.a>
+              ))}
             </div>
           </section>
         )}

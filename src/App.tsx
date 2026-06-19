@@ -103,8 +103,8 @@ const FloatingElements = () => {
 const BubblesParticles = () => {
   return (
     <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-      {[...Array(45)].map((_, i) => {
-        const size = Math.random() * 60 + 20;
+      {[...Array(9)].map((_, i) => {
+        const size = Math.random() * 12 + 8;
         const x = Math.random() * 100;
         const y = Math.random() * 100;
 
@@ -113,17 +113,17 @@ const BubblesParticles = () => {
             key={i}
             initial={{ opacity: 0 }}
             animate={{ 
-              opacity: [0.3, 0.6, 0.3],
-              y: [`${y}vh`, `${y - 12}vh`, `${y}vh`],
-              x: [`${x}vw`, `${x + 6}vw`, `${x}vw`]
+              opacity: [0.04, 0.10, 0.04],
+              y: [`${y}vh`, `${y - 5}vh`, `${y}vh`],
+              x: [`${x}vw`, `${x + 3}vw`, `${x}vw`]
             }}
             transition={{
-              duration: Math.random() * 10 + 10,
+              duration: Math.random() * 20 + 25,
               repeat: Infinity,
               ease: "easeInOut",
               delay: Math.random() * -10,
             }}
-            className="absolute rounded-full bg-accent/40 blur-[6px]"
+            className="absolute rounded-full bg-accent/20 blur-[3px]"
             style={{ width: size, height: size, top: `${y}vh`, left: `${x}vw` }}
           />
         );
@@ -311,6 +311,61 @@ const ProjectItem = ({ project, index, onOpen }: { project: any, index: number, 
               {project.description.split('.')[0]}.
             </p>
 
+            {/* Problem / Solution / Result Section */}
+            <SectionReveal delay={0.1} className="w-full space-y-4 pt-6 border-t border-ink/10">
+              <div className="flex flex-col gap-3.5 max-w-lg">
+                {[
+                  {
+                    label: "Problem",
+                    text: project.id === "candle" 
+                      ? "Customers could only discover products through social media — no central, organized place to browse."
+                      : project.id === "r48"
+                      ? "Fine dining reservations and menu browsing can feel rigid and complex on traditional restaurant websites."
+                      : project.id === "club"
+                      ? "Student registrations and workshop info were scattered across physical fairs and messy sheets."
+                      : project.id === "tamir-carmel"
+                      ? "Mature property owners struggled with complex, cluttered interfaces on real estate portals."
+                      : "Human-robot interaction interfaces often lack cohesive multi-sensory feedback."
+                  },
+                  {
+                    label: "Solution",
+                    text: project.id === "candle"
+                      ? "Designed and built a dedicated e-commerce experience that brings all products into one clean, structured space."
+                      : project.id === "r48"
+                      ? "Designed an intuitive mobile app prioritizing mood-based hours, stunning visuals, and a streamlined booking flow."
+                      : project.id === "club"
+                      ? "Architected a unified mobile app with a clean PRD, centralized schedule, and simplified sign-up flow."
+                      : project.id === "tamir-carmel"
+                      ? "Engineered an accessible, high-contrast, and spacious website layout tailored for users aged 50+."
+                      : "Constructed sensory testing loops and advanced behavioral script flows to guide user comfort."
+                  },
+                  {
+                    label: "Result",
+                    text: project.id === "candle"
+                      ? "Inquiries increased and customers could finally browse, understand and reach out — without leaving the website."
+                      : project.id === "r48"
+                      ? "User satisfaction increased through a seamless, 3-click table booking flow."
+                      : project.id === "club"
+                      ? "Drastically reduced joining friction, allowing students to sign up in under 3 clicks."
+                      : project.id === "tamir-carmel"
+                      ? "Enhanced credibility, letting owners easily locate local projects and contact agents with confidence."
+                      : "Smoother interactive dialogues and refined robotic behavior mapping during field studies."
+                  }
+                ].map((row, rIdx) => (
+                  <div key={rIdx} className="flex items-stretch gap-4 text-left">
+                    <div className="w-[84px] shrink-0 pr-4 border-r border-ink/10 flex items-start">
+                      <span className="text-accent text-[10px] font-bold uppercase tracking-widest block pt-0.5">
+                        {row.label}
+                      </span>
+                    </div>
+                    <p className="text-ink/50 font-medium text-sm leading-relaxed flex-1 py-0.5">
+                      {row.text}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </SectionReveal>
+
             <div className="pt-4 overflow-hidden">
               {project.isComingSoon ? (
                 <span className="inline-flex items-center justify-center gap-3 bg-ink/5 text-ink/40 px-8 py-4 rounded-full text-xs md:text-sm font-black uppercase tracking-[0.15em] border border-ink/10 cursor-default select-none">
@@ -417,6 +472,22 @@ const DraggableJourney = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  useEffect(() => {
+    if (isMobile) return;
+    
+    const timer = setTimeout(() => {
+      // Briefly bring the first card to front to hint interaction
+      bringToFront(0);
+      
+      setTimeout(() => {
+        setActiveCard(null);
+        setZIndices(JOURNEY_CARDS.map((_, i) => i));
+      }, 1200);
+    }, 1800);
+    
+    return () => clearTimeout(timer);
+  }, [isMobile]);
+
   if (isMobile) {
     return <MobileJourneyCarousel />;
   }
@@ -450,7 +521,7 @@ const DraggableJourney = () => {
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2 }}
+        transition={{ delay: 0.8 }}
         className="absolute bottom-12 left-12 flex items-center gap-4 text-ink/30 z-20 pointer-events-none"
       >
         <div className="flex gap-2">
@@ -463,7 +534,7 @@ const DraggableJourney = () => {
             />
           ))}
         </div>
-        <span className="text-[10px] font-black uppercase tracking-widest italic">Explore the deck</span>
+        <span className="text-[10px] font-black uppercase tracking-widest italic">Drag & explore</span>
       </motion.div>
 
       {JOURNEY_CARDS.map((card, i) => {
@@ -802,9 +873,14 @@ export default function App() {
               </h3>
 
               <div className="space-y-8 md:space-y-12 max-w-2xl">
-                <p className="max-w-xl text-lg md:text-2xl font-light leading-relaxed text-ink/60 hover:text-accent transition-colors duration-500">
-                  A second-year Communications student specializing in HCI at Reichman University. A UX/UI designer who bridges the gap between people, design, and systems. Leveraging a strong technical and analytical background alongside practical experience in prototyping to solve complex problems. Focused on end-to-end digital product design, utilizing modern workflows and AI tools while maintaining a clean and premium visual style.
-                </p>
+                <div className="max-w-xl text-lg md:text-3xl leading-relaxed space-y-3">
+                  <p className="font-light text-ink/60 transition-colors duration-500 hover:text-ink">
+                    Most designers make things look good.
+                  </p>
+                  <p className="font-black text-accent transition-colors duration-500 hover:text-ink">
+                    I make things feel right.
+                  </p>
+                </div>
                 
                 <div className="flex flex-row flex-wrap xl:flex-nowrap items-center justify-center lg:justify-start gap-2 sm:gap-4 pt-2 md:pt-12 overflow-visible w-[90%] mx-auto sm:mx-0 sm:w-auto">
                   <motion.a 
@@ -1008,6 +1084,13 @@ export default function App() {
                           <div>
                             <span className="text-[10px] font-black uppercase tracking-[0.4em] text-accent block mb-2 italic">Direct Connection</span>
                             <h5 className="text-2xl font-black uppercase tracking-tight">Drop a message</h5>
+                          </div>
+                          <div className="flex flex-col items-end gap-1.5">
+                            <div className="flex items-center gap-2">
+                              <div className="w-2 h-2 rounded-full bg-[#22C55E] animate-pulse" />
+                              <span className="text-[10px] font-black uppercase tracking-widest text-ink/40">Available now</span>
+                            </div>
+                            <span className="text-[10px] font-medium text-ink/30 italic">Usually replies within 24h</span>
                           </div>
                         </div>
 
