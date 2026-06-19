@@ -4,9 +4,9 @@
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Space Grotesk", sans-serif;
-  --color-bg: #FAF9F6;
-  --color-ink: #1A1A1A;
-  --color-accent: #8B5CF6;
+  --color-bg: #F7F8FA;
+  --color-ink: #1A1A1D;
+  --color-accent: #4F46E5;
 }
 
 :root {
@@ -52,11 +52,11 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #F0EEE9;
+  background: #F0F1F3;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #D8D4CC;
+  background: #CED2D9;
   border-radius: 10px;
 }
 

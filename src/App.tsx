@@ -21,6 +21,8 @@ import {
   ArrowUp
 } from "lucide-react";
 import React, { useState, useEffect, useRef, ReactNode, FormEvent } from "react";
+import ProjectDetailPage from "./components/ProjectDetailPage";
+import { PROJECTS_LIST_REFERENCE } from "./utils/projectsData";
 
 // --- Components ---
 
@@ -72,33 +74,28 @@ const CustomCursor = () => {
 const FloatingElements = () => {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+      {/* Sharp transparent lavender geometric circle 1 */}
       <motion.div 
         animate={{ 
-          x: [0, 100, 0], 
-          y: [0, -50, 0],
-          scale: [1, 1.1, 1] 
+          x: [0, 15, 0], 
+          y: [0, -10, 0],
+          scale: [1, 1.02, 1] 
         }}
-        transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-        className="absolute top-[10%] left-[10%] w-[40vw] h-[40vw] bg-accent/5 rounded-full blur-[120px]"
+        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-[6%] left-[12%] w-[42vw] h-[42vw] bg-accent/[0.04] rounded-full border border-accent/[0.03]"
       />
+      {/* Sharp transparent lavender geometric circle 2, overlapping at bottom */}
       <motion.div 
         animate={{ 
-          x: [0, -100, 0], 
-          y: [0, 50, 0],
-          scale: [1, 1.2, 1] 
+          x: [0, -15, 0], 
+          y: [0, 15, 0],
+          scale: [1, 1.03, 1] 
         }}
-        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-        className="absolute bottom-[10%] right-[10%] w-[35vw] h-[35vw] bg-accent/10 rounded-full blur-[100px]"
+        transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-[2%] left-[30%] w-[32vw] h-[32vw] bg-accent/[0.05] rounded-full border border-accent/[0.03]"
       />
-      <motion.div 
-        animate={{ 
-          x: [0, 50, -50, 0], 
-          y: [0, -80, 80, 0],
-          scale: [1, 1.3, 1] 
-        }}
-        transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-        className="absolute top-[40%] right-[30%] w-[25vw] h-[25vw] bg-accent/10 rounded-full blur-[90px]"
-      />
+      {/* Soft translucent background ambient light glow off to the side to blend nicely */}
+      <div className="absolute bottom-[20%] right-[10%] w-[25vw] h-[25vw] bg-accent/5 rounded-full blur-[100px]" />
     </div>
   );
 };
@@ -148,8 +145,8 @@ const FloatingLogo = () => {
       <motion.div
         whileHover={{ 
           scale: 1.1,
-          boxShadow: "0 0 40px 10px rgba(139, 92, 246, 0.4)",
-          borderColor: "rgba(139, 92, 246, 0.5)"
+          boxShadow: "0 0 40px 10px rgba(79, 70, 229, 0.4)",
+          borderColor: "rgba(79, 70, 229, 0.5)"
         }}
         animate={{ y: [0, -5, 0] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
@@ -215,125 +212,7 @@ const Marquee = ({ text, speed = 25 }: { text: string; speed?: number }) => {
 
 // --- DATA ---
 
-const PROJECTS = [
-  {
-    title: "CANDLE&CO",
-    id: "candle",
-    category: "e-commerce platform optimized for both desktop and mobile web",
-    description: "An E-commerce website design for desktop and mobile for my personal handmade candle brand, connecting premium aesthetics with a streamlined sales process.",
-    image: "https://i.postimg.cc/MXkYrFPs/lwgw-'bh-bly-rq'.png",
-    year: "2023",
-    details: {
-      headline: "CASE STUDY: CANDLE & CO.",
-      contextLabel: "CONTEXT",
-      contextValue: "E-COMMERCE PLATFORM OPTIMIZED FOR BOTH DESKTOP AND MOBILE WEB",
-      overview: "This project is an E-commerce website I designed and built on Wix for my own handmade candle brand. The goal was to solve a real business need: creating a digital storefront that makes it easy for customers to move from our Instagram page directly to shopping.",
-      focusAreas: [
-        {
-          title: "01 | Visual Identity & Trust",
-          description: "Since it's a boutique brand, I focused on a clean and premium visual design. The website matches our social media style. This consistency helps build trust and makes the brand look professional the moment users enter the site."
-        },
-        {
-          title: "02 | Product Optimization & UX",
-          description: "Before this website, I managed sales manually, which meant answering a lot of customer questions. To fix this, I created an organized digital catalog. I optimized the experience for quick and easy navigation, focusing especially on a mobile-first approach. Now, customers can clearly see every product and buy on their own."
-        },
-        {
-          title: "03 | End-to-End Product Management",
-          description: "This project shows my ability to manage a product from start to finish. I built and managed the entire platform using Wix. I also handled everything behind the scenes: product photography, writing the text, and updating the site for new collections and promotions."
-        }
-      ],
-      figmaLink: "https://candleandcogroup.wixsite.com/my-site-2",
-      buttonLabel: "EXPLORE TO THE WEBSITE"
-    }
-  },
-  {
-    title: "Chef & Dine",
-    id: "r48",
-    category: "End-to-end mobile app design",
-    description: "An academic project designing a clean and focused mobile app for the luxury chef restaurant R48, bringing an exclusive dining experience into a digital product.",
-    image: "https://i.postimg.cc/90G2Dzky/image.png",
-    year: "2024",
-    details: {
-      headline: "CASE STUDY: CHEF & DINE (R48)",
-      contextLabel: "CONTEXT",
-      contextValue: "END-TO-END MOBILE APP DESIGN",
-      overview: "This project is a mobile app concept for a fine-dining restaurant. The main challenge was to take a luxury atmosphere and turn it into a simple and easy-to-use digital experience.",
-      focusAreas: [
-        {
-          title: "01 | Visual Strategy",
-          description: "Instead of a crowded photo gallery, I organized the design by the time of day: Breakfast, Lunch, and Dinner. I used clean white space, big images, and elegant text. This makes the app feel like a premium magazine, while keeping everything clear and easy to read."
-        },
-        {
-          title: "02 | UX & Fast Reservation",
-          description: "Customers at high-end restaurants expect a fast and smooth experience. Because of this, I created a very short table reservation flow. I removed all unnecessary steps so users can book a table quickly, while still feeling the premium vibe."
-        },
-        {
-          title: "03 | Figma & Design System",
-          description: "To show a real user flow, I built a fully interactive prototype with 5 complete screens. I also created a full Design System in Figma. I used components and variants to make sure the final design is pixel-perfect and ready for developers."
-        }
-      ],
-      figmaLink: "https://www.figma.com/design/8ufhTM0iu2tDSdA192a8JM/Project-1--Chef?node-id=0-1&t=OBNJlhNGk2IwvhKp-1",
-      buttonLabel: "EXPLORE FULL FLOW IN FIGMA"
-    }
-  },
-  {
-    title: "UX UI CLUB\nAPP",
-    id: "club",
-    category: "App for accessing information and registering for the Reichman UX UI club",
-    description: "Leading the digital transformation of the Reichman University UX/UI Club: product definition, branding, and designing a mobile app for student information and fast registration.",
-    image: "https://i.postimg.cc/vmP4323h/image.png",
-    year: "2024",
-    details: {
-      headline: "CASE STUDY: UX/UI CLUB APP",
-      contextLabel: "CONTEXT",
-      contextValue: "COMMUNITY PLATFORM DESIGN",
-      overview: "This project is an app for the UX/UI Club at Reichman University, where I serve as the community manager. I led the digital transformation of our club registration, creating a centralized platform to replace physical fairs and make everything accessible online.",
-      focusAreas: [
-        {
-          title: "01 | Product Strategy & PRD",
-          description: "The project started with strategy. I co-authored the Product Requirement Document (PRD) with my team. We defined exactly what the students needed and used this document as our roadmap to ensure every screen solved a real problem without adding unnecessary features."
-        },
-        {
-          title: "02 | Team Leadership & Execution",
-          description: "I managed a design team to deliver a working product under tight deadlines before registration week. I divided tasks, guided the UX and UI processes, and kept everyone aligned to launch the application right on time."
-        },
-        {
-          title: "03 | Information Architecture & UX",
-          description: "To bring immediate value, we defined a clear Information Architecture (IA). We highlighted the management team, past testimonials, and workshop examples. At the same time, we designed a frictionless user flow, removing unnecessary questions so students can join the community in just a few clicks."
-        },
-        {
-          title: "04 | Branding & Visual Identity",
-          description: "As part of this transition, I also crafted the club's new visual identity and logo. It was important to keep a consistent design language across the brand and the app to show professionalism and a strong sense of community."
-        }
-      ],
-      figmaLink: "https://www.figma.com/design/lvp6sJ9Smfk8ROWRk6Fziw/project-3--UXUI-club-app?node-id=0-1&t=wEFy2xW4YroNhftT-1",
-      buttonLabel: "EXPLORE FULL FLOW IN FIGMA"
-    }
-  },
-  {
-    title: "Social Robot\nGroup",
-    id: "social-robot",
-    category: "Co-designed human-robot interaction design",
-    description: "Coming Soon.",
-    image: "https://i.postimg.cc/FR0dmRZg/Whats-App-Image-2026-05-25-at-12-52-18.jpg",
-    year: "Coming Soon",
-    isComingSoon: true,
-    details: {
-      headline: "CASE STUDY: SOCIAL ROBOT GROUP",
-      contextLabel: "CONTEXT",
-      contextValue: "CO-DESIGNED EXPERIENCE & ADVANCED ROBOTIC INTERACTIONS",
-      overview: "Details about this design and interaction case study are coming very soon.",
-      focusAreas: [
-        {
-          title: "01 | Research & Architecture",
-          description: "Coming soon."
-        }
-      ],
-      figmaLink: "#",
-      buttonLabel: "COMING SOON"
-    }
-  }
-];
+const PROJECTS = PROJECTS_LIST_REFERENCE;
 
 const JOURNEY_CARDS = [
   {
@@ -368,167 +247,13 @@ const JOURNEY_CARDS = [
 const SectionHeader = ({ title, subtitle }: { title: string, subtitle?: string }) => (
   <SectionReveal>
     <div className="flex flex-col sm:flex-row sm:items-baseline justify-between border-b border-ink/10 pb-6 mb-4 md:mb-12 lg:mb-20 gap-4">
-      <h4 className="text-5xl md:text-[8vw] lg:text-[7vw] font-black font-display uppercase tracking-[-0.05em] italic hover:text-accent transition-colors duration-500">{title}</h4>
+      <h4 className="text-5xl md:text-[8vw] lg:text-[7vw] font-black font-display uppercase tracking-[-0.05em] italic transition-colors duration-500">{title}</h4>
       {subtitle && (
         <span className="text-[10px] font-black uppercase tracking-[0.8em] text-ink/30 italic sm:text-right">{subtitle}</span>
       )}
     </div>
   </SectionReveal>
 );
-
-const ProjectModal = ({ project, isOpen, onClose }: { project: any, isOpen: boolean, onClose: () => void }) => {
-  const contentRef = useRef<HTMLDivElement>(null);
-  
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [isOpen]);
-
-  if (!project || !project.details) return null;
-
-  const handleVisualWheel = (e: React.WheelEvent) => {
-    if (contentRef.current) {
-      contentRef.current.scrollTop += e.deltaY;
-    }
-  };
-
-  return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={onClose}
-          className="fixed inset-0 z-[200] flex items-center justify-center p-4 md:p-8 overflow-hidden touch-none"
-        >
-          {/* Immersive Overlay */}
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="absolute inset-0 bg-bg/80 backdrop-blur-xl cursor-pointer"
-          />
-          
-          {/* Modal Container */}
-          <motion.div 
-            initial={{ opacity: 0, y: 100, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 100, scale: 0.9 }}
-            transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-7xl h-full max-h-[90vh] bg-[#FAF9F6] rounded-[3rem] shadow-2xl overflow-hidden flex flex-col md:flex-row border border-ink/5 select-text touch-auto"
-          >
-            {/* Close Button - Technical Pill */}
-            <button 
-              onClick={onClose}
-              className="absolute top-4 right-4 md:top-10 md:right-10 z-[60] flex items-center gap-2 md:gap-4 bg-white/20 md:bg-white/20 backdrop-blur-md border border-ink/10 px-4 py-2 md:px-8 md:py-4 rounded-full hover:bg-accent hover:text-white transition-all group"
-            >
-              <span className="text-[10px] md:text-xs font-black uppercase tracking-[0.2em]">Close</span>
-              <X className="w-4 h-4 md:w-5 md:h-5" />
-            </button>
-
-            {/* Visual Side (45%) */}
-            <div 
-              onWheel={handleVisualWheel}
-              className="w-full md:w-[45%] h-64 md:h-full relative overflow-hidden shrink-0"
-            >
-              <img 
-                src={project.image} 
-                alt={project.title} 
-                className="w-full h-full object-cover grayscale brightness-75 group-hover:grayscale-0 transition-all duration-1000"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-              
-              <div className="absolute bottom-6 left-6 right-6 md:bottom-16 md:left-16 md:right-16 z-10">
-                 <div className="flex items-center gap-2 md:gap-4 mb-2 md:mb-4">
-                   <div className="h-[1px] w-8 md:w-12 bg-white/30" />
-                   <span className="text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em] md:tracking-[0.6em] text-white/80 md:text-white/50">{project.details.contextValue}</span>
-                 </div>
-                 <h4 className="text-3xl md:text-5xl font-black font-display uppercase tracking-tight text-white leading-none">
-                   The Vision
-                 </h4>
-              </div>
-            </div>
-
-            {/* Content Side (55%) */}
-            <div 
-              ref={contentRef}
-              className="w-full md:w-[55%] p-6 md:p-20 overflow-y-auto custom-scrollbar bg-[#FAF9F6] relative"
-            >
-               {/* Background Decorative Text */}
-               <div className="absolute top-20 right-10 text-[15vw] font-black font-display text-ink opacity-[0.02] pointer-events-none select-none">
-                 INFO
-               </div>
-
-               <div className="relative z-10 max-w-2xl">
-                 <div className="inline-flex items-center gap-4 mb-12">
-                   <span className="text-[10px] font-black uppercase tracking-[1em] text-accent italic">Case Study</span>
-                   <div className="w-8 h-[1px] bg-accent/20" />
-                 </div>
-
-                 <h3 className="text-3xl md:text-4xl lg:text-[3vw] font-black font-display uppercase tracking-[-0.03em] leading-tight mb-8 text-[#1F1F1F]">
-                   {project.details.headline}
-                 </h3>
-                 
-                 <div className="space-y-16">
-                   <div className="relative pl-6 md:pl-10">
-                     <div className="absolute left-0 top-0 w-1 h-full bg-accent/10 rounded-full" />
-                     <p className="text-xl md:text-2xl font-light text-[#4A4A4A] leading-relaxed italic">
-                       {project.details.overview}
-                     </p>
-                   </div>
-
-                   {project.details.focusAreas && (
-                     <div className="grid gap-12 pt-8">
-                       {project.details.focusAreas.map((area: any, i: number) => (
-                         <div key={i} className="group relative">
-                           <div className="flex items-baseline gap-6 mb-4">
-                             <span className="text-3xl md:text-4xl font-display font-black text-accent/10 group-hover:text-accent/30 transition-colors shrink-0">
-                               0{i+1}
-                             </span>
-                             <h5 className="text-[11px] md:text-xs font-black uppercase tracking-[0.3em] md:tracking-[0.4em] text-accent">
-                               {area.title}
-                             </h5>
-                           </div>
-                           <p className="text-base md:text-lg font-medium text-ink/50 leading-relaxed pl-10 md:pl-16 group-hover:text-ink transition-colors">
-                             {area.description}
-                           </p>
-                         </div>
-                       ))}
-                     </div>
-                   )}
-
-                    <div className="pt-20">
-                      <motion.a 
-                        href={project.details.figmaLink} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        className="inline-flex items-center justify-between gap-6 md:gap-12 bg-black text-white px-6 py-5 md:px-12 md:py-8 rounded-full font-black uppercase tracking-[0.1em] md:tracking-[0.2em] text-[10px] md:text-sm shadow-2xl hover:bg-accent transition-all group w-full sm:w-auto"
-                      >
-                        {project.details.buttonLabel || "Explore Full Narrative"} 
-                        <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white/20">
-                          <ArrowUpRight className="w-5 h-5" />
-                        </div>
-                      </motion.a>
-                    </div>
-                 </div>
-               </div>
-            </div>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-};
 
 const ProjectItem = ({ project, index, onOpen }: { project: any, index: number, onOpen: (p: any) => void, key?: string | number }) => {
   const isEven = index % 2 === 0;
@@ -550,7 +275,7 @@ const ProjectItem = ({ project, index, onOpen }: { project: any, index: number, 
         
         {/* Image Container */}
         <div className={`lg:col-span-6 ${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
-          <div className="relative overflow-hidden rounded-2xl md:rounded-[3rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] transition-all duration-700 group-hover:shadow-[0_45px_90px_-20px_rgba(139,92,246,0.2)]">
+          <div className="relative overflow-hidden rounded-2xl md:rounded-[3rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] transition-all duration-700 group-hover:shadow-[0_45px_90px_-20px_rgba(79,70,229,0.2)]">
             <img 
               src={project.image} 
               alt={project.title} 
@@ -559,7 +284,7 @@ const ProjectItem = ({ project, index, onOpen }: { project: any, index: number, 
             />
             {/* View Project Overlay on Desktop */}
             <div className="absolute inset-0 bg-accent/0 group-hover:bg-accent/5 transition-colors duration-500 flex items-center justify-center">
-              <span className="opacity-0 group-hover:opacity-100 bg-white/40 backdrop-blur-md border border-white/40 text-black px-10 py-5 rounded-full text-xs md:text-sm font-black uppercase tracking-[0.2em] translate-y-4 group-hover:translate-y-0 transition-all duration-500">
+              <span className="opacity-0 group-hover:opacity-100 bg-[#1A1A1D] text-white hover:bg-[#4F46E5] px-10 py-5 rounded-full text-xs md:text-sm font-black uppercase tracking-[0.2em] translate-y-4 group-hover:translate-y-0 transition-all duration-500 cursor-pointer">
                 {project.isComingSoon ? "Coming Soon" : "View Project"}
               </span>
             </div>
@@ -572,12 +297,12 @@ const ProjectItem = ({ project, index, onOpen }: { project: any, index: number, 
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-2 flex-wrap">
                 {project.isComingSoon && (
-                  <span className="bg-[#8B5CF6]/10 text-[#8B5CF6] border border-[#8B5CF6]/20 text-[9px] font-black uppercase tracking-[0.2em] px-3 py-1 rounded-full italic animate-pulse">
+                  <span className="bg-[#4F46E5]/10 text-[#4F46E5] border border-[#4F46E5]/20 text-[9px] font-black uppercase tracking-[0.2em] px-3 py-1 rounded-full italic animate-pulse">
                     Coming Soon
                   </span>
                 )}
               </div>
-              <h3 className="text-4xl md:text-6xl lg:text-[4vw] font-black font-display text-ink uppercase tracking-tight leading-[0.98] group-hover:text-accent transition-colors duration-500 whitespace-pre-line text-left">
+              <h3 className="text-4xl md:text-6xl lg:text-[4vw] font-black font-display text-ink uppercase tracking-tight leading-[0.98] whitespace-pre-line text-left">
                 {project.title}
               </h3>
             </div>
@@ -588,12 +313,12 @@ const ProjectItem = ({ project, index, onOpen }: { project: any, index: number, 
 
             <div className="pt-4 overflow-hidden">
               {project.isComingSoon ? (
-                <span className="inline-flex items-center justify-center gap-3 bg-[#8B5CF6]/5 text-[#8B5CF6]/60 px-8 py-4 rounded-full text-xs md:text-sm font-black uppercase tracking-[0.15em] border border-[#8B5CF6]/15 hover:bg-[#8B5CF6]/10 transition-all duration-300">
+                <span className="inline-flex items-center justify-center gap-3 bg-ink/5 text-ink/40 px-8 py-4 rounded-full text-xs md:text-sm font-black uppercase tracking-[0.15em] border border-ink/10 cursor-default select-none">
                   Coming Soon
                 </span>
               ) : (
-                <span className="inline-flex items-center justify-center gap-3 bg-accent text-white px-8 py-4 rounded-full text-xs md:text-sm font-black uppercase tracking-[0.15em] shadow-sm shadow-accent/10 group-hover:shadow-md group-hover:shadow-accent/20 group-hover:-translate-y-1 transition-all duration-300 border border-accent/20 hover:bg-white hover:text-accent group-hover:bg-white group-hover:text-accent hover:border-ink/10 group-hover:border-ink/10">
-                  View Project <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+                <span className="inline-flex items-center justify-center gap-3 bg-[#1A1A1D] hover:bg-[#4F46E5] text-white px-8 py-4 rounded-full text-xs md:text-sm font-black uppercase tracking-[0.15em] transition-all duration-300 border border-transparent">
+                  View Project <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
                 </span>
               )}
             </div>
@@ -802,7 +527,7 @@ const DraggableJourney = () => {
               <h4 className="text-2xl font-black font-display uppercase tracking-tight text-ink mb-4 leading-tight">
                 {card.title}
               </h4>
-              <div className="w-8 h-[2px] bg-accent/30 mb-6" />
+              <div className="w-8 h-[2px] bg-ink/20 mb-6" />
             </div>
 
             <div className="relative z-10">
@@ -924,10 +649,35 @@ export default function App() {
   return (
     <div className="min-h-screen bg-bg text-ink selection:bg-accent selection:text-white relative" dir="ltr">
       <CustomCursor />
-      <FloatingLogo />
       <div className="noise" />
 
-      {/* Welcome Screen */}
+      <AnimatePresence mode="wait">
+        {selectedProject ? (
+          <ProjectDetailPage 
+            key={selectedProject.id}
+            project={selectedProject} 
+            onBack={() => {
+              setSelectedProject(null);
+              setTimeout(() => {
+                const projSec = document.getElementById("projects");
+                if (projSec) {
+                  projSec.scrollIntoView({ behavior: "instant" });
+                }
+              }, 100);
+            }} 
+            onNextProject={(nextProj) => setSelectedProject(nextProj)}
+          />
+        ) : (
+          <motion.div
+            key="homepage"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5 }}
+          >
+            <FloatingLogo />
+
+            {/* Welcome Screen */}
       <AnimatePresence>
         {showWelcome && (
           <motion.section 
@@ -1040,13 +790,15 @@ export default function App() {
           <div id="about" className="w-full relative z-10 pt-16">
             <div className="grid lg:grid-cols-12 gap-8 md:gap-32 items-center">
             <SectionReveal className="lg:col-span-7">
-              <div className="inline-flex items-center gap-3 bg-white/50 backdrop-blur-md px-4 py-2 rounded-full border border-ink/5 shadow-sm mb-12">
-                <div className="w-2 h-2 rounded-full bg-[#00FF00] animate-pulse shadow-[0_0_10px_rgba(0,255,0,0.5)]" />
-                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-ink/60 italic">Available for new projects</span>
+              <div className="inline-flex items-center gap-3 bg-zinc-200/50 backdrop-blur-md px-5 py-2.5 rounded-full border border-zinc-300/50 shadow-[0_10px_30px_rgba(0,0,0,0.04)] mb-12 select-none">
+                <div className="w-2.5 h-2.5 rounded-full bg-[#22C55E] relative shrink-0">
+                  <div className="absolute inset-0 rounded-full bg-[#22C55E] animate-ping opacity-75" />
+                </div>
+                <span className="text-[10px] md:text-xs font-extrabold uppercase tracking-[0.25em] text-zinc-600/90 italic">Available for new projects</span>
               </div>
               
               <h3 className="text-5xl sm:text-7xl md:text-8xl lg:text-[8.5vw] font-black font-display uppercase tracking-[-0.04em] leading-[0.9] mb-4 md:mb-12 hover:text-accent transition-colors duration-500 overflow-visible py-4">
-                UX UI <br /> <span className="italic text-accent">Designer.</span>
+                UX UI <br /> <span className="italic text-accent uppercase">DESIGNER.</span>
               </h3>
 
               <div className="space-y-8 md:space-y-12 max-w-2xl">
@@ -1075,7 +827,7 @@ export default function App() {
                         });
                       }
                     }}
-                    className="w-[48%] sm:w-[190px] min-w-0 sm:min-w-[190px] h-[40px] sm:h-[56px] bg-black text-white rounded-full font-black uppercase tracking-[0.1em] text-[10px] sm:text-[13px] md:text-sm shadow-xl shadow-ink/10 hover:bg-accent hover:shadow-accent/30 transition-all flex items-center justify-center gap-1 sm:gap-3 group relative z-10 px-2 sm:px-4"
+                    className="w-[48%] sm:w-[190px] min-w-0 sm:min-w-[190px] h-[40px] sm:h-[56px] bg-[#1A1A1D] text-white rounded-full font-black uppercase tracking-[0.1em] text-[10px] sm:text-[13px] md:text-sm shadow-xl shadow-ink/10 hover:bg-accent hover:shadow-accent/30 transition-all flex items-center justify-center gap-1 sm:gap-3 group relative z-10 px-2 sm:px-4"
                   >
                     <span className="relative z-10">View Projects</span> <ArrowRight className="w-[12px] h-[12px] sm:w-[18px] sm:h-[18px] group-hover:translate-x-1 transition-transform relative z-10" />
                   </motion.a>
@@ -1118,13 +870,13 @@ export default function App() {
               </div>
             </SectionReveal>
             
-            <SectionReveal className="lg:col-span-5 lg:-translate-x-8" delay={0.2}>
+            <SectionReveal className="lg:col-span-12 xl:col-span-5 flex justify-center lg:justify-end" delay={0.2}>
               <motion.div 
                 whileHover={{ rotateY: -10, rotateX: 5, scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 100, damping: 20 }}
                 className="relative perspective-1000 w-[85%] mx-auto md:w-full mt-8 md:mt-0"
               >
-                <div className="relative aspect-[4/5] rounded-[2.5rem] md:rounded-[4rem] overflow-hidden shadow-none md:shadow-[0_50px_100px_-20px_rgba(0,0,0,0.15)] group border-8 border-white bg-white">
+                <div className="relative aspect-[4/5] rounded-[3.5rem] md:rounded-[4.5rem] overflow-hidden shadow-2xl group border-[16px] border-white bg-white">
                   <img 
                     src="https://i.postimg.cc/bNnyxPYD/Whats-App-Image-2026-05-18-at-11-26-11.jpg" 
                     alt="Yoav Anavi" 
@@ -1157,11 +909,7 @@ export default function App() {
           </div>
         </section>
 
-        <ProjectModal 
-          project={selectedProject} 
-          isOpen={!!selectedProject} 
-          onClose={() => setSelectedProject(null)} 
-        />
+
 
         {/* Journey Section */}
         <section id="journey" className="pt-4 pb-4 md:pb-24 md:pt-24">
@@ -1234,7 +982,7 @@ export default function App() {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.9 }}
-                        className="bg-accent text-white p-16 rounded-[2.5rem] shadow-2xl text-center"
+                        className="bg-[#1A1A1D] text-white p-16 rounded-[2.5rem] shadow-2xl text-center"
                       >
                         <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-8">
                           <Check className="w-10 h-10" />
@@ -1243,7 +991,7 @@ export default function App() {
                         <p className="text-white/80 mb-8 italic">I've received your message and will respond to your email shortly.</p>
                         <button 
                           onClick={() => setSendSuccess(false)}
-                          className="bg-white text-accent px-8 py-3 rounded-full font-black uppercase tracking-widest text-xs"
+                          className="bg-[#F7F8FA] hover:bg-accent text-[#1A1A1D] hover:text-white px-8 py-3 rounded-full font-black uppercase tracking-widest text-xs transition-colors duration-300"
                         >
                           Send another
                         </button>
@@ -1361,7 +1109,7 @@ export default function App() {
                 </div>
               </div>
               
-              <div className="flex flex-col items-center mt-16 mb-24 w-full max-w-4xl">
+               <div className="flex flex-col items-center mt-16 mb-24 w-full max-w-4xl">
                 {/* Links */}
                 <div className="flex flex-col lg:flex-row justify-center items-center gap-12 lg:gap-24 w-full text-center relative">
                   
@@ -1446,7 +1194,7 @@ export default function App() {
                   >
                     <span className="text-sm md:text-base font-black uppercase tracking-widest text-accent mb-4 block">Socials</span>
                     <span className="flex items-center gap-2 text-xl md:text-2xl font-black font-display border-b-2 border-ink/5 group-hover:border-accent group-hover:text-accent transition-all pb-2">
-                      LinkedIn <ArrowUpRight className="w-5 h-5 text-accent group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                      LinkedIn <ArrowUpRight className="w-5 h-5 text-ink/40 group-hover:text-accent group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
                     </span>
                   </a>
                 </div>
@@ -1478,7 +1226,10 @@ export default function App() {
           )}
         </AnimatePresence>
 
-      </div>
+        </div>
+      </motion.div>
+      )}
+      </AnimatePresence>
     </div>
   );
 }
