@@ -27,6 +27,9 @@ import { PROJECTS_LIST_REFERENCE } from "./utils/projectsData";
 // --- Components ---
 
 const CustomCursor = () => {
+  if (typeof window !== 'undefined' && 'ontouchstart' in window) 
+    return null;
+
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -82,7 +85,7 @@ const FloatingElements = () => {
           scale: [1, 1.02, 1] 
         }}
         transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-[6%] left-[12%] w-[42vw] h-[42vw] bg-accent/[0.04] rounded-full border border-accent/[0.03]"
+        className="absolute top-[6%] left-[12%] w-[42vw] h-[42vw] bg-accent/[0.04] rounded-full border border-accent/[0.03] hidden md:block"
       />
       {/* Sharp transparent lavender geometric circle 2, overlapping at bottom */}
       <motion.div 
@@ -92,7 +95,7 @@ const FloatingElements = () => {
           scale: [1, 1.03, 1] 
         }}
         transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-[2%] left-[30%] w-[32vw] h-[32vw] bg-accent/[0.05] rounded-full border border-accent/[0.03]"
+        className="absolute bottom-[2%] left-[30%] w-[32vw] h-[32vw] bg-accent/[0.05] rounded-full border border-accent/[0.03] hidden md:block"
       />
       {/* Soft translucent background ambient light glow off to the side to blend nicely */}
       <div className="absolute bottom-[20%] right-[10%] w-[25vw] h-[25vw] bg-accent/5 rounded-full blur-[100px]" />
@@ -150,7 +153,7 @@ const FloatingLogo = () => {
         }}
         animate={{ y: [0, -5, 0] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        className="h-12 w-12 md:h-16 md:w-16 bg-white rounded-full border border-ink/5 shadow-xl shadow-accent/5 overflow-hidden flex items-center justify-center relative transition-colors duration-500 cursor-pointer"
+        className="h-12 w-12 max-md:h-10 max-md:w-10 md:h-16 md:w-16 bg-white rounded-full border border-ink/5 shadow-xl shadow-accent/5 overflow-hidden flex items-center justify-center relative transition-colors duration-500 cursor-pointer"
         onClick={() => {
           document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' });
         }}
@@ -194,14 +197,14 @@ const SectionReveal = ({ children, delay = 0, className = "" }: { children: Reac
 
 const Marquee = ({ text, speed = 25 }: { text: string; speed?: number }) => {
   return (
-    <div className="flex overflow-hidden whitespace-nowrap py-20 border-y border-ink/5 uppercase font-display bg-white/30 backdrop-blur-sm">
+    <div className="flex overflow-hidden whitespace-nowrap py-20 max-md:py-10 border-y border-ink/5 uppercase font-display bg-white/30 backdrop-blur-sm">
       <motion.div 
         animate={{ x: [0, -1000] }}
         transition={{ duration: speed, repeat: Infinity, ease: "linear" }}
         className="flex items-center"
       >
         {[...Array(10)].map((_, i) => (
-          <span key={i} className="text-3xl md:text-6xl font-black px-12 flex items-center gap-12 text-ink/10 hover:text-accent transition-colors duration-500">
+          <span key={i} className="text-3xl max-md:text-2xl md:text-6xl font-black px-12 flex items-center gap-12 text-ink/10 hover:text-accent transition-colors duration-500">
             {text} <Plus className="w-8 h-8 text-accent" />
           </span>
         ))}
@@ -242,21 +245,59 @@ const JOURNEY_CARDS = [
   }
 ];
 
+const useScramble = (text: string, trigger: boolean) => {
+  const [output, setOutput] = useState(text);
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  useEffect(() => {
+    if (!trigger) return;
+    let iteration = 0;
+    const maxIterations = text.length * 3;
+    const interval = setInterval(() => {
+      setOutput(
+        text.split("").map((char, i) => {
+          if (char === " ") return " ";
+          if (i < iteration / 3) return text[i];
+          return chars[Math.floor(Math.random() * chars.length)];
+        }).join("")
+      );
+      iteration++;
+      if (iteration >= maxIterations) {
+        setOutput(text);
+        clearInterval(interval);
+      }
+    }, 30);
+    return () => clearInterval(interval);
+  }, [trigger, text]);
+  return output;
+};
+
 // --- Subcomponents ---
 
-const SectionHeader = ({ title, subtitle }: { title: string, subtitle?: string }) => (
-  <SectionReveal>
-    <div className="flex flex-col sm:flex-row sm:items-baseline justify-between border-b border-ink/10 pb-6 mb-4 md:mb-12 lg:mb-20 gap-4">
-      <h4 className="text-5xl md:text-[8vw] lg:text-[7vw] font-black font-display uppercase tracking-[-0.05em] italic transition-colors duration-500">{title}</h4>
-      {subtitle && (
-        <span className="text-[10px] font-black uppercase tracking-[0.8em] text-ink/30 italic sm:text-right">{subtitle}</span>
-      )}
-    </div>
-  </SectionReveal>
-);
+const SectionHeader = ({ title, subtitle }: { title: string, subtitle?: string }) => {
+  const [inView, setInView] = useState(false);
+  const scrambled = useScramble(title.toUpperCase(), inView);
+
+  return (
+    <SectionReveal>
+      <motion.div
+        onViewportEnter={() => setInView(true)}
+        viewport={{ once: true }}
+      >
+        <div className="flex flex-col sm:flex-row sm:items-baseline justify-between border-b border-ink/10 pb-6 mb-4 md:mb-12 lg:mb-20 gap-4">
+          <h4 className="text-5xl md:text-[8vw] lg:text-[7vw] font-black font-display uppercase tracking-[-0.05em] italic transition-colors duration-500">{scrambled}</h4>
+          {subtitle && (
+            <span className="text-[10px] font-black uppercase tracking-[0.8em] text-ink/30 italic sm:text-right">{subtitle}</span>
+          )}
+        </div>
+      </motion.div>
+    </SectionReveal>
+  );
+};
 
 const ProjectItem = ({ project, index, onOpen }: { project: any, index: number, onOpen: (p: any) => void, key?: string | number }) => {
   const isEven = index % 2 === 0;
+  const btnRef = useRef<HTMLSpanElement>(null);
+  const [magPos, setMagPos] = useState({ x: 0, y: 0 });
 
   return (
     <motion.div
@@ -269,13 +310,13 @@ const ProjectItem = ({ project, index, onOpen }: { project: any, index: number, 
           onOpen(project);
         }
       }}
-      className={`group min-h-[50vh] md:min-h-[70vh] flex flex-col justify-center py-12 md:py-32 border-b border-ink/10 md:border-none last:border-none ${project.isComingSoon ? "cursor-default" : "cursor-pointer"}`}
+      className={`group min-h-[50vh] md:min-h-[70vh] flex flex-col justify-center py-12 max-md:py-8 md:py-32 border-b border-ink/10 md:border-none last:border-none ${project.isComingSoon ? "cursor-default" : "cursor-pointer"}`}
     >
-      <div className={`grid lg:grid-cols-12 gap-8 md:gap-20 items-start`}>
+      <div className={`grid lg:grid-cols-12 gap-8 md:gap-20 items-stretch`}>
         
         {/* Image Container */}
-        <div className={`lg:col-span-6 ${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
-          <div className="relative overflow-hidden rounded-2xl md:rounded-[3rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] transition-all duration-700 group-hover:shadow-[0_45px_90px_-20px_rgba(79,70,229,0.2)]">
+        <div className={`lg:col-span-6 flex flex-col ${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
+          <div className="relative overflow-hidden rounded-2xl max-md:rounded-[1.5rem] md:rounded-[3rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] transition-all duration-700 group-hover:shadow-[0_45px_90px_-20px_rgba(79,70,229,0.2)] flex-1">
             <img 
               src={project.image} 
               alt={project.title} 
@@ -292,8 +333,8 @@ const ProjectItem = ({ project, index, onOpen }: { project: any, index: number, 
         </div>
 
         {/* Typography Content */}
-        <div className={`lg:col-span-6 ${isEven ? 'lg:order-2 lg:pl-12' : 'lg:order-1 lg:pr-12'}`}>
-          <div className="space-y-6 md:space-y-8 flex flex-col items-start pt-2 lg:pt-6">
+        <div className={`lg:col-span-6 flex flex-col ${isEven ? 'lg:order-2 lg:pl-12' : 'lg:order-1 lg:pr-12'}`}>
+          <div className="space-y-6 md:space-y-8 flex flex-col items-start pt-2 lg:pt-6 flex-1 justify-between">
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-2 flex-wrap">
                 {project.isComingSoon && (
@@ -302,7 +343,7 @@ const ProjectItem = ({ project, index, onOpen }: { project: any, index: number, 
                   </span>
                 )}
               </div>
-              <h3 className="text-4xl md:text-6xl lg:text-[4vw] font-black font-display text-ink uppercase tracking-tight leading-[0.98] whitespace-pre-line text-left">
+              <h3 className="text-4xl max-md:text-3xl md:text-6xl lg:text-[4vw] font-black font-display text-ink uppercase tracking-tight leading-[0.98] whitespace-pre-line text-left">
                 {project.title}
               </h3>
             </div>
@@ -353,8 +394,8 @@ const ProjectItem = ({ project, index, onOpen }: { project: any, index: number, 
                   }
                 ].map((row, rIdx) => (
                   <div key={rIdx} className="flex items-stretch gap-4 text-left">
-                    <div className="w-[84px] shrink-0 pr-4 border-r border-ink/10 flex items-start">
-                      <span className="text-accent text-[10px] font-bold uppercase tracking-widest block pt-0.5">
+                    <div className="w-[84px] max-md:w-[60px] shrink-0 pr-4 border-r border-ink/10 flex items-start">
+                      <span className="text-accent text-[10px] max-md:text-[9px] font-bold uppercase tracking-widest block pt-0.5">
                         {row.label}
                       </span>
                     </div>
@@ -366,15 +407,32 @@ const ProjectItem = ({ project, index, onOpen }: { project: any, index: number, 
               </div>
             </SectionReveal>
 
-            <div className="pt-4 overflow-hidden">
+            <div 
+              className="pt-4 overflow-hidden"
+              onMouseMove={(e) => {
+                const rect = btnRef.current?.getBoundingClientRect();
+                if (!rect) return;
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                setMagPos({ x: x * 0.35, y: y * 0.35 });
+              }}
+              onMouseLeave={() => setMagPos({ x: 0, y: 0 })}
+            >
               {project.isComingSoon ? (
                 <span className="inline-flex items-center justify-center gap-3 bg-ink/5 text-ink/40 px-8 py-4 rounded-full text-xs md:text-sm font-black uppercase tracking-[0.15em] border border-ink/10 cursor-default select-none">
                   Coming Soon
                 </span>
               ) : (
-                <span className="inline-flex items-center justify-center gap-3 bg-[#1A1A1D] hover:bg-[#4F46E5] text-white px-8 py-4 rounded-full text-xs md:text-sm font-black uppercase tracking-[0.15em] transition-all duration-300 border border-transparent">
-                  View Project <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-                </span>
+                <motion.span
+                  ref={btnRef}
+                  animate={{ x: magPos.x, y: magPos.y }}
+                  transition={{ type: "spring", stiffness: 200, damping: 15 }}
+                  className="inline-block"
+                >
+                  <span className="inline-flex items-center justify-center gap-3 bg-[#1A1A1D] hover:bg-[#4F46E5] text-white px-8 py-4 max-md:w-full max-md:justify-center rounded-full text-xs md:text-sm font-black uppercase tracking-[0.15em] transition-all duration-300 border border-transparent">
+                    View Project <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                  </span>
+                </motion.span>
               )}
             </div>
           </div>
@@ -406,7 +464,7 @@ const MobileJourneyCarousel = () => {
           return (
             <motion.div
               key={i}
-              className={`absolute w-[260px] h-[280px] bg-white/90 backdrop-blur-md border border-white/40 rounded-[2rem] p-7 flex flex-col justify-between`}
+              className={`absolute w-[260px] max-sm:w-[240px] h-[280px] bg-white/90 backdrop-blur-md border border-white/40 rounded-[2rem] p-7 flex flex-col justify-between`}
               initial={false}
               animate={{ 
                 x: diff * 220, 
@@ -653,6 +711,8 @@ export default function App() {
   const [showEmailOptions, setShowEmailOptions] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const imgRef = useRef<HTMLDivElement>(null);
 
   const heroRef = useRef<HTMLElement>(null);
   const { scrollY } = useScroll();
@@ -717,6 +777,20 @@ export default function App() {
     }
   };
 
+  const [displayed, setDisplayed] = useState("");
+  const fullName = "Yoav Anavi";
+  useEffect(() => {
+    if (!showWelcome) return;
+    setDisplayed("");
+    let i = 0;
+    const interval = setInterval(() => {
+      setDisplayed(fullName.slice(0, i + 1));
+      i++;
+      if (i >= fullName.length) clearInterval(interval);
+    }, 80);
+    return () => clearInterval(interval);
+  }, [showWelcome]);
+
   return (
     <div className="min-h-screen bg-bg text-ink selection:bg-accent selection:text-white relative" dir="ltr">
       <CustomCursor />
@@ -762,15 +836,15 @@ export default function App() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
-                className="text-[12vw] font-black font-display uppercase tracking-[-0.05em] leading-[0.8] mb-6 hover:text-accent transition-colors duration-700"
+                className="text-[12vw] max-sm:text-[16vw] font-black font-display uppercase tracking-[-0.05em] leading-[0.8] mb-6 hover:text-accent transition-colors duration-700"
               >
-                Yoav Anavi
+                {displayed}
               </motion.h1>
               <motion.h2 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1.5, delay: 0.5 }}
-                className="text-2xl md:text-4xl font-black font-display uppercase tracking-[0.4em] text-ink/10 italic"
+                className="text-2xl max-sm:tracking-[0.15em] md:text-4xl font-black font-display uppercase tracking-[0.4em] text-ink/10 italic"
               >
                 UX UI Designer
               </motion.h2>
@@ -784,7 +858,7 @@ export default function App() {
               }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="absolute bottom-16 flex flex-col items-center gap-4 z-10 group cursor-pointer"
+              className="absolute bottom-16 max-sm:bottom-8 flex flex-col items-center gap-4 z-10 group cursor-pointer"
             >
               <div className="flex flex-col items-center gap-3 opacity-80 group-hover:opacity-100 transition-opacity">
                 <span className="text-[10px] md:text-xs font-black uppercase tracking-[0.4em] text-accent">VIEW MY STORY</span>
@@ -834,7 +908,7 @@ export default function App() {
                    });
                  }
                }}
-               className="relative px-3 sm:px-3 md:px-4 py-2 text-[10px] sm:text-[11px] md:text-base font-black uppercase tracking-[0.05em] sm:tracking-[0.1em] md:tracking-[0.3em] hover:text-white transition-colors duration-300 block z-10 text-center flex-1 md:flex-none"
+               className="relative px-3 max-sm:px-2 sm:px-3 md:px-4 py-2 text-[10px] max-sm:text-[8px] sm:text-[11px] md:text-base font-black uppercase tracking-[0.05em] sm:tracking-[0.1em] md:tracking-[0.3em] hover:text-white transition-colors duration-300 block z-10 text-center flex-1 md:flex-none"
              >
                <span className="relative z-10">{item}</span>
                {hoveredNav === item && (
@@ -858,31 +932,31 @@ export default function App() {
         <section id="home" ref={heroRef} className="min-h-screen pt-32 md:pt-48 pb-16 flex flex-col justify-center relative overflow-hidden">
           <FloatingElements />
           
-          <div id="about" className="w-full relative z-10 pt-16">
-            <div className="grid lg:grid-cols-12 gap-8 md:gap-32 items-center">
+          <div className="w-full relative z-10 pt-16">
+            <div id="about" className="grid lg:grid-cols-12 gap-8 md:gap-32 items-center">
             <SectionReveal className="lg:col-span-7">
               <div className="inline-flex items-center gap-3 bg-zinc-200/50 backdrop-blur-md px-5 py-2.5 rounded-full border border-zinc-300/50 shadow-[0_10px_30px_rgba(0,0,0,0.04)] mb-12 select-none">
                 <div className="w-2.5 h-2.5 rounded-full bg-[#22C55E] relative shrink-0">
                   <div className="absolute inset-0 rounded-full bg-[#22C55E] animate-ping opacity-75" />
                 </div>
-                <span className="text-[10px] md:text-xs font-extrabold uppercase tracking-[0.25em] text-zinc-600/90 italic">Available for new projects</span>
+                <span className="text-[10px] max-sm:text-[9px] md:text-xs font-extrabold uppercase tracking-[0.25em] text-zinc-600/90 italic">Available for new projects</span>
               </div>
               
-              <h3 className="text-5xl sm:text-7xl md:text-8xl lg:text-[8.5vw] font-black font-display uppercase tracking-[-0.04em] leading-[0.9] mb-4 md:mb-12 hover:text-accent transition-colors duration-500 overflow-visible py-4">
+              <h3 className="text-5xl max-sm:text-[11vw] sm:text-7xl md:text-8xl lg:text-[8vw] font-black font-display uppercase tracking-[-0.04em] leading-[0.95] mb-4 md:mb-12 hover:text-accent transition-colors duration-500 overflow-visible py-4">
                 UX UI <br /> <span className="italic text-accent uppercase">DESIGNER.</span>
               </h3>
 
-              <div className="space-y-8 md:space-y-12 max-w-2xl">
-                <div className="max-w-xl text-lg md:text-3xl leading-relaxed space-y-3">
-                  <p className="font-light text-ink/60 transition-colors duration-500 hover:text-ink">
-                    Most designers make things look good.
+              <div className="space-y-8 md:space-y-12 max-w-4xl">
+                <div className="max-w-4xl text-xl sm:text-2xl md:text-4xl lg:text-[2.5rem] leading-[1.3] font-display border-l-4 border-accent pl-6 md:pl-10 py-1 select-none flex flex-col gap-1.5 md:gap-3">
+                  <p className="font-light text-ink/50 transition-colors duration-500 hover:text-ink whitespace-nowrap">
+                    most designers make things <span className="underline decoration-accent/20 decoration-2 underline-offset-4">look good</span>,
                   </p>
-                  <p className="font-black text-accent transition-colors duration-500 hover:text-ink">
-                    I make things feel right.
+                  <p className="font-black text-ink tracking-tight hover:text-accent transition-colors duration-300">
+                    I make things <span className="text-accent italic">look right!</span>
                   </p>
                 </div>
                 
-                <div className="flex flex-row flex-wrap xl:flex-nowrap items-center justify-center lg:justify-start gap-2 sm:gap-4 pt-2 md:pt-12 overflow-visible w-[90%] mx-auto sm:mx-0 sm:w-auto">
+                <div className="flex flex-row flex-wrap xl:flex-nowrap items-center justify-center lg:justify-start lg:ml-6 gap-2 sm:gap-4 pt-2 md:pt-12 overflow-visible w-[90%] mx-auto sm:mx-0 sm:w-auto">
                   <motion.a 
                     href="#projects"
                     whileHover={{ scale: 1.05, y: -5 }}
@@ -903,7 +977,7 @@ export default function App() {
                         });
                       }
                     }}
-                    className="w-[48%] sm:w-[190px] min-w-0 sm:min-w-[190px] h-[40px] sm:h-[56px] bg-[#1A1A1D] text-white rounded-full font-black uppercase tracking-[0.1em] text-[10px] sm:text-[13px] md:text-sm shadow-xl shadow-ink/10 hover:bg-accent hover:shadow-accent/30 transition-all flex items-center justify-center gap-1 sm:gap-3 group relative z-10 px-2 sm:px-4"
+                    className="w-[48%] sm:w-[190px] min-w-0 sm:min-w-[190px] h-[40px] max-sm:h-[44px] sm:h-[56px] bg-[#1A1A1D] text-white rounded-full font-black uppercase tracking-[0.1em] text-[10px] sm:text-[13px] md:text-sm shadow-xl shadow-ink/10 hover:bg-accent hover:shadow-accent/30 transition-all flex items-center justify-center gap-1 sm:gap-3 group relative z-10 px-2 sm:px-4"
                   >
                     <span className="relative z-10">View Projects</span> <ArrowRight className="w-[12px] h-[12px] sm:w-[18px] sm:h-[18px] group-hover:translate-x-1 transition-transform relative z-10" />
                   </motion.a>
@@ -927,7 +1001,7 @@ export default function App() {
                         });
                       }
                     }}
-                    className="w-[48%] sm:w-[190px] min-w-0 sm:min-w-[190px] h-[40px] sm:h-[56px] bg-white border border-ink/10 rounded-full font-black uppercase tracking-[0.1em] text-[10px] sm:text-[14px] transition-all flex items-center justify-center gap-1 sm:gap-3 shadow-sm hover:shadow-md relative z-10 px-2 sm:px-4"
+                    className="w-[48%] sm:w-[190px] min-w-0 sm:min-w-[190px] h-[40px] max-sm:h-[44px] sm:h-[56px] bg-white border border-ink/10 rounded-full font-black uppercase tracking-[0.1em] text-[10px] sm:text-[14px] transition-all flex items-center justify-center gap-1 sm:gap-3 shadow-sm hover:shadow-md relative z-10 px-2 sm:px-4"
                   >
                     <span className="relative z-10">Get in touch</span>
                   </motion.a>
@@ -938,7 +1012,7 @@ export default function App() {
                     download="Yoav_Anavi_CV.pdf"
                     whileHover={{ scale: 1.05, y: -5 }}
                     whileTap={{ scale: 0.95 }}
-                    className="w-[98%] sm:w-[190px] sm:flex-none h-[40px] sm:h-[56px] bg-accent text-white rounded-full font-black uppercase tracking-[0.1em] text-[10px] sm:text-[14px] transition-all flex items-center justify-center gap-2 sm:gap-3 shadow-xl shadow-accent/20 relative z-10 mt-2 sm:mt-0"
+                    className="w-[98%] max-sm:w-full max-sm:mt-2 max-sm:h-[44px] sm:w-[190px] sm:flex-none h-[40px] sm:h-[56px] bg-accent text-white rounded-full font-black uppercase tracking-[0.1em] text-[10px] sm:text-[14px] transition-all flex items-center justify-center gap-2 sm:gap-3 shadow-xl shadow-accent/20 relative z-10 mt-2 sm:mt-0"
                   >
                     <span className="relative z-10 whitespace-nowrap">Download CV</span> <Download className="w-[12px] h-[12px] sm:w-[18px] sm:h-[18px] relative z-10" />
                   </motion.a>
@@ -946,13 +1020,23 @@ export default function App() {
               </div>
             </SectionReveal>
             
-            <SectionReveal className="lg:col-span-12 xl:col-span-5 flex justify-center lg:justify-end" delay={0.2}>
+            <SectionReveal className="lg:col-span-12 xl:col-span-5 flex justify-center lg:justify-center" delay={0.2}>
               <motion.div 
-                whileHover={{ rotateY: -10, rotateX: 5, scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 100, damping: 20 }}
+                ref={imgRef}
+                onMouseMove={(e) => {
+                  const rect = imgRef.current?.getBoundingClientRect();
+                  if (!rect) return;
+                  const x = (e.clientX - rect.left) / rect.width - 0.5;
+                  const y = (e.clientY - rect.top) / rect.height - 0.5;
+                  setTilt({ x: y * -15, y: x * 15 });
+                }}
+                onMouseLeave={() => setTilt({ x: 0, y: 0 })}
+                whileHover={{ scale: 1.02 }}
+                animate={{ rotateX: tilt.x, rotateY: tilt.y }}
+                transition={{ type: "spring", stiffness: 150, damping: 20 }}
                 className="relative perspective-1000 w-[85%] mx-auto md:w-full mt-8 md:mt-0"
               >
-                <div className="relative aspect-[4/5] rounded-[3.5rem] md:rounded-[4.5rem] overflow-hidden shadow-2xl group border-[16px] border-white bg-white">
+                <div className="relative aspect-[4/5] rounded-[3.5rem] md:rounded-[4.5rem] overflow-hidden shadow-2xl group border-[16px] max-md:border-[8px] border-white bg-white max-md:mx-auto">
                   <img 
                     src="https://i.postimg.cc/bNnyxPYD/Whats-App-Image-2026-05-18-at-11-26-11.jpg" 
                     alt="Yoav Anavi" 
@@ -966,8 +1050,10 @@ export default function App() {
                 </div>
 
                 {/* Decorative Elements */}
-                <div className="absolute -top-10 -right-10 w-32 h-32 bg-accent opacity-10 blur-3xl animate-pulse" />
-                <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-accent/20 blur-3xl animate-pulse delay-700" />
+                <div className="absolute -top-8 -right-8 w-48 h-48 bg-accent/15 blur-[60px] animate-pulse" />
+                <div className="absolute -bottom-8 -left-8 w-48 h-48 bg-accent/15 blur-[60px] animate-pulse delay-700" />
+                <div className="absolute -top-8 -left-8 w-40 h-40 bg-accent/10 blur-[50px] animate-pulse delay-300" />
+                <div className="absolute -bottom-8 -right-8 w-40 h-40 bg-accent/10 blur-[50px] animate-pulse delay-1000" />
               </motion.div>
             </SectionReveal>
             </div>
@@ -1008,7 +1094,7 @@ export default function App() {
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
-                  className="text-6xl md:text-[11.5vw] font-black font-display uppercase tracking-[-0.07em] leading-[0.8] mb-16 cursor-default select-none relative z-10"
+                  className="text-6xl max-md:text-4xl max-md:leading-[1] md:text-[11.5vw] font-black font-display uppercase tracking-[-0.07em] leading-[0.8] mb-16 cursor-default select-none relative z-10"
                 >
                   <span className="block overflow-visible">
                     <motion.span 
@@ -1095,7 +1181,7 @@ export default function App() {
                         </div>
 
                         <form onSubmit={handleContactSubmit} className="space-y-6">
-                          <div className="grid sm:grid-cols-2 gap-6">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             <div className="space-y-2">
                               <label className="text-[10px] font-black uppercase tracking-widest text-ink/40 ml-8">Full Name</label>
                               <input 
@@ -1105,7 +1191,7 @@ export default function App() {
                                 value={contactForm.name}
                                 onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })}
                                 placeholder="Yoav Anavi"
-                                className="w-full bg-white/50 border border-ink/5 focus:border-accent/40 rounded-full px-8 py-4 outline-none transition-all font-medium"
+                                className="w-full bg-white/50 border border-ink/5 focus:border-accent/40 rounded-full px-8 py-4 max-md:h-[48px] outline-none transition-all font-medium"
                               />
                             </div>
                             <div className="space-y-2">
@@ -1117,7 +1203,7 @@ export default function App() {
                                 value={contactForm.email}
                                 onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
                                 placeholder="hello@world.com"
-                                className="w-full bg-white/50 border border-ink/5 focus:border-accent/40 rounded-full px-8 py-4 outline-none transition-all font-medium"
+                                className="w-full bg-white/50 border border-ink/5 focus:border-accent/40 rounded-full px-8 py-4 max-md:h-[48px] outline-none transition-all font-medium"
                               />
                             </div>
                           </div>
@@ -1143,7 +1229,7 @@ export default function App() {
                           <button 
                             type="submit"
                             disabled={isSending}
-                            className="bg-black text-white w-full py-6 rounded-full font-black uppercase tracking-[0.3em] text-xs flex items-center justify-center gap-4 hover:bg-accent transition-all group overflow-hidden relative"
+                            className="bg-black text-white w-full py-6 max-md:py-4 rounded-full font-black uppercase tracking-[0.3em] text-xs flex items-center justify-center gap-4 hover:bg-accent transition-all group overflow-hidden relative"
                           >
                             {isSending ? (
                               <motion.div 
@@ -1194,7 +1280,7 @@ export default function App() {
               
                <div className="flex flex-col items-center mt-16 mb-24 w-full max-w-4xl">
                 {/* Links */}
-                <div className="flex flex-col lg:flex-row justify-center items-center gap-12 lg:gap-24 w-full text-center relative">
+                <div className="flex flex-col lg:flex-row justify-center items-center gap-8 md:gap-12 lg:gap-24 w-full text-center relative">
                   
                   {/* Email Actions Popup */}
                   <div className="relative">
@@ -1203,7 +1289,7 @@ export default function App() {
                       className="block group text-left cursor-pointer"
                     >
                       <span className="text-sm md:text-base font-black uppercase tracking-widest text-accent mb-4 block text-center lg:text-left">Email Me</span>
-                      <span className="text-xl md:text-2xl font-black font-display border-b-2 border-ink/5 group-hover:border-accent group-hover:text-accent transition-all pb-2">
+                      <span className="text-xl max-md:text-base max-md:break-all md:text-2xl font-black font-display border-b-2 border-ink/5 group-hover:border-accent group-hover:text-accent transition-all pb-2">
                         yoavanavi1@gmail.com
                       </span>
                     </button>

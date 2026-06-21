@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { motion } from "motion/react";
+import { motion, useScroll, useSpring } from "motion/react";
 import { 
   ArrowLeft, 
   ArrowRight, 
@@ -96,6 +96,11 @@ interface ProjectDetailPageProps {
 }
 
 export default function ProjectDetailPage({ project, onBack, onNextProject }: ProjectDetailPageProps) {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100, damping: 30, restDelta: 0.001
+  });
+
   const [showHeader, setShowHeader] = useState(true);
   const lastScrollY = useRef(0);
   
@@ -204,6 +209,10 @@ export default function ProjectDetailPage({ project, onBack, onNextProject }: Pr
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       className="min-h-screen bg-[#F7F8FA] text-[#1A1A1D] font-sans pb-32 relative overflow-x-hidden"
     >
+      <motion.div
+        style={{ scaleX, transformOrigin: "left" }}
+        className="fixed top-0 left-0 right-0 h-[3px] bg-accent z-[999] origin-left"
+      />
       <ProjectFloatingColors />
       <ProjectBubbles />
 
@@ -259,7 +268,7 @@ export default function ProjectDetailPage({ project, onBack, onNextProject }: Pr
 
           <div className="relative z-10 space-y-6 sm:space-y-8">
             {/* Top Row: Category Left & CTA Right */}
-            <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="flex flex-wrap items-center justify-between gap-4 max-md:flex-col max-md:gap-3">
               {/* Category tag */}
               <div className="flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-accent">
                 <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
@@ -294,7 +303,7 @@ export default function ProjectDetailPage({ project, onBack, onNextProject }: Pr
 
             {/* Bottom Meta Bar: 3 columns, separated by accent/8 gaps */}
             {!project.isComingSoon && (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-[1px] bg-accent/10 rounded-2xl overflow-hidden mt-6">
+              <div className="grid grid-cols-1 max-md:grid-cols-1 md:grid-cols-3 gap-[1px] bg-accent/10 rounded-2xl overflow-hidden mt-6">
                 
                 {/* Col 1: My Role */}
                 <div className="bg-[#F7F8FA] p-4 sm:p-5 flex flex-col justify-center">
@@ -358,7 +367,7 @@ export default function ProjectDetailPage({ project, onBack, onNextProject }: Pr
 
         {/* --- PROBLEM / SOLUTION ROW --- */}
         {!project.isComingSoon && (
-          <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <section className="grid grid-cols-1 max-md:grid-cols-1 md:grid-cols-2 gap-6">
             {/* Problem card */}
             <motion.div 
               whileHover={{ y: -2 }}
@@ -415,7 +424,7 @@ export default function ProjectDetailPage({ project, onBack, onNextProject }: Pr
                         Phase 0{i + 1}
                       </span>
                     </div>
-                    <p className="text-sm md:text-base text-[#1A1A1D]/65 leading-relaxed mt-2">
+                    <p className="text-sm max-md:text-xs md:text-base text-[#1A1A1D]/65 leading-relaxed mt-2">
                       {area.description}
                     </p>
                   </div>
