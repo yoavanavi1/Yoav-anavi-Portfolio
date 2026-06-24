@@ -296,8 +296,6 @@ const SectionHeader = ({ title, subtitle }: { title: string, subtitle?: string }
 
 const ProjectItem = ({ project, index, onOpen }: { project: any, index: number, onOpen: (p: any) => void, key?: string | number }) => {
   const isEven = index % 2 === 0;
-  const btnRef = useRef<HTMLSpanElement>(null);
-  const [magPos, setMagPos] = useState({ x: 0, y: 0 });
 
   return (
     <motion.div
@@ -353,83 +351,74 @@ const ProjectItem = ({ project, index, onOpen }: { project: any, index: number, 
             </p>
 
             {/* Problem / Solution / Result Section */}
-            <SectionReveal delay={0.1} className="w-full space-y-4 pt-6 border-t border-ink/10">
-              <div className="flex flex-col gap-3.5 max-w-lg">
-                {[
-                  {
-                    label: "Problem",
-                    text: project.id === "candle" 
-                      ? "Customers could only discover products through social media — no central, organized place to browse."
-                      : project.id === "r48"
-                      ? "Fine dining reservations and menu browsing can feel rigid and complex on traditional restaurant websites."
-                      : project.id === "club"
-                      ? "Student registrations and workshop info were scattered across physical fairs and messy sheets."
-                      : project.id === "tamir-carmel"
-                      ? "Mature property owners struggled with complex, cluttered interfaces on real estate portals."
-                      : "Human-robot interaction interfaces often lack cohesive multi-sensory feedback."
-                  },
-                  {
-                    label: "Solution",
-                    text: project.id === "candle"
-                      ? "Designed and built a dedicated e-commerce experience that brings all products into one clean, structured space."
-                      : project.id === "r48"
-                      ? "Designed an intuitive mobile app prioritizing mood-based hours, stunning visuals, and a streamlined booking flow."
-                      : project.id === "club"
-                      ? "Architected a unified mobile app with a clean PRD, centralized schedule, and simplified sign-up flow."
-                      : project.id === "tamir-carmel"
-                      ? "Engineered an accessible, high-contrast, and spacious website layout tailored for users aged 50+."
-                      : "Constructed sensory testing loops and advanced behavioral script flows to guide user comfort."
-                  },
-                  {
-                    label: "Result",
-                    text: project.id === "candle"
-                      ? "Inquiries increased and customers could finally browse, understand and reach out — without leaving the website."
-                      : project.id === "r48"
-                      ? "User satisfaction increased through a seamless, 3-click table booking flow."
-                      : project.id === "club"
-                      ? "Drastically reduced joining friction, allowing students to sign up in under 3 clicks."
-                      : project.id === "tamir-carmel"
-                      ? "Enhanced credibility, letting owners easily locate local projects and contact agents with confidence."
-                      : "Smoother interactive dialogues and refined robotic behavior mapping during field studies."
-                  }
-                ].map((row, rIdx) => (
-                  <div key={rIdx} className="flex items-stretch gap-4 text-left">
-                    <div className="w-[84px] max-md:w-[60px] shrink-0 pr-4 border-r border-ink/10 flex items-start">
-                      <span className="text-accent text-[10px] max-md:text-[9px] font-bold uppercase tracking-widest block pt-0.5">
-                        {row.label}
-                      </span>
+            {!project.isComingSoon && (
+              <SectionReveal delay={0.1} className="w-full space-y-4 pt-6 border-t border-ink/10">
+                <div className="flex flex-col gap-3.5 max-w-lg">
+                  {[
+                    {
+                      label: "Problem",
+                      text: project.id === "candle" 
+                        ? "Customers could only discover products through social media — no central, organized place to browse."
+                        : project.id === "r48"
+                        ? "Fine dining reservations and menu browsing can feel rigid and complex on traditional restaurant websites."
+                        : project.id === "club"
+                        ? "Student registrations and workshop info were scattered across physical fairs and messy sheets."
+                        : project.id === "tamir-carmel"
+                        ? "Mature property owners struggled with complex, cluttered interfaces on real estate portals."
+                        : "Human-robot interaction interfaces often lack cohesive multi-sensory feedback."
+                    },
+                    {
+                      label: "Solution",
+                      text: project.id === "candle"
+                        ? "Designed and built a dedicated e-commerce experience that brings all products into one clean, structured space."
+                        : project.id === "r48"
+                        ? "Designed an intuitive mobile app prioritizing mood-based hours, stunning visuals, and a streamlined booking flow."
+                        : project.id === "club"
+                        ? "Architected a unified mobile app with a clean PRD, centralized schedule, and simplified sign-up flow."
+                        : project.id === "tamir-carmel"
+                        ? "Engineered an accessible, high-contrast, and spacious website layout tailored for users aged 50+."
+                        : "Constructed sensory testing loops and advanced behavioral script flows to guide user comfort."
+                    },
+                    {
+                      label: "Result",
+                      text: project.id === "candle"
+                        ? "Inquiries increased and customers could finally browse, understand and reach out — without leaving the website."
+                        : project.id === "r48"
+                        ? "User satisfaction increased through a seamless, 3-click table booking flow."
+                        : project.id === "club"
+                        ? "Drastically reduced joining friction, allowing students to sign up in under 3 clicks."
+                        : project.id === "tamir-carmel"
+                        ? "Enhanced credibility, letting owners easily locate local projects and contact agents with confidence."
+                        : "Smoother interactive dialogues and refined robotic behavior mapping during field studies."
+                    }
+                  ].map((row, rIdx) => (
+                    <div key={rIdx} className="flex items-stretch gap-4 text-left">
+                      <div className="w-[84px] max-md:w-[60px] shrink-0 pr-4 border-r border-ink/10 flex items-start">
+                        <span className="text-accent text-[10px] max-md:text-[9px] font-bold uppercase tracking-widest block pt-0.5">
+                          {row.label}
+                        </span>
+                      </div>
+                      <p className="text-ink/50 font-medium text-sm leading-relaxed flex-1 py-0.5">
+                        {row.text}
+                      </p>
                     </div>
-                    <p className="text-ink/50 font-medium text-sm leading-relaxed flex-1 py-0.5">
-                      {row.text}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </SectionReveal>
+                  ))}
+                </div>
+              </SectionReveal>
+            )}
 
-            <div 
-              className="pt-4 overflow-hidden"
-              onMouseMove={(e) => {
-                const rect = btnRef.current?.getBoundingClientRect();
-                if (!rect) return;
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                setMagPos({ x: x * 0.35, y: y * 0.35 });
-              }}
-              onMouseLeave={() => setMagPos({ x: 0, y: 0 })}
-            >
+            <div className="pt-4">
               {project.isComingSoon ? (
                 <span className="inline-flex items-center justify-center gap-3 bg-ink/5 text-ink/40 px-8 py-4 rounded-full text-xs md:text-sm font-black uppercase tracking-[0.15em] border border-ink/10 cursor-default select-none">
                   Coming Soon
                 </span>
               ) : (
                 <motion.span
-                  ref={btnRef}
-                  animate={{ x: magPos.x, y: magPos.y }}
-                  transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                  className="inline-block"
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="inline-block max-md:w-full"
                 >
-                  <span className="inline-flex items-center justify-center gap-3 bg-[#1A1A1D] hover:bg-[#4F46E5] text-white px-8 py-4 max-md:w-full max-md:justify-center rounded-full text-xs md:text-sm font-black uppercase tracking-[0.15em] transition-all duration-300 border border-transparent">
+                  <span className="inline-flex items-center justify-center gap-3 bg-[#1A1A1D] hover:bg-accent hover:shadow-xl hover:shadow-accent/20 text-white px-8 py-4 max-md:w-full max-md:justify-center rounded-full text-xs md:text-sm font-black uppercase tracking-[0.15em] transition-all duration-300 border border-transparent cursor-pointer">
                     View Project <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
                   </span>
                 </motion.span>
