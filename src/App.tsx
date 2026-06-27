@@ -32,9 +32,6 @@ import { PROJECTS_LIST_REFERENCE } from "./utils/projectsData";
 // --- Components ---
 
 const CustomCursor = () => {
-  if (typeof window !== 'undefined' && 'ontouchstart' in window) 
-    return null;
-
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -63,6 +60,9 @@ const CustomCursor = () => {
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [mouseX, mouseY]);
+
+  const isTouch = typeof window !== 'undefined' && 'ontouchstart' in window;
+  if (isTouch) return null;
 
   return (
     <motion.div
@@ -109,30 +109,37 @@ const FloatingElements = () => {
 };
 
 const BubblesParticles = () => {
+  const particles = React.useMemo(() => {
+    return [...Array(9)].map((_, i) => ({
+      id: i,
+      size: Math.random() * 12 + 8,
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      duration: Math.random() * 20 + 25,
+      delay: Math.random() * -10,
+    }));
+  }, []);
+
   return (
     <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-      {[...Array(9)].map((_, i) => {
-        const size = Math.random() * 12 + 8;
-        const x = Math.random() * 100;
-        const y = Math.random() * 100;
-
+      {particles.map((p) => {
         return (
           <motion.div
-            key={i}
+            key={p.id}
             initial={{ opacity: 0 }}
             animate={{ 
               opacity: [0.04, 0.10, 0.04],
-              y: [`${y}vh`, `${y - 5}vh`, `${y}vh`],
-              x: [`${x}vw`, `${x + 3}vw`, `${x}vw`]
+              y: [`${p.y}vh`, `${p.y - 5}vh`, `${p.y}vh`],
+              x: [`${p.x}vw`, `${p.x + 3}vw`, `${p.x}vw`]
             }}
             transition={{
-              duration: Math.random() * 20 + 25,
+              duration: p.duration,
               repeat: Infinity,
               ease: "easeInOut",
-              delay: Math.random() * -10,
+              delay: p.delay,
             }}
             className="absolute rounded-full bg-accent/20 blur-[3px]"
-            style={{ width: size, height: size, top: `${y}vh`, left: `${x}vw` }}
+            style={{ width: p.size, height: p.size, top: `${p.y}vh`, left: `${p.x}vw` }}
           />
         );
       })}
@@ -470,14 +477,18 @@ const Marquee = ({ text, speed = 25 }: { text: string; speed?: number }) => {
   return (
     <div className="flex overflow-hidden whitespace-nowrap py-20 max-md:py-10 border-y border-ink/5 uppercase font-display bg-white/30 backdrop-blur-sm">
       <motion.div 
-        animate={{ x: [0, -1000] }}
-        transition={{ duration: speed, repeat: Infinity, ease: "linear" }}
-        className="flex items-center"
+        className="animate-marquee-css flex items-center"
+        style={{ animationDuration: `${speed}s` }}
+        whileHover={{ animationPlayState: "paused" }}
       >
-        {[...Array(10)].map((_, i) => (
-          <span key={i} className="text-3xl max-md:text-2xl md:text-6xl font-black px-12 flex items-center text-ink/10 hover:text-accent transition-colors duration-500">
-            {text}
-          </span>
+        {[...Array(2)].map((_, i) => (
+          <div key={i} className="flex shrink-0">
+            {[...Array(5)].map((_, j) => (
+              <span key={j} className="text-3xl max-md:text-2xl md:text-6xl font-black px-12 flex items-center text-ink/10 hover:text-accent transition-colors duration-500">
+                {text}
+              </span>
+            ))}
+          </div>
         ))}
       </motion.div>
     </div>
@@ -618,39 +629,15 @@ const ProjectItem = ({ project, index, onOpen }: { project: any, index: number, 
                   {[
                     {
                       label: "Problem",
-                      text: project.id === "candle" 
-                        ? "Before this, customers could only discover products on social media. There was no single, organized place to browse."
-                        : project.id === "r48"
-                        ? "Making table reservations and browsing menus can feel slow and complicated on traditional restaurant sites."
-                        : project.id === "club"
-                        ? "Student sign-ups and workshop details were scattered across paper forms and online sheets."
-                        : project.id === "tamir-carmel"
-                        ? "Older property owners struggled with cluttered and confusing layouts on real estate websites."
-                        : "Human-robot interfaces can feel unnatural and lack clear, comforting feedback."
+                      text: project.problem || "Human-robot interfaces can feel unnatural and lack clear, comforting feedback."
                     },
                     {
                       label: "Solution",
-                      text: project.id === "candle"
-                        ? "I built a dedicated Wix store to bring all our handmade candles into one clean, well-structured space."
-                        : project.id === "r48"
-                        ? "Designed a clean mobile app focused on easy booking and beautiful food photography."
-                        : project.id === "club"
-                        ? "Designed a single mobile app with a clear event schedule and a simple registration form."
-                        : project.id === "tamir-carmel"
-                        ? "Created a clean, high-contrast website with large fonts and simple, spacious navigation."
-                        : "Created clear sensory feedback loops and behavior scripts to make interactions more natural."
+                      text: project.solution || "Created clear sensory feedback loops and behavior scripts to make interactions more natural."
                     },
                     {
                       label: "Result",
-                      text: project.id === "candle"
-                        ? "Orders increased and customers can now browse and check out directly on our website."
-                        : project.id === "r48"
-                        ? "Improved the user experience by creating a simple table booking flow that takes just three clicks."
-                        : project.id === "club"
-                        ? "Reduced sign-up friction, allowing students to register for events in less than three clicks."
-                        : project.id === "tamir-carmel"
-                        ? "Built stronger credibility, allowing users to find local projects and contact agents with ease."
-                        : "Refined the robot's physical and auditory responses during field tests."
+                      text: project.result || "Refined the robot's physical and auditory responses during field tests."
                     }
                   ].map((row, rIdx) => (
                     <div key={rIdx} className="flex items-stretch gap-4 text-left">
@@ -948,17 +935,40 @@ const DraggableJourney = () => {
   );
 };
 
+// Safe storage wrapper to prevent crashes in sandboxed iframes
+const safeLocalStorage = {
+  getItem: (key: string): string | null => {
+    try {
+      if (typeof window !== "undefined" && window.localStorage) {
+        return localStorage.getItem(key);
+      }
+    } catch (e) {
+      console.warn("localStorage is blocked or unavailable in this environment:", e);
+    }
+    return null;
+  },
+  setItem: (key: string, value: string): void => {
+    try {
+      if (typeof window !== "undefined" && window.localStorage) {
+        localStorage.setItem(key, value);
+      }
+    } catch (e) {
+      console.warn("localStorage is blocked or unavailable in this environment:", e);
+    }
+  }
+};
+
 // --- Main App ---
 
 export default function App() {
   const [showWelcome, setShowWelcome] = useState(true);
   
   // Accessibility states with hydration from localStorage
-  const [isUltraDark, setIsUltraDark] = useState(() => localStorage.getItem("acc-ultra-dark") === "true");
-  const [isLargeText, setIsLargeText] = useState(() => localStorage.getItem("acc-large-text") === "true");
-  const [isDyslexicFont, setIsDyslexicFont] = useState(() => localStorage.getItem("acc-dyslexic") === "true");
-  const [isHighlightLinks, setIsHighlightLinks] = useState(() => localStorage.getItem("acc-highlight") === "true");
-  const [isReduceMotion, setIsReduceMotion] = useState(() => localStorage.getItem("acc-reduce-motion") === "true");
+  const [isUltraDark, setIsUltraDark] = useState(() => safeLocalStorage.getItem("acc-ultra-dark") === "true");
+  const [isLargeText, setIsLargeText] = useState(() => safeLocalStorage.getItem("acc-large-text") === "true");
+  const [isDyslexicFont, setIsDyslexicFont] = useState(() => safeLocalStorage.getItem("acc-dyslexic") === "true");
+  const [isHighlightLinks, setIsHighlightLinks] = useState(() => safeLocalStorage.getItem("acc-highlight") === "true");
+  const [isReduceMotion, setIsReduceMotion] = useState(() => safeLocalStorage.getItem("acc-reduce-motion") === "true");
   const [showAccMenu, setShowAccMenu] = useState(false);
 
   useEffect(() => {
@@ -966,42 +976,42 @@ export default function App() {
     
     if (isUltraDark) {
       root.classList.add("ultra-dark");
-      localStorage.setItem("acc-ultra-dark", "true");
+      safeLocalStorage.setItem("acc-ultra-dark", "true");
     } else {
       root.classList.remove("ultra-dark");
-      localStorage.setItem("acc-ultra-dark", "false");
+      safeLocalStorage.setItem("acc-ultra-dark", "false");
     }
 
     if (isLargeText) {
       root.classList.add("large-text");
-      localStorage.setItem("acc-large-text", "true");
+      safeLocalStorage.setItem("acc-large-text", "true");
     } else {
       root.classList.remove("large-text");
-      localStorage.setItem("acc-large-text", "false");
+      safeLocalStorage.setItem("acc-large-text", "false");
     }
 
     if (isDyslexicFont) {
       root.classList.add("dyslexic-font");
-      localStorage.setItem("acc-dyslexic", "true");
+      safeLocalStorage.setItem("acc-dyslexic", "true");
     } else {
       root.classList.remove("dyslexic-font");
-      localStorage.setItem("acc-dyslexic", "false");
+      safeLocalStorage.setItem("acc-dyslexic", "false");
     }
 
     if (isHighlightLinks) {
       root.classList.add("highlight-links");
-      localStorage.setItem("acc-highlight", "true");
+      safeLocalStorage.setItem("acc-highlight", "true");
     } else {
       root.classList.remove("highlight-links");
-      localStorage.setItem("acc-highlight", "false");
+      safeLocalStorage.setItem("acc-highlight", "false");
     }
 
     if (isReduceMotion) {
       root.classList.add("reduce-motion");
-      localStorage.setItem("acc-reduce-motion", "true");
+      safeLocalStorage.setItem("acc-reduce-motion", "true");
     } else {
       root.classList.remove("reduce-motion");
-      localStorage.setItem("acc-reduce-motion", "false");
+      safeLocalStorage.setItem("acc-reduce-motion", "false");
     }
   }, [isUltraDark, isLargeText, isDyslexicFont, isHighlightLinks, isReduceMotion]);
 

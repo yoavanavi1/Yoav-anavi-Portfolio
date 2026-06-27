@@ -25,6 +25,11 @@ export interface Project {
   role?: string;
   deliverables?: string[];
   moreImages?: string[];
+  client?: string;
+  coverImage?: string;
+  problem?: string;
+  solution?: string;
+  result?: string;
 }
 
 export const PROJECTS_LIST_REFERENCE: Project[] = [
@@ -42,6 +47,11 @@ export const PROJECTS_LIST_REFERENCE: Project[] = [
       "https://i.postimg.cc/PBCv4bkN/image.png",
       "https://i.postimg.cc/ry0MqVTB/Screenshot-2026-06-16-at-15-18-53.png"
     ],
+    client: "Candle&Co. (Boutique E-Commerce)",
+    coverImage: "https://i.postimg.cc/ZR6BQrw2/Screenshot-2026-06-16-at-15-14-21.png",
+    problem: "Before this, customers could only discover products on social media. There was no single, organized place to browse.",
+    solution: "I built a dedicated Wix store to bring all our handmade candles into one clean, well-structured space.",
+    result: "Orders increased and customers can now browse and check out directly on our website.",
     details: {
       headline: "Case Study: Candle & Co.",
       contextLabel: "CONTEXT",
@@ -79,6 +89,10 @@ export const PROJECTS_LIST_REFERENCE: Project[] = [
       "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=1200",
       "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200"
     ],
+    client: "R48 Chef Restaurant (Academic Concept)",
+    problem: "Making table reservations and browsing menus can feel slow and complicated on traditional restaurant sites.",
+    solution: "Designed a clean mobile app focused on easy booking and beautiful food photography.",
+    result: "Improved the user experience by creating a simple table booking flow that takes just three clicks.",
     details: {
       headline: "Case Study: Chef & Dine (R48)",
       contextLabel: "CONTEXT",
@@ -116,6 +130,10 @@ export const PROJECTS_LIST_REFERENCE: Project[] = [
       "https://images.unsplash.com/photo-1581291518655-9523c932dedf?q=80&w=1200",
       "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200"
     ],
+    client: "Reichman University (UX/UI Club App)",
+    problem: "Student sign-ups and workshop details were scattered across paper forms and online sheets.",
+    solution: "Designed a single mobile app with a clear event schedule and a simple registration form.",
+    result: "Reduced sign-up friction, allowing students to register for events in less than three clicks.",
     details: {
       headline: "Case Study: UX/UI Club App",
       contextLabel: "CONTEXT",
@@ -157,6 +175,10 @@ export const PROJECTS_LIST_REFERENCE: Project[] = [
       "https://i.postimg.cc/rwqck5Q5/Screenshot-2026-06-16-at-14-32-37.png",
       "https://i.postimg.cc/NFxJ72mt/Screenshot-2026-06-16-at-12-22-30.png"
     ],
+    client: "Tamir Carmel (Urban Renewal Real Estate)",
+    problem: "Older property owners struggled with cluttered and confusing layouts on real estate websites.",
+    solution: "Created a clean, high-contrast website with large fonts and simple, spacious navigation.",
+    result: "Built stronger credibility, allowing users to find local projects and contact agents with ease.",
     details: {
       headline: "Case Study: Tamir Carmel Website",
       contextLabel: "CONTEXT",
@@ -198,6 +220,10 @@ export const PROJECTS_LIST_REFERENCE: Project[] = [
       "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1200"
     ],
     isComingSoon: true,
+    client: "HRI Research Lab (Academic HRI Case Study)",
+    problem: "Human-robot interfaces can feel unnatural and lack clear, comforting feedback.",
+    solution: "Created clear sensory feedback loops and behavior scripts to make interactions more natural.",
+    result: "Refined the robot's physical and auditory responses during field tests.",
     details: {
       headline: "Case Study: Social Robot Group",
       contextLabel: "CONTEXT",

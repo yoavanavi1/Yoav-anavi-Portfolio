@@ -56,37 +56,7 @@ const ProjectFloatingColors = () => {
   );
 };
 
-const ProjectBubbles = () => {
-  return (
-    <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-      {[...Array(12)].map((_, i) => {
-        const size = Math.random() * 40 + 12;
-        const x = Math.random() * 100;
-        const y = Math.random() * 100;
 
-        return (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0 }}
-            animate={{ 
-              opacity: [0.08, 0.16, 0.08],
-              y: [`${y}%`, `${y - 4}%`, `${y}%`],
-              x: [`${x}%`, `${x + 2}%`, `${x}%`]
-            }}
-            transition={{
-              duration: Math.random() * 8 + 14,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: Math.random() * -10,
-            }}
-            className="absolute rounded-full bg-accent/20 blur-[8px]"
-            style={{ width: size, height: size, top: `${y}%`, left: `${x}%` }}
-          />
-        );
-      })}
-    </div>
-  );
-};
 
 interface ProjectDetailPageProps {
   key?: string;
@@ -140,54 +110,19 @@ export default function ProjectDetailPage({ project, onBack, onNextProject }: Pr
   const nextProjectIndex = (currentIndex + 1) % PROJECTS_LIST_REFERENCE.length;
   const nextProject = PROJECTS_LIST_REFERENCE[nextProjectIndex];
 
-  // Map contextual metadata based on project ID
-  const role = project.role || (project.id === "candle" ? "Brand Owner & Wix Developer" : "Lead UX/UI Designer");
+  // Map contextual metadata based on project properties
+  const role = project.role || "Lead UX/UI Designer";
   const timeline = project.year || "3 Months";
-  const deliverables = project.deliverables || (
-    project.id === "candle" 
-      ? ["UX Research", "Wix Store Setup", "E-commerce Optimization", "Brand Identity"] 
-      : project.id === "r48"
-      ? ["Mobile UX Flow", "Figma Design System", "High-fidelity Prototype", "Interactive Micro-interactions"]
-      : ["Students Research", "Product Strategy", "Figma Variables", "UX Audit", "Branding Guidelines"]
-  );
+  const deliverables = project.deliverables || ["Students Research", "Product Strategy", "Figma Variables", "UX Audit", "Branding Guidelines"];
 
-  let client = "Self-produced Design Case";
-  if (project.id === "candle") {
-    client = "Candle&Co. (Boutique E-Commerce)";
-  } else if (project.id === "r48") {
-    client = "R48 Chef Restaurant (Academic Concept)";
-  } else if (project.id === "club") {
-    client = "Reichman University (UX/UI Club App)";
-  } else if (project.id === "tamir-carmel") {
-    client = "Tamir Carmel (Urban Renewal Real Estate)";
-  } else if (project.id === "social-robot") {
-    client = "HRI Research Lab (Academic HRI Case Study)";
-  }
+  const client = project.client || "Self-produced Design Case";
 
-  const coverImage = project.id === "candle" 
-    ? "https://i.postimg.cc/ZR6BQrw2/Screenshot-2026-06-16-at-15-14-21.png" 
-    : project.image;
+  const coverImage = project.coverImage || project.image;
 
   // Custom mapped problem and solution details for higher contextual fidelity
-  const problemText = project.id === "candle" 
-    ? "Before this, customers could only discover products on social media. There was no single, organized place to browse."
-    : project.id === "r48"
-    ? "Making table reservations and browsing menus can feel slow and complicated on traditional restaurant sites."
-    : project.id === "club"
-    ? "Student sign-ups and workshop details were scattered across paper forms and online sheets."
-    : project.id === "tamir-carmel"
-    ? "Older property owners struggled with cluttered and confusing layouts on real estate websites."
-    : "Human-robot interfaces can feel unnatural and lack clear, comforting feedback.";
+  const problemText = project.problem || "Human-robot interfaces can feel unnatural and lack clear, comforting feedback.";
 
-  const solutionText = project.id === "candle"
-    ? "I built a dedicated Wix store to bring all our handmade candles into one clean, well-structured space."
-    : project.id === "r48"
-    ? "Designed a clean mobile app focused on easy booking and beautiful food photography."
-    : project.id === "club"
-    ? "Designed a single mobile app with a clear event schedule and a simple registration form."
-    : project.id === "tamir-carmel"
-    ? "Created a clean, high-contrast website with large fonts and simple, spacious navigation."
-    : "Created clear sensory feedback loops and behavior scripts to make interactions more natural.";
+  const solutionText = project.solution || "Created clear sensory feedback loops and behavior scripts to make interactions more natural.";
 
   // Title rendering calculations to highlight the last word elegantly in italics
   const titleWords = project.title.toUpperCase().replace("\n", " ").split(" ");
@@ -214,7 +149,6 @@ export default function ProjectDetailPage({ project, onBack, onNextProject }: Pr
         className="fixed top-0 left-0 right-0 h-[3px] bg-accent z-[999] origin-left"
       />
       <ProjectFloatingColors />
-      <ProjectBubbles />
 
       {/* Floating Capsule Header - Cohesive with Home page navigation */}
       <motion.div 
