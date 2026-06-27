@@ -31,186 +31,186 @@ export const PROJECTS_LIST_REFERENCE: Project[] = [
   {
     title: "CANDLE&CO",
     id: "candle",
-    category: "e-commerce platform optimized for both desktop and mobile web",
-    description: "An E-commerce website design for desktop and mobile for my personal handmade candle brand, connecting premium aesthetics with a streamlined sales process.",
+    category: "E-commerce store for desktop and mobile devices",
+    description: "A beautiful and easy-to-use e-commerce website designed for my handmade candle brand.",
     image: "https://i.postimg.cc/MXkYrFPs/lwgw-'bh-bly-rq'.png",
     year: "2023",
-    role: "Brand Owner & Wix Developer",
-    deliverables: ["UX Research", "Wix Store Setup", "E-commerce Optimization", "Brand Identity"],
+    role: "Brand Owner & Web Designer",
+    deliverables: ["UX/UI Design", "Wix Store Setup", "E-commerce Setup", "Brand Design"],
     moreImages: [
-      "https://i.postimg.cc/kGf4rwK0/Screenshot-2026-06-16-at-15-15-09.png", // Wix Store layout screenshot
-      "https://i.postimg.cc/PBCv4bkN/image.png", // Wix mobile storefront layout screenshot
-      "https://i.postimg.cc/ry0MqVTB/Screenshot-2026-06-16-at-15-18-53.png"  // Wix mobile cart layout screenshot
+      "https://i.postimg.cc/kGf4rwK0/Screenshot-2026-06-16-at-15-15-09.png",
+      "https://i.postimg.cc/PBCv4bkN/image.png",
+      "https://i.postimg.cc/ry0MqVTB/Screenshot-2026-06-16-at-15-18-53.png"
     ],
     details: {
-      headline: "CASE STUDY: CANDLE & CO.",
+      headline: "Case Study: Candle & Co.",
       contextLabel: "CONTEXT",
-      contextValue: "E-COMMERCE PLATFORM OPTIMIZED FOR BOTH DESKTOP AND MOBILE WEB",
-      overview: "This project is an E-commerce website I designed and built on Wix for my own handmade candle brand. The goal was to solve a real business need: creating a digital storefront that makes it easy for customers to move from our Instagram page directly to shopping.",
+      contextValue: "E-commerce store designed for desktop and mobile",
+      overview: "This is an e-commerce website I designed and built for my own handmade candle brand. The main goal was to make it easy for our Instagram followers to find and buy our products online.",
       focusAreas: [
         {
-          title: "01 | Visual Identity & Trust",
-          description: "Since it's a boutique brand, I focused on a clean and premium visual design. The website matches our social media style. This consistency helps build trust and makes the brand look professional the moment users enter the site."
+          title: "01 - Visual Identity and Trust",
+          description: "Since this is a boutique brand, I made sure the design is clean and premium. The website matches our Instagram aesthetic perfectly, which builds trust with new customers."
         },
         {
-          title: "02 | Product Optimization & UX",
-          description: "Before this website, I managed sales manually, which meant answering a lot of customer questions. To fix this, I created an organized digital catalog. I optimized the experience for quick and easy navigation, focusing especially on a mobile-first approach. Now, customers can clearly see every product and buy on their own."
+          title: "02 - Simple Shopping Flow",
+          description: "Before launching this site, we took orders manually via direct messages. I built a clear product catalog optimized for mobile so customers can find products and complete their purchase in seconds."
         },
         {
-          title: "03 | End-to-End Product Management",
-          description: "This project shows my ability to manage a product from start to finish. I built and managed the entire platform using Wix. I also handled everything behind the scenes: product photography, writing the text, and updating the site for new collections and promotions."
+          title: "03 - Product Management",
+          description: "I managed this project from start to finish. Along with building the Wix site, I handled product photography, wrote the text, and updated the storefront for new product launches."
         }
       ],
       figmaLink: "https://candleandcogroup.wixsite.com/my-site-2",
-      buttonLabel: "EXPLORE TO THE WEBSITE"
+      buttonLabel: "Visit Live Website"
     }
   },
   {
     title: "Chef & Dine",
     id: "r48",
-    category: "End-to-end mobile app design",
-    description: "An academic project designing a clean and focused mobile app for the luxury chef restaurant R48, bringing an exclusive dining experience into a digital product.",
+    category: "Mobile App Design",
+    description: "A mobile app concept for R48, a luxury chef restaurant, designed to make reservations simple and elegant.",
     image: "https://i.postimg.cc/90G2Dzky/image.png",
     year: "2024",
-    role: "Academic Lead Interaction Designer",
-    deliverables: ["Mobile UX Flow", "Figma Design System", "High-fidelity Prototype", "Interactive Micro-interactions"],
+    role: "Lead UX/UI Designer (Academic Project)",
+    deliverables: ["Mobile UX Flow", "Figma Design System", "High-Fidelity Prototype", "UI Design"],
     moreImages: [
-      "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1200", // exquisite plate
-      "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=1200", // intimate table setting
-      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200"  // elegant modern restaurant space
+      "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1200",
+      "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=1200",
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200"
     ],
     details: {
-      headline: "CASE STUDY: CHEF & DINE (R48)",
+      headline: "Case Study: Chef & Dine (R48)",
       contextLabel: "CONTEXT",
-      contextValue: "END-TO-END MOBILE APP DESIGN",
-      overview: "This project is a mobile app concept for a fine-dining restaurant. The main challenge was to take a luxury atmosphere and turn it into a simple and easy-to-use digital experience.",
+      contextValue: "Mobile app design concept",
+      overview: "This is a mobile app concept for a fine-dining restaurant. The main goal was to turn a high-end, luxury restaurant experience into a clean and intuitive digital product.",
       focusAreas: [
         {
-          title: "01 | Visual Strategy",
-          description: "Instead of a crowded photo gallery, I organized the design by the time of day: Breakfast, Lunch, and Dinner. I used clean white space, big images, and elegant text. This makes the app feel like a premium magazine, while keeping everything clear and easy to read."
+          title: "01 - Visual Strategy",
+          description: "Instead of a crowded layout, I organized the menu by time of day: Breakfast, Lunch, and Dinner. Using elegant typography and beautiful food photography, the app feels premium while keeping everything easy to browse."
         },
         {
-          title: "02 | UX & Fast Reservation",
-          description: "Customers at high-end restaurants expect a fast and smooth experience. Because of this, I created a very short table reservation flow. I removed all unnecessary steps so users can book a table quickly, while still feeling the premium vibe."
+          title: "02 - Quick Reservations",
+          description: "Guests at high-end restaurants want a fast, effortless experience. I designed a short and clear table booking flow that lets users reserve their spot in just a few taps."
         },
         {
-          title: "03 | Figma & Design System",
-          description: "To show a real user flow, I built a fully interactive prototype with 5 complete screens. I also created a full Design System in Figma. I used components and variants to make sure the final design is pixel-perfect and ready for developers."
+          title: "03 - Figma Design System",
+          description: "I built a fully interactive prototype with 5 complete screens and created a structured Figma Design System using reusable components to make sure the project is ready for developer handoff."
         }
       ],
       figmaLink: "https://www.figma.com/design/8ufhTM0iu2tDSdA192a8JM/Project-1--Chef?node-id=0-1&t=OBNJlhNGk2IwvhKp-1",
-      buttonLabel: "EXPLORE FULL FLOW IN FIGMA"
+      buttonLabel: "Open Figma Prototype"
     }
   },
   {
     title: "UX UI CLUB\nAPP",
     id: "club",
-    category: "App for accessing information and registering for the Reichman UX UI club",
-    description: "Leading the digital transformation of the Reichman University UX/UI Club: product definition, branding, and designing a mobile app for student information and fast registration.",
+    category: "Mobile App Design & Branding",
+    description: "Branding and app design for the Reichman University UX/UI Club, creating an easy way for students to join and register for events.",
     image: "https://i.postimg.cc/vmP4323h/image.png",
     year: "2024",
-    role: "Community UX Project Manager",
-    deliverables: ["Students Research", "Product Strategy", "Figma Variables", "UX Audit", "Branding Guidelines"],
+    role: "Community Designer & Project Manager",
+    deliverables: ["Student Research", "UX/UI Design", "Figma Variables", "Brand Identity"],
     moreImages: [
-      "https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=1200", // design wireframes & planning
-      "https://images.unsplash.com/photo-1581291518655-9523c932dedf?q=80&w=1200", // interactive interface design mockup
-      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200"  // organic team whiteboard iteration
+      "https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=1200",
+      "https://images.unsplash.com/photo-1581291518655-9523c932dedf?q=80&w=1200",
+      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200"
     ],
     details: {
-      headline: "CASE STUDY: UX/UI CLUB APP",
+      headline: "Case Study: UX/UI Club App",
       contextLabel: "CONTEXT",
-      contextValue: "COMMUNITY PLATFORM DESIGN",
-      overview: "This project is an app for the UX/UI Club at Reichman University, where I serve as the community manager. I led the digital transformation of our club registration, creating a centralized platform to replace physical fairs and make everything accessible online.",
+      contextValue: "Mobile app design and branding",
+      overview: "This is an app design for the UX/UI Club at Reichman University, where I also serve as community manager. I designed this app to move our club registration online, making our events and workshops easy for students to access.",
       focusAreas: [
         {
-          title: "01 | Product Strategy & PRD",
-          description: "The project started with strategy. I co-authored the Product Requirement Document (PRD) with my team. We defined exactly what the students needed and used this document as our roadmap to ensure every screen solved a real problem without adding unnecessary features."
+          title: "01 - Product Goals",
+          description: "We started by writing a Product Requirement Document (PRD) to define what students needed. This helped us build a clear feature list and keep the design focused on solving real student problems."
         },
         {
-          title: "02 | Team Leadership & Execution",
-          description: "I managed a design team to deliver a working product under tight deadlines before registration week. I divided tasks, guided the UX and UI processes, and kept everyone aligned to launch the application right on time."
+          title: "02 - Team Collaboration",
+          description: "I led a small design team to deliver the project before our university registration week. I assigned tasks, guided the design process, and ensured we finished the project on time."
         },
         {
-          title: "03 | Information Architecture & UX",
-          description: "To bring immediate value, we defined a clear Information Architecture (IA). We highlighted the management team, past testimonials, and workshop examples. At the same time, we designed a frictionless user flow, removing unnecessary questions so students can join the community in just a few clicks."
+          title: "03 - User Flow & Content",
+          description: "We structured the app content to highlight our workshops, guest speakers, and student testimonials. We also designed a simple registration flow so students can sign up in just three taps."
         },
         {
-          title: "04 | Branding & Visual Identity",
-          description: "As part of this transition, I also crafted the club's new visual identity and logo. It was important to keep a consistent design language across the brand and the app to show professionalism and a strong sense of community."
+          title: "04 - Branding & Logo Design",
+          description: "I also designed the club's new visual identity and logo. Keeping a consistent style across the brand and the app helped build a professional and welcoming student community."
         }
       ],
       figmaLink: "https://www.figma.com/design/lvp6sJ9Smfk8ROWRk6Fziw/project-3--UXUI-club-app?node-id=0-1&t=wEFy2xW4YroNhftT-1",
-      buttonLabel: "EXPLORE FULL FLOW IN FIGMA"
+      buttonLabel: "Open Figma Prototype"
     }
   },
   {
     title: "TAMIR CARMEL",
     id: "tamir-carmel",
-    category: "Real Estate Entrepreneur Website",
-    description: "A premium website for Tamir Carmel, a real estate entrepreneur specializing in urban renewal, designed to build trust with owners and partners.",
+    category: "Real Estate Portfolio Website",
+    description: "A clean, modern website designed for a real estate entrepreneur specializing in urban renewal projects.",
     image: "https://i.postimg.cc/4dH3t8QJ/Screenshot-2026-06-16-at-12-06-09.png",
     year: "2024",
     role: "Lead UX/UI Designer",
-    deliverables: ["Product Strategy", "Accessibility Audit", "Information Architecture", "Branding & Visual Identity"],
+    deliverables: ["UX/UI Design", "Information Architecture", "Accessibility Audit", "Brand Style"],
     moreImages: [
-      "https://i.postimg.cc/y6LPVK1d/Screenshot-2026-06-16-at-14-32-54.png", 
-      "https://i.postimg.cc/rwqck5Q5/Screenshot-2026-06-16-at-14-32-37.png", 
+      "https://i.postimg.cc/y6LPVK1d/Screenshot-2026-06-16-at-14-32-54.png",
+      "https://i.postimg.cc/rwqck5Q5/Screenshot-2026-06-16-at-14-32-37.png",
       "https://i.postimg.cc/NFxJ72mt/Screenshot-2026-06-16-at-12-22-30.png"
     ],
     details: {
-      headline: "CASE STUDY: REAL ESTATE ENTREPRENEUR WEBSITE - TAMIR CARMEL",
+      headline: "Case Study: Tamir Carmel Website",
       contextLabel: "CONTEXT",
-      contextValue: "PREMIUM REAL ESTATE PORTAL",
-      overview: "This project is a premium website for Tamir Carmel, a real estate entrepreneur specializing in urban renewal. I led the end-to-end UX/UI design process to create an authoritative digital presence that builds trust with property owners, investors, and strategic partners.",
+      contextValue: "Website design for urban renewal",
+      overview: "This is a website designed for Tamir Carmel, a real estate developer specializing in urban renewal. I designed the site from start to finish to create a professional online presence that builds trust with property owners and partners.",
       focusAreas: [
         {
-          title: "01 | PRODUCT STRATEGY",
-          description: "The design process started with understanding the specific needs of the real estate industry. We structured the content to highlight the company's four main pillars: Economics, Planning, Betterment, and Sales. The goal was to create a platform that doesn't just display properties, but clearly communicates value and professional expertise."
+          title: "01 - Web Strategy",
+          description: "We organized the website content into four core sections: planning, finance, development, and sales. This layout helps visitors quickly understand the developer's expertise and professional approach."
         },
         {
-          title: "02 | ACCESSIBILITY & INCLUSIVE DESIGN",
-          description: "Knowing that the target audience includes users aged 50 and above, accessibility was a top priority. I made sure to use large and readable typography, high contrast, and spacious mobile touch areas. This allowed me to keep a luxurious look while ensuring a smooth, frustration-free experience for a mature audience."
+          title: "02 - Designing for Accessibility",
+          description: "Since many of our target users are over 50 years old, accessibility was a key focus. I used large fonts, high-contrast colors, and big tap targets to make the site easy to read and navigate on any device."
         },
         {
-          title: "03 | INFORMATION ARCHITECTURE & UX",
-          description: "To manage a growing list of projects, I defined a clean information architecture. I designed an interactive map to show the nationwide locations and added a smart filtering system. This allows users to easily sort projects by status—such as 'Occupied' or 'In Planning'—and find exactly what they are looking for without unnecessary scrolling."
+          title: "03 - Project Catalog",
+          description: "I created an interactive map and a simple filtering system. This lets property owners easily view local projects and filter them by project status (like 'planning' or 'completed') without scrolling through long pages."
         },
         {
-          title: "04 | BRANDING & VISUAL IDENTITY",
-          description: "I created a clean, minimalist, and precise visual language, using an elegant grey and gold color palette. To elevate the premium feel, I combined a subtle scroll effect with micro-interactions, like dynamic visual feedback in the contact form. Together, they create a cohesive sense of luxury."
+          title: "04 - Premium Look & Feel",
+          description: "I used a clean, minimalist visual style with an elegant grey and gold color scheme. Adding smooth transitions and simple interactive forms gives the website a professional and premium feel."
         }
       ],
       figmaLink: "https://tamircarmel.netlify.app",
-      buttonLabel: "EXPLORE THE LIVE WEBSITE"
+      buttonLabel: "Visit Live Website"
     }
   },
   {
     title: "Social Robot\nGroup",
     id: "social-robot",
-    category: "Co-designed human-robot interaction design",
-    description: "Coming Soon.",
+    category: "Human-Robot Interaction Design",
+    description: "Coming Soon",
     image: "https://i.postimg.cc/FR0dmRZg/Whats-App-Image-2026-05-25-at-12-52-18.jpg",
     year: "Coming Soon",
     role: "HCI Researcher & Sound Designer",
-    deliverables: ["Robotic Interactive Scripting", "Sensory Testing Loops", "Behavior Flow Models"],
+    deliverables: ["HRI Research", "Interaction Testing", "Behavior Design"],
     moreImages: [
-      "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=1200", // robotic hands touching human
-      "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1200"  // professional interaction interface design
+      "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=1200",
+      "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1200"
     ],
     isComingSoon: true,
     details: {
-      headline: "CASE STUDY: SOCIAL ROBOT GROUP",
+      headline: "Case Study: Social Robot Group",
       contextLabel: "CONTEXT",
-      contextValue: "CO-DESIGNED EXPERIENCE & ADVANCED ROBOTIC INTERACTIONS",
-      overview: "Details about this design and interaction case study are coming very soon.",
+      contextValue: "Human-robot interaction study",
+      overview: "Details about this human-robot interaction study will be published soon.",
       focusAreas: [
         {
-          title: "01 | Research & Architecture",
+          title: "01 - Research and Design",
           description: "Coming soon."
         }
       ],
       figmaLink: "#",
-      buttonLabel: "COMING SOON"
+      buttonLabel: "Coming Soon"
     }
   }
 ];

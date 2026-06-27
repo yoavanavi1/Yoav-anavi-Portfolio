@@ -3,7 +3,6 @@ import {
   ArrowRight, 
   Linkedin, 
   Instagram,
-  Plus,
   ArrowUpRight,
   ArrowDown,
   Check,
@@ -18,7 +17,13 @@ import {
   Download,
   ChevronLeft,
   ChevronRight,
-  ArrowUp
+  ArrowUp,
+  Accessibility,
+  Moon,
+  Type,
+  Link,
+  Activity,
+  Eye
 } from "lucide-react";
 import React, { useState, useEffect, useRef, ReactNode, FormEvent } from "react";
 import ProjectDetailPage from "./components/ProjectDetailPage";
@@ -183,6 +188,272 @@ const FloatingLogo = () => {
   );
 };
 
+const AccessibilityIcon = ({ className = "w-6 h-6" }: { className?: string }) => {
+  return (
+    <svg 
+      viewBox="0 0 100 100" 
+      className={className} 
+      fill="none" 
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {/* Outer Circle */}
+      <circle 
+        cx="50" 
+        cy="50" 
+        r="42" 
+        stroke="currentColor" 
+        strokeWidth="7" 
+      />
+      {/* Head */}
+      <circle 
+        cx="50" 
+        cy="26" 
+        r="8.5" 
+        fill="currentColor" 
+      />
+      {/* Torso & Outstretched Arms */}
+      <rect 
+        x="26" 
+        y="37" 
+        width="48" 
+        height="9" 
+        rx="4.5" 
+        fill="currentColor" 
+      />
+      {/* Left Leg */}
+      <path 
+        d="M45.5 44 L39 74" 
+        stroke="currentColor" 
+        strokeWidth="9" 
+        strokeLinecap="round" 
+      />
+      {/* Right Leg */}
+      <path 
+        d="M54.5 44 L61 74" 
+        stroke="currentColor" 
+        strokeWidth="9" 
+        strokeLinecap="round" 
+      />
+    </svg>
+  );
+};
+
+const FloatingAccessibility = ({
+  isUltraDark, setIsUltraDark,
+  isLargeText, setIsLargeText,
+  isDyslexicFont, setIsDyslexicFont,
+  isHighlightLinks, setIsHighlightLinks,
+  isReduceMotion, setIsReduceMotion,
+  showAccMenu, setShowAccMenu
+}: {
+  isUltraDark: boolean; setIsUltraDark: (v: boolean) => void;
+  isLargeText: boolean; setIsLargeText: (v: boolean) => void;
+  isDyslexicFont: boolean; setIsDyslexicFont: (v: boolean) => void;
+  isHighlightLinks: boolean; setIsHighlightLinks: (v: boolean) => void;
+  isReduceMotion: boolean; setIsReduceMotion: (v: boolean) => void;
+  showAccMenu: boolean; setShowAccMenu: (v: boolean) => void;
+}) => {
+  const { scrollY } = useScroll();
+  const opacity = useTransform(scrollY, [0, 400], [0, 1]);
+  const y = useTransform(scrollY, [0, 400], [-100, 0]);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setShowAccMenu(false);
+      }
+    };
+    if (showAccMenu) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showAccMenu]);
+
+  const toggleOption = (opt: string) => {
+    if (opt === "dark") setIsUltraDark(!isUltraDark);
+    if (opt === "text") setIsLargeText(!isLargeText);
+    if (opt === "dys") setIsDyslexicFont(!isDyslexicFont);
+    if (opt === "link") setIsHighlightLinks(!isHighlightLinks);
+    if (opt === "motion") setIsReduceMotion(!isReduceMotion);
+  };
+
+  const resetAll = () => {
+    setIsUltraDark(false);
+    setIsLargeText(false);
+    setIsDyslexicFont(false);
+    setIsHighlightLinks(false);
+    setIsReduceMotion(false);
+  };
+
+  return (
+    <motion.div 
+      ref={menuRef}
+      style={{ opacity, y }}
+      className="fixed top-6 right-6 md:top-8 md:right-8 z-[60] pointer-events-auto flex flex-col items-end"
+    >
+      <motion.div
+        whileHover={{ 
+          scale: 1.1,
+          boxShadow: "0 0 40px 10px rgba(79, 70, 229, 0.4)",
+          borderColor: "rgba(79, 70, 229, 0.5)"
+        }}
+        animate={{ y: [0, -5, 0] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+        className={`h-12 w-12 max-md:h-10 max-md:w-10 md:h-16 md:w-16 rounded-full border shadow-xl flex items-center justify-center relative cursor-pointer transition-colors duration-500 ${
+          showAccMenu 
+            ? "bg-[#4F46E5] border-[#4F46E5] text-white" 
+            : "bg-white border-ink/5 text-ink hover:text-accent"
+        }`}
+        onClick={() => setShowAccMenu(!showAccMenu)}
+        aria-label="Accessibility Menu"
+      >
+        <AccessibilityIcon className="w-6 h-6 max-md:w-5 max-md:h-5" />
+      </motion.div>
+
+      <AnimatePresence>
+        {showAccMenu && (
+          <motion.div
+            initial={{ opacity: 0, y: 15, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 15, scale: 0.95 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="mt-4 w-72 max-sm:w-[70vw] bg-white/95 backdrop-blur-2xl border border-ink/10 rounded-2xl p-5 shadow-2xl z-[70] text-left flex flex-col gap-4 overflow-hidden"
+            dir="ltr"
+          >
+            <div className="flex justify-between items-center border-b border-ink/10 pb-2 mb-1">
+              <div className="flex items-center gap-2">
+                <AccessibilityIcon className="w-5 h-5 text-accent" />
+                <h3 className="font-display font-black text-sm tracking-wide text-ink">Accessibility</h3>
+              </div>
+              <button 
+                onClick={resetAll}
+                className="text-[10px] font-black uppercase tracking-wider text-accent/80 hover:text-accent transition-colors flex items-center gap-1 bg-ink/5 px-2.5 py-1 rounded-full cursor-pointer"
+              >
+                Reset
+              </button>
+            </div>
+
+            <div className="flex flex-col gap-2.5">
+              <button
+                onClick={() => toggleOption("dark")}
+                className={`flex items-center justify-between w-full p-2.5 rounded-xl border text-left transition-all duration-300 cursor-pointer ${
+                  isUltraDark 
+                    ? "bg-accent/10 border-accent/30 text-accent font-bold" 
+                    : "bg-transparent border-ink/5 hover:bg-ink/5 text-ink/70"
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <span className={`p-1.5 rounded-lg ${isUltraDark ? "bg-accent text-white" : "bg-ink/5 text-ink/70"}`}>
+                    <Moon className="w-4 h-4" />
+                  </span>
+                  <div className="text-left">
+                    <div className="text-xs font-black">Dark Mode</div>
+                    <div className="text-[9px] text-ink/40">High contrast dark theme</div>
+                  </div>
+                </div>
+                <div className={`w-5 h-5 rounded-full border flex items-center justify-center transition-all ${isUltraDark ? "border-accent bg-accent" : "border-ink/20 bg-transparent"}`}>
+                  {isUltraDark && <Check className="w-3 h-3 text-white" />}
+                </div>
+              </button>
+
+              <button
+                onClick={() => toggleOption("text")}
+                className={`flex items-center justify-between w-full p-2.5 rounded-xl border text-left transition-all duration-300 cursor-pointer ${
+                  isLargeText 
+                    ? "bg-accent/10 border-accent/30 text-accent font-bold" 
+                    : "bg-transparent border-ink/5 hover:bg-ink/5 text-ink/70"
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <span className={`p-1.5 rounded-lg ${isLargeText ? "bg-accent text-white" : "bg-ink/5 text-ink/70"}`}>
+                    <Type className="w-4 h-4" />
+                  </span>
+                  <div className="text-left">
+                    <div className="text-xs font-black">Large Text Size</div>
+                    <div className="text-[9px] text-ink/40">Increase content scale</div>
+                  </div>
+                </div>
+                <div className={`w-5 h-5 rounded-full border flex items-center justify-center transition-all ${isLargeText ? "border-accent bg-accent" : "border-ink/20 bg-transparent"}`}>
+                  {isLargeText && <Check className="w-3 h-3 text-white" />}
+                </div>
+              </button>
+
+              <button
+                onClick={() => toggleOption("dys")}
+                className={`flex items-center justify-between w-full p-2.5 rounded-xl border text-left transition-all duration-300 cursor-pointer ${
+                  isDyslexicFont 
+                    ? "bg-accent/10 border-accent/30 text-accent font-bold" 
+                    : "bg-transparent border-ink/5 hover:bg-ink/5 text-ink/70"
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <span className={`p-1.5 rounded-lg ${isDyslexicFont ? "bg-accent text-white" : "bg-ink/5 text-ink/70"}`}>
+                    <Eye className="w-4 h-4" />
+                  </span>
+                  <div className="text-left">
+                    <div className="text-xs font-black">Dyslexic Font</div>
+                    <div className="text-[9px] text-ink/40">Highly legible typography</div>
+                  </div>
+                </div>
+                <div className={`w-5 h-5 rounded-full border flex items-center justify-center transition-all ${isDyslexicFont ? "border-accent bg-accent" : "border-ink/20 bg-transparent"}`}>
+                  {isDyslexicFont && <Check className="w-3 h-3 text-white" />}
+                </div>
+              </button>
+
+              <button
+                onClick={() => toggleOption("link")}
+                className={`flex items-center justify-between w-full p-2.5 rounded-xl border text-left transition-all duration-300 cursor-pointer ${
+                  isHighlightLinks 
+                    ? "bg-accent/10 border-accent/30 text-accent font-bold" 
+                    : "bg-transparent border-ink/5 hover:bg-ink/5 text-ink/70"
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <span className={`p-1.5 rounded-lg ${isHighlightLinks ? "bg-accent text-white" : "bg-ink/5 text-ink/70"}`}>
+                    <Link className="w-4 h-4" />
+                  </span>
+                  <div className="text-left">
+                    <div className="text-xs font-black">Highlight Links</div>
+                    <div className="text-[9px] text-ink/40">Outline interactive paths</div>
+                  </div>
+                </div>
+                <div className={`w-5 h-5 rounded-full border flex items-center justify-center transition-all ${isHighlightLinks ? "border-accent bg-accent" : "border-ink/20 bg-transparent"}`}>
+                  {isHighlightLinks && <Check className="w-3 h-3 text-white" />}
+                </div>
+              </button>
+
+              <button
+                onClick={() => toggleOption("motion")}
+                className={`flex items-center justify-between w-full p-2.5 rounded-xl border text-left transition-all duration-300 cursor-pointer ${
+                  isReduceMotion 
+                    ? "bg-accent/10 border-accent/30 text-accent font-bold" 
+                    : "bg-transparent border-ink/5 hover:bg-ink/5 text-ink/70"
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <span className={`p-1.5 rounded-lg ${isReduceMotion ? "bg-accent text-white" : "bg-ink/5 text-ink/70"}`}>
+                    <Activity className="w-4 h-4" />
+                  </span>
+                  <div className="text-left">
+                    <div className="text-xs font-black">Reduce Motion</div>
+                    <div className="text-[9px] text-ink/40">Disable animations & effects</div>
+                  </div>
+                </div>
+                <div className={`w-5 h-5 rounded-full border flex items-center justify-center transition-all ${isReduceMotion ? "border-accent bg-accent" : "border-ink/20 bg-transparent"}`}>
+                  {isReduceMotion && <Check className="w-3 h-3 text-white" />}
+                </div>
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+};
+
 const SectionReveal = ({ children, delay = 0, className = "" }: { children: ReactNode, delay?: number, className?: string }) => (
   <motion.div
     initial={{ opacity: 0, y: 50 }}
@@ -204,8 +475,8 @@ const Marquee = ({ text, speed = 25 }: { text: string; speed?: number }) => {
         className="flex items-center"
       >
         {[...Array(10)].map((_, i) => (
-          <span key={i} className="text-3xl max-md:text-2xl md:text-6xl font-black px-12 flex items-center gap-12 text-ink/10 hover:text-accent transition-colors duration-500">
-            {text} <Plus className="w-8 h-8 text-accent" />
+          <span key={i} className="text-3xl max-md:text-2xl md:text-6xl font-black px-12 flex items-center text-ink/10 hover:text-accent transition-colors duration-500">
+            {text}
           </span>
         ))}
       </motion.div>
@@ -245,27 +516,17 @@ const JOURNEY_CARDS = [
   }
 ];
 
-const useScramble = (text: string, trigger: boolean) => {
-  const [output, setOutput] = useState(text);
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+const useTypewriter = (text: string, trigger: boolean) => {
+  const [output, setOutput] = useState("");
   useEffect(() => {
     if (!trigger) return;
-    let iteration = 0;
-    const maxIterations = text.length * 3;
+    setOutput("");
+    let i = 0;
     const interval = setInterval(() => {
-      setOutput(
-        text.split("").map((char, i) => {
-          if (char === " ") return " ";
-          if (i < iteration / 3) return text[i];
-          return chars[Math.floor(Math.random() * chars.length)];
-        }).join("")
-      );
-      iteration++;
-      if (iteration >= maxIterations) {
-        setOutput(text);
-        clearInterval(interval);
-      }
-    }, 30);
+      setOutput(text.slice(0, i + 1));
+      i++;
+      if (i >= text.length) clearInterval(interval);
+    }, 60);
     return () => clearInterval(interval);
   }, [trigger, text]);
   return output;
@@ -275,7 +536,7 @@ const useScramble = (text: string, trigger: boolean) => {
 
 const SectionHeader = ({ title, subtitle }: { title: string, subtitle?: string }) => {
   const [inView, setInView] = useState(false);
-  const scrambled = useScramble(title.toUpperCase(), inView);
+  const typed = useTypewriter(title.toUpperCase(), inView);
 
   return (
     <SectionReveal>
@@ -284,7 +545,7 @@ const SectionHeader = ({ title, subtitle }: { title: string, subtitle?: string }
         viewport={{ once: true }}
       >
         <div className="flex flex-col sm:flex-row sm:items-baseline justify-between border-b border-ink/10 pb-6 mb-4 md:mb-12 lg:mb-20 gap-4">
-          <h4 className="text-5xl md:text-[8vw] lg:text-[7vw] font-black font-display uppercase tracking-[-0.05em] italic transition-colors duration-500">{scrambled}</h4>
+          <h4 className="text-5xl md:text-[8vw] lg:text-[7vw] font-black font-display uppercase tracking-[-0.05em] italic transition-colors duration-500">{typed}</h4>
           {subtitle && (
             <span className="text-[10px] font-black uppercase tracking-[0.8em] text-ink/30 italic sm:text-right">{subtitle}</span>
           )}
@@ -358,38 +619,38 @@ const ProjectItem = ({ project, index, onOpen }: { project: any, index: number, 
                     {
                       label: "Problem",
                       text: project.id === "candle" 
-                        ? "Customers could only discover products through social media — no central, organized place to browse."
+                        ? "Before this, customers could only discover products on social media. There was no single, organized place to browse."
                         : project.id === "r48"
-                        ? "Fine dining reservations and menu browsing can feel rigid and complex on traditional restaurant websites."
+                        ? "Making table reservations and browsing menus can feel slow and complicated on traditional restaurant sites."
                         : project.id === "club"
-                        ? "Student registrations and workshop info were scattered across physical fairs and messy sheets."
+                        ? "Student sign-ups and workshop details were scattered across paper forms and online sheets."
                         : project.id === "tamir-carmel"
-                        ? "Mature property owners struggled with complex, cluttered interfaces on real estate portals."
-                        : "Human-robot interaction interfaces often lack cohesive multi-sensory feedback."
+                        ? "Older property owners struggled with cluttered and confusing layouts on real estate websites."
+                        : "Human-robot interfaces can feel unnatural and lack clear, comforting feedback."
                     },
                     {
                       label: "Solution",
                       text: project.id === "candle"
-                        ? "Designed and built a dedicated e-commerce experience that brings all products into one clean, structured space."
+                        ? "I built a dedicated Wix store to bring all our handmade candles into one clean, well-structured space."
                         : project.id === "r48"
-                        ? "Designed an intuitive mobile app prioritizing mood-based hours, stunning visuals, and a streamlined booking flow."
+                        ? "Designed a clean mobile app focused on easy booking and beautiful food photography."
                         : project.id === "club"
-                        ? "Architected a unified mobile app with a clean PRD, centralized schedule, and simplified sign-up flow."
+                        ? "Designed a single mobile app with a clear event schedule and a simple registration form."
                         : project.id === "tamir-carmel"
-                        ? "Engineered an accessible, high-contrast, and spacious website layout tailored for users aged 50+."
-                        : "Constructed sensory testing loops and advanced behavioral script flows to guide user comfort."
+                        ? "Created a clean, high-contrast website with large fonts and simple, spacious navigation."
+                        : "Created clear sensory feedback loops and behavior scripts to make interactions more natural."
                     },
                     {
                       label: "Result",
                       text: project.id === "candle"
-                        ? "Inquiries increased and customers could finally browse, understand and reach out — without leaving the website."
+                        ? "Orders increased and customers can now browse and check out directly on our website."
                         : project.id === "r48"
-                        ? "User satisfaction increased through a seamless, 3-click table booking flow."
+                        ? "Improved the user experience by creating a simple table booking flow that takes just three clicks."
                         : project.id === "club"
-                        ? "Drastically reduced joining friction, allowing students to sign up in under 3 clicks."
+                        ? "Reduced sign-up friction, allowing students to register for events in less than three clicks."
                         : project.id === "tamir-carmel"
-                        ? "Enhanced credibility, letting owners easily locate local projects and contact agents with confidence."
-                        : "Smoother interactive dialogues and refined robotic behavior mapping during field studies."
+                        ? "Built stronger credibility, allowing users to find local projects and contact agents with ease."
+                        : "Refined the robot's physical and auditory responses during field tests."
                     }
                   ].map((row, rIdx) => (
                     <div key={rIdx} className="flex items-stretch gap-4 text-left">
@@ -691,6 +952,59 @@ const DraggableJourney = () => {
 
 export default function App() {
   const [showWelcome, setShowWelcome] = useState(true);
+  
+  // Accessibility states with hydration from localStorage
+  const [isUltraDark, setIsUltraDark] = useState(() => localStorage.getItem("acc-ultra-dark") === "true");
+  const [isLargeText, setIsLargeText] = useState(() => localStorage.getItem("acc-large-text") === "true");
+  const [isDyslexicFont, setIsDyslexicFont] = useState(() => localStorage.getItem("acc-dyslexic") === "true");
+  const [isHighlightLinks, setIsHighlightLinks] = useState(() => localStorage.getItem("acc-highlight") === "true");
+  const [isReduceMotion, setIsReduceMotion] = useState(() => localStorage.getItem("acc-reduce-motion") === "true");
+  const [showAccMenu, setShowAccMenu] = useState(false);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    
+    if (isUltraDark) {
+      root.classList.add("ultra-dark");
+      localStorage.setItem("acc-ultra-dark", "true");
+    } else {
+      root.classList.remove("ultra-dark");
+      localStorage.setItem("acc-ultra-dark", "false");
+    }
+
+    if (isLargeText) {
+      root.classList.add("large-text");
+      localStorage.setItem("acc-large-text", "true");
+    } else {
+      root.classList.remove("large-text");
+      localStorage.setItem("acc-large-text", "false");
+    }
+
+    if (isDyslexicFont) {
+      root.classList.add("dyslexic-font");
+      localStorage.setItem("acc-dyslexic", "true");
+    } else {
+      root.classList.remove("dyslexic-font");
+      localStorage.setItem("acc-dyslexic", "false");
+    }
+
+    if (isHighlightLinks) {
+      root.classList.add("highlight-links");
+      localStorage.setItem("acc-highlight", "true");
+    } else {
+      root.classList.remove("highlight-links");
+      localStorage.setItem("acc-highlight", "false");
+    }
+
+    if (isReduceMotion) {
+      root.classList.add("reduce-motion");
+      localStorage.setItem("acc-reduce-motion", "true");
+    } else {
+      root.classList.remove("reduce-motion");
+      localStorage.setItem("acc-reduce-motion", "false");
+    }
+  }, [isUltraDark, isLargeText, isDyslexicFont, isHighlightLinks, isReduceMotion]);
+
   const [selectedProject, setSelectedProject] = useState<any>(null);
   const [hoveredNav, setHoveredNav] = useState<string | null>(null);
   const [contactForm, setContactForm] = useState({ name: "", email: "", message: "" });
@@ -784,6 +1098,14 @@ export default function App() {
     <div className="min-h-screen bg-bg text-ink selection:bg-accent selection:text-white relative" dir="ltr">
       <CustomCursor />
       <div className="noise" />
+      <FloatingAccessibility 
+        isUltraDark={isUltraDark} setIsUltraDark={setIsUltraDark}
+        isLargeText={isLargeText} setIsLargeText={setIsLargeText}
+        isDyslexicFont={isDyslexicFont} setIsDyslexicFont={setIsDyslexicFont}
+        isHighlightLinks={isHighlightLinks} setIsHighlightLinks={setIsHighlightLinks}
+        isReduceMotion={isReduceMotion} setIsReduceMotion={setIsReduceMotion}
+        showAccMenu={showAccMenu} setShowAccMenu={setShowAccMenu}
+      />
 
       <AnimatePresence mode="wait">
         {selectedProject ? (

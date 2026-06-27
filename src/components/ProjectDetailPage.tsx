@@ -170,24 +170,24 @@ export default function ProjectDetailPage({ project, onBack, onNextProject }: Pr
 
   // Custom mapped problem and solution details for higher contextual fidelity
   const problemText = project.id === "candle" 
-    ? "Customers could only discover products through social media — no central, organized place to browse."
+    ? "Before this, customers could only discover products on social media. There was no single, organized place to browse."
     : project.id === "r48"
-    ? "Fine dining reservations and menu browsing can feel rigid and complex on traditional restaurant websites."
+    ? "Making table reservations and browsing menus can feel slow and complicated on traditional restaurant sites."
     : project.id === "club"
-    ? "Student registrations and workshop info were scattered across physical fairs and messy sheets."
+    ? "Student sign-ups and workshop details were scattered across paper forms and online sheets."
     : project.id === "tamir-carmel"
-    ? "Mature property owners struggled with complex, cluttered interfaces on real estate portals."
-    : "Human-robot interaction interfaces often lack cohesive multi-sensory feedback.";
+    ? "Older property owners struggled with cluttered and confusing layouts on real estate websites."
+    : "Human-robot interfaces can feel unnatural and lack clear, comforting feedback.";
 
   const solutionText = project.id === "candle"
-    ? "Designed and built a dedicated e-commerce experience that brings all products into one clean, structured space."
+    ? "I built a dedicated Wix store to bring all our handmade candles into one clean, well-structured space."
     : project.id === "r48"
-    ? "Designed an intuitive mobile app prioritizing mood-based hours, stunning visuals, and a streamlined booking flow."
+    ? "Designed a clean mobile app focused on easy booking and beautiful food photography."
     : project.id === "club"
-    ? "Architected a unified mobile app with a clean PRD, centralized schedule, and simplified sign-up flow."
+    ? "Designed a single mobile app with a clear event schedule and a simple registration form."
     : project.id === "tamir-carmel"
-    ? "Engineered an accessible, high-contrast, and spacious website layout tailored for users aged 50+."
-    : "Constructed sensory testing loops and advanced behavioral script flows to guide user comfort.";
+    ? "Created a clean, high-contrast website with large fonts and simple, spacious navigation."
+    : "Created clear sensory feedback loops and behavior scripts to make interactions more natural.";
 
   // Title rendering calculations to highlight the last word elegantly in italics
   const titleWords = project.title.toUpperCase().replace("\n", " ").split(" ");

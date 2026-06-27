@@ -82,3 +82,112 @@ body {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+/* ==========================================================================
+   Accessibility Feature Classes
+   ========================================================================== */
+
+/* 1. Ultra Dark Mode (True Black & High Contrast) */
+.ultra-dark {
+  --color-bg: #000000 !important;
+  --color-ink: #FFFFFF !important;
+  --color-accent: #818CF8 !important; /* Brighter accent for dark contrast */
+  color-scheme: dark !important;
+}
+
+.ultra-dark body {
+  background-color: #000000 !important;
+  color: #FFFFFF !important;
+}
+
+/* Ensure background containers map correctly */
+.ultra-dark .bg-white,
+.ultra-dark .bg-white\/70,
+.ultra-dark .bg-bg,
+.ultra-dark .bg-white\/80,
+.ultra-dark .bg-zinc-50,
+.ultra-dark .bg-[#F7F8FA] {
+  background-color: #0A0A0C !important;
+  color: #FFFFFF !important;
+}
+
+.ultra-dark .text-ink {
+  color: #FFFFFF !important;
+}
+
+.ultra-dark .text-ink\/50,
+.ultra-dark .text-ink\/40,
+.ultra-dark .text-ink\/60,
+.ultra-dark .text-ink\/70,
+.ultra-dark .text-zinc-500,
+.ultra-dark .text-zinc-600 {
+  color: #D1D5DB !important; /* Extremely high contrast text */
+}
+
+.ultra-dark .border-ink\/5,
+.ultra-dark .border-ink\/10,
+.ultra-dark .border-zinc-200,
+.ultra-dark .border-zinc-100 {
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.ultra-dark .bg-ink\/5 {
+  background-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.ultra-dark .bg-ink\/10 {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.ultra-dark .shadow-2xl,
+.ultra-dark .shadow-xl,
+.ultra-dark .shadow-lg {
+  box-shadow: 0 10px 30px -10px rgba(255, 255, 255, 0.08) !important;
+}
+
+/* 2. Large Text Mode */
+.large-text {
+  font-size: 1.15rem !important;
+}
+
+.large-text p, .large-text .text-sm, .large-text .text-base {
+  font-size: 1.125rem !important;
+  line-height: 1.8 !important;
+}
+
+.large-text h1, .large-text .text-3xl, .large-text .text-4xl, .large-text .text-5xl, .large-text .text-6xl {
+  font-size: 1.15em !important;
+}
+
+.large-text span, .large-text a, .large-text button {
+  font-size: 1.05em !important;
+}
+
+/* 3. Dyslexia Friendly Mode */
+.dyslexic-font, .dyslexic-font * {
+  font-family: "Comic Sans MS", "Chalkboard SE", "Comic Neue", "Andika", cursive, sans-serif !important;
+  letter-spacing: 0.06em !important;
+  word-spacing: 0.12em !important;
+}
+
+/* 4. Highlight Links Mode */
+.highlight-links a,
+.highlight-links button,
+.highlight-links [role="button"],
+.highlight-links .cursor-pointer {
+  outline: 3px solid #818CF8 !important;
+  outline-offset: 4px !important;
+  text-decoration: underline !important;
+  text-decoration-style: double !important;
+}
+
+/* 5. Reduce Motion Mode */
+.reduce-motion * {
+  animation-delay: 0s !important;
+  animation-duration: 0s !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0s !important;
+  scroll-behavior: auto !important;
+  transform: none !important;
+}
+
