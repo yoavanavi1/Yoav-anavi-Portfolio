@@ -23,10 +23,13 @@ import {
   Type,
   Link,
   Activity,
-  Eye
+  Eye,
+  Sliders,
+  Sparkles
 } from "lucide-react";
 import React, { useState, useEffect, useRef, ReactNode, FormEvent } from "react";
 import ProjectDetailPage from "./components/ProjectDetailPage";
+import { DesignStudioSandbox } from "./components/DesignStudioSandbox";
 import { PROJECTS_LIST_REFERENCE } from "./utils/projectsData";
 
 // --- Components ---
@@ -160,8 +163,8 @@ const FloatingLogo = () => {
       <motion.div
         whileHover={{ 
           scale: 1.1,
-          boxShadow: "0 0 40px 10px rgba(79, 70, 229, 0.4)",
-          borderColor: "rgba(79, 70, 229, 0.5)"
+          boxShadow: "0 0 40px 10px rgba(21, 128, 61, 0.4)",
+          borderColor: "rgba(21, 128, 61, 0.5)"
         }}
         animate={{ y: [0, -5, 0] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
@@ -304,14 +307,14 @@ const FloatingAccessibility = ({
       <motion.div
         whileHover={{ 
           scale: 1.1,
-          boxShadow: "0 0 40px 10px rgba(79, 70, 229, 0.4)",
-          borderColor: "rgba(79, 70, 229, 0.5)"
+          boxShadow: "0 0 40px 10px rgba(9, 55, 20, 0.4)",
+          borderColor: "rgba(9, 55, 20, 0.5)"
         }}
         animate={{ y: [0, -5, 0] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
         className={`h-12 w-12 max-md:h-10 max-md:w-10 md:h-16 md:w-16 rounded-full border shadow-xl flex items-center justify-center relative cursor-pointer transition-colors duration-500 ${
           showAccMenu 
-            ? "bg-[#4F46E5] border-[#4F46E5] text-white" 
+            ? "bg-accent border-accent text-white" 
             : "bg-white border-ink/5 text-ink hover:text-accent"
         }`}
         onClick={() => setShowAccMenu(!showAccMenu)}
@@ -586,7 +589,7 @@ const ProjectItem = ({ project, index, onOpen }: { project: any, index: number, 
         
         {/* Image Container */}
         <div className={`lg:col-span-6 flex flex-col ${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
-          <div className="relative overflow-hidden rounded-2xl max-md:rounded-[1.5rem] md:rounded-[3rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] transition-all duration-700 group-hover:shadow-[0_45px_90px_-20px_rgba(79,70,229,0.2)] flex-1">
+          <div className="relative overflow-hidden rounded-2xl max-md:rounded-[1.5rem] md:rounded-[3rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] transition-all duration-700 group-hover:shadow-[0_45px_90px_-20px_rgba(21,128,61,0.2)] flex-1">
             <img 
               src={project.image} 
               alt={project.title} 
@@ -595,7 +598,7 @@ const ProjectItem = ({ project, index, onOpen }: { project: any, index: number, 
             />
             {/* View Project Overlay on Desktop */}
             <div className="absolute inset-0 bg-accent/0 group-hover:bg-accent/5 transition-colors duration-500 flex items-center justify-center">
-              <span className="opacity-0 group-hover:opacity-100 bg-[#1A1A1D] text-white hover:bg-[#4F46E5] px-10 py-5 rounded-full text-xs md:text-sm font-black uppercase tracking-[0.2em] translate-y-4 group-hover:translate-y-0 transition-all duration-500 cursor-pointer">
+              <span className="opacity-0 group-hover:opacity-100 bg-[#1A1A1D] text-white hover:bg-accent px-10 py-5 rounded-full text-xs md:text-sm font-black uppercase tracking-[0.2em] translate-y-4 group-hover:translate-y-0 transition-all duration-500 cursor-pointer">
                 {project.isComingSoon ? "Coming Soon" : "View Project"}
               </span>
             </div>
@@ -608,7 +611,7 @@ const ProjectItem = ({ project, index, onOpen }: { project: any, index: number, 
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-2 flex-wrap">
                 {project.isComingSoon && (
-                  <span className="bg-[#4F46E5]/10 text-[#4F46E5] border border-[#4F46E5]/20 text-[9px] font-black uppercase tracking-[0.2em] px-3 py-1 rounded-full italic animate-pulse">
+                  <span className="bg-accent/10 text-accent border border-accent/20 text-[9px] font-black uppercase tracking-[0.2em] px-3 py-1 rounded-full italic animate-pulse">
                     Coming Soon
                   </span>
                 )}
@@ -1116,6 +1119,7 @@ export default function App() {
         isReduceMotion={isReduceMotion} setIsReduceMotion={setIsReduceMotion}
         showAccMenu={showAccMenu} setShowAccMenu={setShowAccMenu}
       />
+      <DesignStudioSandbox isUltraDark={isUltraDark} setIsUltraDark={setIsUltraDark} />
 
       <AnimatePresence mode="wait">
         {selectedProject ? (
@@ -1392,7 +1396,48 @@ export default function App() {
           </div>
         </section>
 
+        {/* Design System Studio Showcase Section */}
+        <section id="studio-sandbox" className="py-8 md:py-16">
+          <SectionReveal>
+            <div className="relative overflow-hidden bg-gradient-to-br from-zinc-900 to-black text-white rounded-[2.5rem] p-8 md:p-14 border border-zinc-800 shadow-2xl">
+              <div className="absolute top-0 right-0 w-96 h-96 bg-accent/20 rounded-full blur-[100px] pointer-events-none" />
+              
+              <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+                <div className="space-y-4 max-w-xl">
+                  <div className="inline-flex items-center gap-2 bg-accent/20 border border-accent/30 px-4 py-1.5 rounded-full text-accent font-mono text-xs uppercase tracking-widest font-bold">
+                    <Sparkles className="w-3.5 h-3.5" />
+                    Interactive Sandbox
+                  </div>
+                  <h3 className="text-3xl md:text-5xl font-black uppercase font-display tracking-tight text-white leading-tight">
+                    Design System Studio
+                  </h3>
+                  <p className="text-zinc-400 text-sm md:text-base leading-relaxed">
+                    Interactive design sandbox. Customize brand colors, typography, geometric corner radii, and export real-time CSS variables.
+                  </p>
+                </div>
 
+                <motion.div 
+                  whileHover={{ scale: 1.03 }}
+                  className="w-full md:w-auto flex flex-col items-center gap-3"
+                >
+                  <button
+                    onClick={() => {
+                      const btn = document.querySelector('[aria-label="Open Design Studio"]') as HTMLButtonElement;
+                      if (btn) btn.click();
+                    }}
+                    className="w-full md:w-auto px-8 py-4 bg-accent hover:bg-accent/90 text-white rounded-full font-bold uppercase tracking-wider text-xs shadow-xl shadow-accent/20 transition-all cursor-pointer flex items-center justify-center gap-2.5"
+                  >
+                    <Sliders className="w-4 h-4" />
+                    Open Design Studio
+                  </button>
+                  <span className="text-[10px] text-zinc-500 uppercase tracking-widest font-mono">
+                    ✦ Live Token Engine
+                  </span>
+                </motion.div>
+              </div>
+            </div>
+          </SectionReveal>
+        </section>
 
         {/* Journey Section */}
         <section id="journey" className="pt-4 pb-4 md:pb-24 md:pt-24">
