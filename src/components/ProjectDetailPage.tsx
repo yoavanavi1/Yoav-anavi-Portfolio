@@ -1,17 +1,21 @@
 import React, { useEffect, useState, useRef } from "react";
-import { motion, useScroll, useSpring } from "motion/react";
+import { motion, AnimatePresence, useScroll, useSpring } from "motion/react";
 import { 
   ArrowLeft, 
   ArrowRight, 
   ArrowUpRight, 
-  Calendar, 
-  Briefcase, 
-  Layers,
-  ChevronRight,
-  Sparkles,
   ExternalLink,
   AlertCircle,
-  Lightbulb
+  Lightbulb,
+  Image as ImageIcon,
+  ZoomIn,
+  X,
+  Layers,
+  Sparkles,
+  Smartphone,
+  Monitor,
+  Layout,
+  Palette
 } from "lucide-react";
 
 import { Project, PROJECTS_LIST_REFERENCE } from "../utils/projectsData";
@@ -19,7 +23,6 @@ import { Project, PROJECTS_LIST_REFERENCE } from "../utils/projectsData";
 const ProjectFloatingColors = () => {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-      {/* Sharp transparent lavender geometric circle 1 */}
       <motion.div 
         animate={{ 
           x: [0, 20, 0], 
@@ -29,7 +32,6 @@ const ProjectFloatingColors = () => {
         transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
         className="absolute top-[6%] left-[12%] w-[42vw] h-[42vw] bg-accent/[0.02] rounded-full border border-accent/[0.015]"
       />
-      {/* Sharp transparent lavender geometric circle 2, overlapping at middle */}
       <motion.div 
         animate={{ 
           x: [0, -20, 0], 
@@ -39,7 +41,6 @@ const ProjectFloatingColors = () => {
         transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
         className="absolute top-[35%] right-[10%] w-[35vw] h-[35vw] bg-accent/[0.025] rounded-full border border-accent/[0.015]"
       />
-      {/* Sharp transparent lavender geometric circle 3, overlapping at bottom */}
       <motion.div 
         animate={{ 
           x: [0, 15, 0], 
@@ -49,14 +50,11 @@ const ProjectFloatingColors = () => {
         transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
         className="absolute bottom-[8%] left-[20%] w-[38vw] h-[38vw] bg-accent/[0.02] rounded-full border border-accent/[0.015]"
       />
-      {/* Soft translucent background ambient light glow off to the side to blend nicely */}
       <div className="absolute top-[20%] right-[15%] w-[35vw] h-[35vw] bg-accent/[0.035] rounded-full blur-[120px]" />
       <div className="absolute bottom-[25%] left-[10%] w-[30vw] h-[30vw] bg-accent/[0.03] rounded-full blur-[140px]" />
     </div>
   );
 };
-
-
 
 interface ProjectDetailPageProps {
   key?: string;
@@ -72,30 +70,66 @@ export default function ProjectDetailPage({ project, onBack, onNextProject }: Pr
   });
 
   const [showHeader, setShowHeader] = useState(true);
+  const [heroImageError, setHeroImageError] = useState(false);
+  const [activeTab, setActiveTab] = useState<"all" | "UI Screen" | "Wireframe" | "Design System">("all");
+  const [selectedLightboxImage, setSelectedLightboxImage] = useState<{ image: string; title: string; caption: string } | null>(null);
+  
   const lastScrollY = useRef(0);
   
-  // Clean scroll to top whenever the active project changes
+  // Clean scroll to top whenever the active project changes + dynamic SEO update
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
     setShowHeader(true);
+    setHeroImageError(false);
     lastScrollY.current = 0;
+
+    if (project) {
+      document.title = `${project.title.replace("\n", " ")} Case Study | Yoav Anavi — UX/UI Designer`;
+      
+      const setMeta = (attrName: string, attrVal: string, content: string) => {
+        let element = document.querySelector(`meta[${attrName}="${attrVal}"]`);
+        if (!element) {
+          element = document.createElement('meta');
+          element.setAttribute(attrName, attrVal);
+          document.head.appendChild(element);
+        }
+        element.setAttribute('content', content);
+      };
+
+      setMeta('name', 'description', `${project.description} Full UX/UI Case Study & Design System by Yoav Anavi.`);
+      setMeta('property', 'og:title', `${project.title.replace("\n", " ")} — UX/UI Case Study`);
+      setMeta('property', 'og:description', project.description);
+      setMeta('property', 'og:image', project.image || project.coverImage || '');
+      setMeta('property', 'og:url', `https://yoavanavi.com/#/projects/${project.id}`);
+      setMeta('name', 'twitter:title', `${project.title.replace("\n", " ")} — UX/UI Case Study`);
+      setMeta('name', 'twitter:description', project.description);
+      setMeta('name', 'twitter:image', project.image || project.coverImage || '');
+
+      let canonical = document.querySelector('link[rel="canonical"]');
+      if (!canonical) {
+        canonical = document.createElement('link');
+        canonical.setAttribute('rel', 'canonical');
+        document.head.appendChild(canonical);
+      }
+      canonical.setAttribute('href', `https://yoavanavi.com/#/projects/${project.id}`);
+    }
+
+    return () => {
+      document.title = "Yoav Anavi | UX/UI Design Portfolio";
+    };
   }, [project]);
 
   // Scroll logic: hide header on scroll down, show on scroll up
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      
       if (currentScrollY < 60) {
         setShowHeader(true);
       } else if (currentScrollY > lastScrollY.current + 8) {
-        // Scrolling down
         setShowHeader(false);
       } else if (currentScrollY < lastScrollY.current - 8) {
-        // Scrolling up
         setShowHeader(true);
       }
-      
       lastScrollY.current = currentScrollY;
     };
 
@@ -105,26 +139,18 @@ export default function ProjectDetailPage({ project, onBack, onNextProject }: Pr
 
   if (!project) return null;
 
-  // Find next project for the footer teaser loop
   const currentIndex = PROJECTS_LIST_REFERENCE.findIndex(p => p.id === project.id);
   const nextProjectIndex = (currentIndex + 1) % PROJECTS_LIST_REFERENCE.length;
   const nextProject = PROJECTS_LIST_REFERENCE[nextProjectIndex];
 
-  // Map contextual metadata based on project properties
   const role = project.role || "Lead UX/UI Designer";
-  const timeline = project.year || "3 Months";
-  const deliverables = project.deliverables || ["Students Research", "Product Strategy", "Figma Variables", "UX Audit", "Branding Guidelines"];
-
+  const deliverables = project.deliverables || ["UX/UI Design", "Figma Variables", "Information Architecture", "Design System"];
   const client = project.client || "Self-produced Design Case";
-
   const coverImage = project.coverImage || project.image;
 
-  // Custom mapped problem and solution details for higher contextual fidelity
   const problemText = project.problem || "Human-robot interfaces can feel unnatural and lack clear, comforting feedback.";
-
   const solutionText = project.solution || "Created clear sensory feedback loops and behavior scripts to make interactions more natural.";
 
-  // Title rendering calculations to highlight the last word elegantly in italics
   const titleWords = project.title.toUpperCase().replace("\n", " ").split(" ");
   let firstWords = "";
   let lastWord = "";
@@ -135,6 +161,18 @@ export default function ProjectDetailPage({ project, onBack, onNextProject }: Pr
     lastWord = titleWords[0] || "";
     firstWords = "";
   }
+
+  // Combine gallery screens or default to moreImages
+  const screens = project.galleryScreens || (project.moreImages || []).map((imgUrl, i) => ({
+    id: `${project.id}-screen-${i}`,
+    title: `${project.title.replace("\n", " ")} Screen Showcase #${i + 1}`,
+    type: (i % 2 === 0 ? "UI Screen" : i % 3 === 0 ? "Wireframe" : "Design System") as "UI Screen" | "Wireframe" | "Design System",
+    image: imgUrl,
+    aspectRatio: "16/9" as const,
+    caption: `Detailed interface mockup highlighting layout hierarchy and typography tokens.`
+  }));
+
+  const filteredScreens = activeTab === "all" ? screens : screens.filter(s => s.type === activeTab);
 
   return (
     <motion.div 
@@ -150,7 +188,7 @@ export default function ProjectDetailPage({ project, onBack, onNextProject }: Pr
       />
       <ProjectFloatingColors />
 
-      {/* Floating Capsule Header - Cohesive with Home page navigation */}
+      {/* Floating Capsule Header */}
       <motion.div 
         initial={{ y: -100, x: "-50%", opacity: 0 }}
         animate={{ 
@@ -161,14 +199,14 @@ export default function ProjectDetailPage({ project, onBack, onNextProject }: Pr
         style={{ x: "-50%" }}
         className="fixed top-6 left-1/2 z-[150] w-[92vw] max-w-5xl select-none"
       >
-        <header className="w-full bg-white/75 backdrop-blur-2xl border border-zinc-200/60 py-3 px-4 sm:px-6 md:px-8 flex justify-between items-center rounded-full shadow-[0_25px_60px_rgba(0,0,0,0.06)] relative overflow-hidden">
-          {/* Subtle top decoration glow to align with layout highlights */}
+        <header className="w-full bg-white/80 backdrop-blur-2xl border border-zinc-200/80 py-3 px-4 sm:px-6 md:px-8 flex justify-between items-center rounded-full shadow-[0_25px_60px_rgba(0,0,0,0.06)] relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
           
           <button 
             onClick={onBack}
-            className="group flex items-center gap-2.5 bg-zinc-900 hover:bg-accent text-white hover:text-white px-4 sm:px-6 py-2.5 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-widest transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg shadow-black/[0.1] hover:shadow-accent/20"
+            className="group flex items-center gap-2.5 bg-zinc-900 hover:bg-accent text-white px-4 sm:px-6 py-2.5 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-widest transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg shadow-black/[0.1] hover:shadow-accent/20 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
             id="btn-back-portfolio"
+            aria-label="Back to Portfolio Home"
           >
             <ArrowLeft className="w-3.5 sm:h-4 sm:w-4 h-3.5 group-hover:-translate-x-1 transition-transform" />
             <span>Back to Portfolio</span>
@@ -176,10 +214,10 @@ export default function ProjectDetailPage({ project, onBack, onNextProject }: Pr
 
           <button
             onClick={onBack}
-            className="group relative h-9 w-9 sm:h-11 sm:w-11 bg-white rounded-full border border-zinc-200/80 shadow-md overflow-hidden flex items-center justify-center transition-all duration-300 hover:scale-105 hover:border-accent/40 cursor-pointer"
+            className="group relative h-9 w-9 sm:h-11 sm:w-11 bg-white rounded-full border border-zinc-200/80 shadow-md overflow-hidden flex items-center justify-center transition-all duration-300 hover:scale-105 hover:border-accent/40 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
             id="btn-logo-home"
+            aria-label="Home Logo Button"
           >
-            {/* Subtle glow / hover effect */}
             <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0 bg-accent/5" />
             <img 
               src="https://i.postimg.cc/WFGLJfbW/Gemini-Generated-Image-i4jauyi4jauyi4ja.png" 
@@ -195,21 +233,16 @@ export default function ProjectDetailPage({ project, onBack, onNextProject }: Pr
         
         {/* --- HERO SECTION --- */}
         <section className="relative overflow-hidden bg-white rounded-[2.5rem] border border-zinc-200/60 p-6 sm:p-8 md:p-12 shadow-[0_20px_50px_rgba(0,0,0,0.02)]">
-          {/* Decorative Circle 1: Top Right */}
           <div className="absolute w-[280px] h-[280px] rounded-full bg-accent/[0.03] border border-accent/[0.08] -top-20 -right-20 pointer-events-none" />
-          {/* Decorative Circle 2: Bottom Center-Left */}
           <div className="absolute w-[200px] h-[200px] rounded-full bg-accent/[0.02] border border-accent/[0.05] -bottom-16 left-[20%] pointer-events-none" />
 
           <div className="relative z-10 space-y-6 sm:space-y-8">
-            {/* Top Row: Category Left & CTA Right */}
             <div className="flex flex-wrap items-center justify-between gap-4 max-md:flex-col max-md:gap-3">
-              {/* Category tag */}
               <div className="flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-accent">
                 <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
                 <span>{project.category}</span>
               </div>
 
-              {/* Primary CTA button on the right */}
               {!project.isComingSoon && project.details.figmaLink && (
                 <motion.a
                   href={project.details.figmaLink}
@@ -217,7 +250,7 @@ export default function ProjectDetailPage({ project, onBack, onNextProject }: Pr
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="inline-flex items-center gap-2 bg-accent hover:bg-zinc-900 text-white px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-wider transition-all duration-300 hover:shadow-lg hover:shadow-accent/20"
+                  className="inline-flex items-center gap-2 bg-accent hover:bg-zinc-900 text-white px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-wider transition-all duration-300 hover:shadow-lg hover:shadow-accent/20 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                 >
                   <span>{project.id === "candle" || project.id === "tamir-carmel" ? "Visit Website" : "View Project"}</span>
                   <ArrowUpRight className="w-4 h-4" />
@@ -225,7 +258,6 @@ export default function ProjectDetailPage({ project, onBack, onNextProject }: Pr
               )}
             </div>
 
-            {/* Center: project title */}
             <div className="py-6 sm:py-10">
               <h1 className="text-4xl sm:text-6xl md:text-[5vw] font-black font-display text-[#1A1A1D] leading-[1.05] tracking-tight uppercase text-center max-w-4xl mx-auto whitespace-pre-line">
                 {firstWords}{" "}
@@ -235,11 +267,8 @@ export default function ProjectDetailPage({ project, onBack, onNextProject }: Pr
               </h1>
             </div>
 
-            {/* Bottom Meta Bar: 3 columns, separated by accent/8 gaps */}
             {!project.isComingSoon && (
               <div className="grid grid-cols-1 max-md:grid-cols-1 md:grid-cols-3 gap-[1px] bg-accent/10 rounded-2xl overflow-hidden mt-6">
-                
-                {/* Col 1: My Role */}
                 <div className="bg-[#F7F8FA] p-4 sm:p-5 flex flex-col justify-center">
                   <span className="text-[10px] font-bold uppercase tracking-widest text-[#1A1A1D]/40 block mb-1">
                     My Role
@@ -249,7 +278,6 @@ export default function ProjectDetailPage({ project, onBack, onNextProject }: Pr
                   </p>
                 </div>
 
-                {/* Col 2: Platform / Client */}
                 <div className="bg-[#F7F8FA] p-4 sm:p-5 flex flex-col justify-center">
                   <span className="text-[10px] font-bold uppercase tracking-widest text-[#1A1A1D]/40 block mb-1">
                     Platform / Client
@@ -259,7 +287,6 @@ export default function ProjectDetailPage({ project, onBack, onNextProject }: Pr
                   </p>
                 </div>
 
-                {/* Col 3: Deliverables */}
                 <div className="bg-[#F7F8FA] p-4 sm:p-5 flex flex-col justify-center">
                   <span className="text-[10px] font-bold uppercase tracking-widest text-[#1A1A1D]/40 block mb-2">
                     Deliverables
@@ -275,20 +302,39 @@ export default function ProjectDetailPage({ project, onBack, onNextProject }: Pr
                     ))}
                   </div>
                 </div>
-
               </div>
             )}
           </div>
         </section>
 
-        {/* --- MOCKUP SECTION --- */}
-        <section className="relative w-full bg-accent/[0.03] rounded-[2rem] p-4 sm:p-8 md:p-12 min-h-[240px] flex items-center justify-center overflow-hidden">
+        {/* --- HERO MOCKUP / COVER IMAGE SECTION (WITH GRACEFUL FALLBACK) --- */}
+        <section className="relative w-full bg-accent/[0.03] rounded-[2rem] p-4 sm:p-8 md:p-12 min-h-[240px] flex items-center justify-center overflow-hidden border border-zinc-200/40">
           <div className="relative rounded-[1rem] overflow-hidden shadow-xl shadow-accent/10 w-full max-w-5xl">
-            <img 
-              src={coverImage} 
-              alt={project.title} 
-              className={`w-full object-cover aspect-[21/9] min-h-[200px] md:min-h-[420px] ${project.isComingSoon ? "grayscale brightness-75" : "brightness-95 hover:scale-[1.01] transition-transform duration-[1.5s]"}`}
-            />
+            {heroImageError ? (
+              /* Graceful Fallback Container when image fails to load */
+              <div className="w-full aspect-[21/9] min-h-[250px] md:min-h-[420px] bg-gradient-to-br from-amber-950/20 via-zinc-900 to-black p-8 sm:p-12 flex flex-col items-center justify-center text-center relative overflow-hidden border border-amber-500/20 rounded-[1rem]">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.08),transparent_70%)]" />
+                <div className="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 mb-4 z-10 shadow-lg shadow-amber-500/10">
+                  <Sparkles className="w-8 h-8" />
+                </div>
+                <h3 className="text-2xl sm:text-4xl font-black font-display text-white tracking-widest uppercase mb-2 z-10">
+                  {project.title.replace("\n", " ")}
+                </h3>
+                <p className="text-amber-200/70 text-xs sm:text-sm font-medium max-w-md z-10">
+                  {project.category} — {project.details.headline || "Digital Experience Showcase"}
+                </p>
+                <div className="mt-6 inline-flex items-center gap-2 bg-amber-500/20 text-amber-300 text-[10px] font-bold uppercase tracking-widest px-4 py-2 rounded-full border border-amber-500/30 z-10">
+                  <span>✦ Boutique Brand Identity</span>
+                </div>
+              </div>
+            ) : (
+              <img 
+                src={coverImage} 
+                alt={project.title} 
+                onError={() => setHeroImageError(true)}
+                className={`w-full object-cover aspect-[21/9] min-h-[200px] md:min-h-[420px] ${project.isComingSoon ? "grayscale brightness-75" : "brightness-95 hover:scale-[1.01] transition-transform duration-[1.5s]"}`}
+              />
+            )}
             {project.isComingSoon && (
               <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 bg-black/40 backdrop-blur-[2px]">
                 <span className="inline-block bg-accent text-white text-[11px] font-extrabold uppercase tracking-[0.4em] px-6 py-2.5 rounded-full shadow-lg">
@@ -302,7 +348,6 @@ export default function ProjectDetailPage({ project, onBack, onNextProject }: Pr
         {/* --- PROBLEM / SOLUTION ROW --- */}
         {!project.isComingSoon && (
           <section className="grid grid-cols-1 max-md:grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Problem card */}
             <motion.div 
               whileHover={{ y: -2 }}
               transition={{ duration: 0.3 }}
@@ -318,8 +363,7 @@ export default function ProjectDetailPage({ project, onBack, onNextProject }: Pr
                 {problemText}
               </p>
             </motion.div>
- 
-            {/* Solution card */}
+
             <motion.div 
               whileHover={{ y: -2 }}
               transition={{ duration: 0.3 }}
@@ -337,7 +381,126 @@ export default function ProjectDetailPage({ project, onBack, onNextProject }: Pr
             </motion.div>
           </section>
         )}
- 
+
+        {/* --- EMBEDDED DESIGN WORK / SCREEN SHOWCASE GALLERY (TASK 8 FIX) --- */}
+        {!project.isComingSoon && (
+          <section className="bg-white border border-ink/5 rounded-[2.5rem] p-6 sm:p-10 shadow-[0_4px_25px_rgba(0,0,0,0.02)] space-y-8">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-zinc-100 pb-6">
+              <div>
+                <div className="flex items-center gap-2 text-accent text-xs font-bold uppercase tracking-widest mb-1">
+                  <ImageIcon className="w-4 h-4" />
+                  <span>Design Artifacts & UI Showcase</span>
+                </div>
+                <h3 className="text-2xl sm:text-3xl font-black font-display uppercase tracking-tight text-ink">
+                  Interactive Screen Showcase
+                </h3>
+                <p className="text-xs sm:text-sm text-ink/50 mt-1">
+                  Explore high-fidelity mobile & desktop mockups, wireframes, and design system components.
+                </p>
+              </div>
+
+              {/* Filter Tabs */}
+              <div className="flex items-center gap-1.5 bg-zinc-100/80 p-1.5 rounded-full overflow-x-auto self-start md:self-auto">
+                {[
+                  { id: "all", label: "All Work", icon: Layers },
+                  { id: "UI Screen", label: "UI Screens", icon: Monitor },
+                  { id: "Wireframe", label: "Wireframes", icon: Layout },
+                  { id: "Design System", label: "Tokens & System", icon: Palette },
+                ].map((tab) => {
+                  const IconComp = tab.icon;
+                  const isActive = activeTab === tab.id;
+                  return (
+                    <button
+                      key={tab.id}
+                      onClick={() => setActiveTab(tab.id as any)}
+                      className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider transition-all cursor-pointer whitespace-nowrap ${
+                        isActive 
+                          ? "bg-accent text-white shadow-md shadow-accent/20" 
+                          : "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-200/60"
+                      }`}
+                    >
+                      <IconComp className="w-3.5 h-3.5" />
+                      <span>{tab.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Gallery Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+              {filteredScreens.map((screen, idx) => (
+                <motion.div
+                  key={screen.id || idx}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  className="group relative bg-zinc-50 border border-zinc-200/80 rounded-[1.5rem] overflow-hidden flex flex-col justify-between hover:shadow-xl hover:shadow-accent/5 transition-all duration-500"
+                >
+                  <div 
+                    className="relative w-full aspect-[16/10] bg-zinc-900 overflow-hidden cursor-pointer"
+                    onClick={() => setSelectedLightboxImage({ image: screen.image, title: screen.title, caption: screen.caption })}
+                  >
+                    <img 
+                      src={screen.image} 
+                      alt={screen.title} 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-95 group-hover:brightness-100"
+                      onError={(e) => {
+                        // Fallback UI preview card
+                        const target = e.currentTarget as HTMLImageElement;
+                        target.style.display = 'none';
+                      }}
+                    />
+                    
+                    {/* Hover Overlay with Lightbox trigger */}
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2">
+                      <span className="bg-white text-zinc-900 px-4 py-2 rounded-full text-xs font-black uppercase tracking-wider shadow-lg flex items-center gap-2">
+                        <ZoomIn className="w-4 h-4 text-accent" />
+                        <span>Enlarge Mockup</span>
+                      </span>
+                    </div>
+
+                    <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-md text-white text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full border border-white/20">
+                      {screen.type}
+                    </div>
+
+                    <div className="absolute bottom-3 right-3 bg-accent/90 text-white text-[9px] font-black uppercase tracking-widest px-2.5 py-0.5 rounded-full">
+                      1920×1080 HQ
+                    </div>
+                  </div>
+
+                  <div className="p-5 flex flex-col gap-1.5 bg-white border-t border-zinc-100">
+                    <h5 className="font-bold font-display text-base text-zinc-900 uppercase tracking-tight flex items-center justify-between">
+                      <span>{screen.title}</span>
+                      <Sparkles className="w-4 h-4 text-accent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </h5>
+                    <p className="text-xs text-zinc-500 leading-relaxed">
+                      {screen.caption}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Note for dropping original raw assets */}
+            <div className="bg-accent/5 border border-accent/15 rounded-2xl p-4 flex items-center justify-between gap-4 text-xs text-zinc-700">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center text-accent shrink-0">
+                  <ImageIcon className="w-4 h-4" />
+                </div>
+                <div>
+                  <span className="font-bold text-accent uppercase tracking-wider block">High-Resolution Asset Slot</span>
+                  <span className="text-zinc-500">Design showcase frames prepared for 1920x1080 screen exports.</span>
+                </div>
+              </div>
+              <span className="text-[10px] font-mono bg-white px-3 py-1 rounded-full border border-zinc-200 text-zinc-500 uppercase tracking-widest">
+                Ready for Drop
+              </span>
+            </div>
+          </section>
+        )}
+
         {/* --- DESIGN PROCESS SECTION --- */}
         {!project.isComingSoon && project.details.focusAreas && (
           <section className="bg-white border border-ink/5 rounded-[1.5rem] p-6 md:p-8 shadow-[0_4px_20px_rgba(0,0,0,0.01)]">
@@ -371,7 +534,6 @@ export default function ProjectDetailPage({ project, onBack, onNextProject }: Pr
         {/* Discovery loop: Next Project Teaser */}
         <section className="pt-20 border-t border-zinc-200">
           <div className="grid md:grid-cols-12 gap-8 items-center">
-            
             <div className="md:col-span-4 space-y-2">
               <span className="text-[10px] font-bold uppercase tracking-widest text-[#1A1A1D]/40 block font-mono">Next Masterpiece</span>
               <h5 className="text-xs font-black uppercase tracking-[0.3em] text-accent">Browse Case Studies</h5>
@@ -381,7 +543,16 @@ export default function ProjectDetailPage({ project, onBack, onNextProject }: Pr
               <motion.div 
                 whileHover={{ x: 10 }}
                 onClick={() => onNextProject(nextProject)}
-                className="group flex justify-between items-center bg-[#1A1A1D]/5 hover:bg-[#1A1A1D] rounded-[2.5rem] p-8 md:p-12 cursor-pointer transition-all duration-500 border border-zinc-200/20 hover:border-[#1A1A1D] select-none hover:shadow-2xl shadow-accent/5"
+                className="group flex justify-between items-center bg-[#1A1A1D]/5 hover:bg-[#1A1A1D] rounded-[2.5rem] p-8 md:p-12 cursor-pointer transition-all duration-500 border border-zinc-200/20 hover:border-[#1A1A1D] select-none hover:shadow-2xl shadow-accent/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                tabIndex={0}
+                role="button"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    onNextProject(nextProject);
+                  }
+                }}
+                aria-label={`Navigate to next project: ${nextProject.title.replace("\n", " ")}`}
               >
                 <div className="space-y-4">
                   <span className="text-[10px] font-extrabold text-[#1A1A1D]/50 group-hover:text-white/50 tracking-widest uppercase block">
@@ -397,11 +568,53 @@ export default function ProjectDetailPage({ project, onBack, onNextProject }: Pr
                 </div>
               </motion.div>
             </div>
-
           </div>
         </section>
 
       </main>
+
+      {/* Lightbox Modal for Enlarging Mockups */}
+      <AnimatePresence>
+        {selectedLightboxImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-md p-4 md:p-12 flex flex-col items-center justify-center overflow-y-auto"
+            onClick={() => setSelectedLightboxImage(null)}
+          >
+            <button
+              onClick={() => setSelectedLightboxImage(null)}
+              className="absolute top-6 right-6 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer"
+              aria-label="Close Lightbox Modal"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            <motion.div
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.9 }}
+              className="max-w-6xl w-full bg-zinc-950 border border-zinc-800 rounded-3xl overflow-hidden shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img 
+                src={selectedLightboxImage.image} 
+                alt={selectedLightboxImage.title}
+                className="w-full max-h-[75vh] object-contain bg-black" 
+              />
+              <div className="p-6 bg-zinc-900 border-t border-zinc-800 flex flex-col gap-1">
+                <h4 className="text-xl font-bold font-display text-white uppercase tracking-tight">
+                  {selectedLightboxImage.title}
+                </h4>
+                <p className="text-sm text-zinc-400">
+                  {selectedLightboxImage.caption}
+                </p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }

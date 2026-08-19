@@ -25,6 +25,14 @@ export interface Project {
   role?: string;
   deliverables?: string[];
   moreImages?: string[];
+  galleryScreens?: {
+    id: string;
+    title: string;
+    type: "UI Screen" | "Wireframe" | "Design System" | "Prototype";
+    image: string;
+    aspectRatio?: "16/9" | "4/3" | "9/16" | "21/9";
+    caption: string;
+  }[];
   client?: string;
   coverImage?: string;
   problem?: string;
@@ -38,17 +46,52 @@ export const PROJECTS_LIST_REFERENCE: Project[] = [
     id: "candle",
     category: "E-commerce store for desktop and mobile devices",
     description: "A beautiful and easy-to-use e-commerce website designed for my handmade candle brand.",
-    image: "https://i.postimg.cc/MXkYrFPs/lwgw-'bh-bly-rq'.png",
+    image: "https://i.postimg.cc/kGf4rwK0/Screenshot-2026-06-16-at-15-15-09.png",
     year: "2023",
     role: "Brand Owner & Web Designer",
     deliverables: ["UX/UI Design", "Wix Store Setup", "E-commerce Setup", "Brand Design"],
     moreImages: [
       "https://i.postimg.cc/kGf4rwK0/Screenshot-2026-06-16-at-15-15-09.png",
       "https://i.postimg.cc/PBCv4bkN/image.png",
-      "https://i.postimg.cc/ry0MqVTB/Screenshot-2026-06-16-at-15-18-53.png"
+      "https://i.postimg.cc/ry0MqVTB/Screenshot-2026-06-16-at-15-18-53.png",
+      "https://images.unsplash.com/photo-1603006905003-be475563bc59?q=80&w=1200"
+    ],
+    galleryScreens: [
+      {
+        id: "candle-screen-1",
+        title: "Boutique E-Commerce Storefront",
+        type: "UI Screen",
+        image: "https://i.postimg.cc/kGf4rwK0/Screenshot-2026-06-16-at-15-15-09.png",
+        aspectRatio: "16/9",
+        caption: "Main desktop landing page highlighting organic soy wax collections & seasonal promotions."
+      },
+      {
+        id: "candle-screen-2",
+        title: "Product Detail & Custom Fragrance Selector",
+        type: "UI Screen",
+        image: "https://i.postimg.cc/PBCv4bkN/image.png",
+        aspectRatio: "16/9",
+        caption: "High-contrast product viewer with scent notes breakdown and quick add-to-cart."
+      },
+      {
+        id: "candle-screen-3",
+        title: "Mobile Shopping Checkout Flow",
+        type: "Wireframe",
+        image: "https://i.postimg.cc/ry0MqVTB/Screenshot-2026-06-16-at-15-18-53.png",
+        aspectRatio: "16/9",
+        caption: "Optimized 2-step mobile checkout flow designed to maximize direct conversion from Instagram."
+      },
+      {
+        id: "candle-screen-4",
+        title: "Brand Identity & Packaging Tokens",
+        type: "Design System",
+        image: "https://images.unsplash.com/photo-1603006905003-be475563bc59?q=80&w=1200",
+        aspectRatio: "16/9",
+        caption: "Color palettes, typography pairings, and minimalist label design system guidelines."
+      }
     ],
     client: "Candle&Co. (Boutique E-Commerce)",
-    coverImage: "https://i.postimg.cc/ZR6BQrw2/Screenshot-2026-06-16-at-15-14-21.png",
+    coverImage: "https://i.postimg.cc/kGf4rwK0/Screenshot-2026-06-16-at-15-15-09.png",
     problem: "Before this, customers could only discover products on social media. There was no single, organized place to browse.",
     solution: "I built a dedicated Wix store to bring all our handmade candles into one clean, well-structured space.",
     result: "Orders increased and customers can now browse and check out directly on our website.",
@@ -88,6 +131,40 @@ export const PROJECTS_LIST_REFERENCE: Project[] = [
       "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1200",
       "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=1200",
       "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200"
+    ],
+    galleryScreens: [
+      {
+        id: "r48-screen-1",
+        title: "Home Screen & Chef Recommendations",
+        type: "UI Screen",
+        image: "https://i.postimg.cc/90G2Dzky/image.png",
+        aspectRatio: "16/9",
+        caption: "Main restaurant app home feed featuring daily tasting menus and sommelier pairings."
+      },
+      {
+        id: "r48-screen-2",
+        title: "Table Booking & Time Slot Selection",
+        type: "Prototype",
+        image: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1200",
+        aspectRatio: "16/9",
+        caption: "Streamlined 3-tap reservation widget with calendar date picker and guest preferences."
+      },
+      {
+        id: "r48-screen-3",
+        title: "Digital Menu Wireframes & Category Navigation",
+        type: "Wireframe",
+        image: "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=1200",
+        aspectRatio: "16/9",
+        caption: "Wireframe breakdown of meal categories grouped by Breakfast, Lunch, and Dinner."
+      },
+      {
+        id: "r48-screen-4",
+        title: "Luxury Design System & Color Tokens",
+        type: "Design System",
+        image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200",
+        aspectRatio: "16/9",
+        caption: "Dark mode typography specs, accent color system, and custom component tokens."
+      }
     ],
     client: "R48 Chef Restaurant (Academic Concept)",
     problem: "Making table reservations and browsing menus can feel slow and complicated on traditional restaurant sites.",
@@ -129,6 +206,32 @@ export const PROJECTS_LIST_REFERENCE: Project[] = [
       "https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=1200",
       "https://images.unsplash.com/photo-1581291518655-9523c932dedf?q=80&w=1200",
       "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200"
+    ],
+    galleryScreens: [
+      {
+        id: "club-screen-1",
+        title: "Student Community Hub & Event Feed",
+        type: "UI Screen",
+        image: "https://i.postimg.cc/vmP4323h/image.png",
+        aspectRatio: "16/9",
+        caption: "Central dashboard highlighting upcoming workshops, guest speakers, and registration."
+      },
+      {
+        id: "club-screen-2",
+        title: "Workshop One-Tap Registration Flow",
+        type: "UI Screen",
+        image: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=1200",
+        aspectRatio: "16/9",
+        caption: "Intuitive registration modal reducing friction for Reichman University students."
+      },
+      {
+        id: "club-screen-3",
+        title: "Figma Component Architecture & Variables",
+        type: "Design System",
+        image: "https://images.unsplash.com/photo-1581291518655-9523c932dedf?q=80&w=1200",
+        aspectRatio: "16/9",
+        caption: "Scalable component library built with Figma variables, auto-layout, and tokens."
+      }
     ],
     client: "Reichman University (UX/UI Club App)",
     problem: "Student sign-ups and workshop details were scattered across paper forms and online sheets.",
@@ -174,6 +277,32 @@ export const PROJECTS_LIST_REFERENCE: Project[] = [
       "https://i.postimg.cc/y6LPVK1d/Screenshot-2026-06-16-at-14-32-54.png",
       "https://i.postimg.cc/rwqck5Q5/Screenshot-2026-06-16-at-14-32-37.png",
       "https://i.postimg.cc/NFxJ72mt/Screenshot-2026-06-16-at-12-22-30.png"
+    ],
+    galleryScreens: [
+      {
+        id: "tamir-screen-1",
+        title: "Urban Renewal Portfolio Overview",
+        type: "UI Screen",
+        image: "https://i.postimg.cc/4dH3t8QJ/Screenshot-2026-06-16-at-12-06-09.png",
+        aspectRatio: "16/9",
+        caption: "High-contrast portfolio homepage showcasing active urban renewal developments."
+      },
+      {
+        id: "tamir-screen-2",
+        title: "Interactive Project Map & Filtering",
+        type: "UI Screen",
+        image: "https://i.postimg.cc/y6LPVK1d/Screenshot-2026-06-16-at-14-32-54.png",
+        aspectRatio: "16/9",
+        caption: "Geographic map breakdown allowing property owners to search projects by status."
+      },
+      {
+        id: "tamir-screen-3",
+        title: "Accessible Contact & Inquiry Form",
+        type: "UI Screen",
+        image: "https://i.postimg.cc/rwqck5Q5/Screenshot-2026-06-16-at-14-32-37.png",
+        aspectRatio: "16/9",
+        caption: "Large-font accessible contact interface tailored for property owners over 50."
+      }
     ],
     client: "Tamir Carmel (Urban Renewal Real Estate)",
     problem: "Older property owners struggled with cluttered and confusing layouts on real estate websites.",

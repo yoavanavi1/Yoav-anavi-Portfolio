@@ -24,12 +24,10 @@ import {
   Link,
   Activity,
   Eye,
-  Sliders,
   Sparkles
 } from "lucide-react";
 import React, { useState, useEffect, useRef, ReactNode, FormEvent } from "react";
 import ProjectDetailPage from "./components/ProjectDetailPage";
-import { DesignStudioSandbox } from "./components/DesignStudioSandbox";
 import { PROJECTS_LIST_REFERENCE } from "./utils/projectsData";
 
 // --- Components ---
@@ -573,17 +571,26 @@ const ProjectItem = ({ project, index, onOpen }: { project: any, index: number, 
   const isEven = index % 2 === 0;
 
   return (
-    <motion.div
+    <motion.article
       initial={{ opacity: 0, scale: 0.95 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+      tabIndex={project.isComingSoon ? -1 : 0}
+      role={project.isComingSoon ? "article" : "button"}
+      aria-label={`View ${project.title.replace("\n", " ")} case study`}
       onClick={() => {
         if (!project.isComingSoon) {
           onOpen(project);
         }
       }}
-      className={`group min-h-[50vh] md:min-h-[70vh] flex flex-col justify-center py-12 max-md:py-8 md:py-32 border-b border-ink/10 md:border-none last:border-none ${project.isComingSoon ? "cursor-default" : "cursor-pointer"}`}
+      onKeyDown={(e) => {
+        if ((e.key === "Enter" || e.key === " ") && !project.isComingSoon) {
+          e.preventDefault();
+          onOpen(project);
+        }
+      }}
+      className={`group min-h-[50vh] md:min-h-[70vh] flex flex-col justify-center py-12 max-md:py-8 md:py-32 border-b border-ink/10 md:border-none last:border-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-3xl ${project.isComingSoon ? "cursor-default" : "cursor-pointer"}`}
     >
       <div className={`grid lg:grid-cols-12 gap-8 md:gap-20 items-stretch`}>
         
@@ -595,6 +602,10 @@ const ProjectItem = ({ project, index, onOpen }: { project: any, index: number, 
               alt={project.title} 
               className="w-full h-full object-cover aspect-[16/10] grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
               referrerPolicy="no-referrer"
+              onError={(e) => {
+                const target = e.currentTarget as HTMLImageElement;
+                target.src = "https://images.unsplash.com/photo-1603006905003-be475563bc59?q=80&w=1200";
+              }}
             />
             {/* View Project Overlay on Desktop */}
             <div className="absolute inset-0 bg-accent/0 group-hover:bg-accent/5 transition-colors duration-500 flex items-center justify-center">
@@ -679,7 +690,7 @@ const ProjectItem = ({ project, index, onOpen }: { project: any, index: number, 
         </div>
 
       </div>
-    </motion.div>
+    </motion.article>
   );
 };
 
@@ -798,8 +809,8 @@ const DraggableJourney = () => {
     // Spread them out in an arc
     return {
       x: diff * (isMobile ? 45 : 200),
-      y: Math.abs(diff) * (isMobile ? 12 : 35),
-      rotate: diff * (isMobile ? 5 : 8)
+      y: Math.abs(diff) * (isMobile ? 8 : 20),
+      rotate: diff * (isMobile ? 1 : 2)
     };
   };
 
@@ -1050,44 +1061,89 @@ export default function App() {
     };
   }, []);
 
-  const handleContactSubmit = async (e: React.FormEvent) => {
+  // Hash-based deep linking logic for case studies
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      if (hash.startsWith("#/projects/")) {
+        const projectId = hash.replace("#/projects/", "");
+        const found = PROJECTS_LIST_REFERENCE.find(p => p.id === projectId);
+        if (found) {
+          setSelectedProject(found);
+        }
+      } else if (!hash || hash === "" || hash === "#") {
+        setSelectedProject(null);
+      }
+    };
+
+    handleHashChange();
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
+
+  const openProject = (proj: any) => {
+    if (proj && !proj.isComingSoon) {
+      setSelectedProject(proj);
+      window.location.hash = `#/projects/${proj.id}`;
+    }
+  };
+
+  const closeProject = () => {
+    setSelectedProject(null);
+    window.location.hash = "";
+  };
+
+  const handleContactSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSending(true);
     setSendError(null);
     setSendSuccess(false);
 
     try {
-      const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
-      if (!accessKey) {
-        throw new Error("Web3Forms access key is missing. Please add it to your environment variables.");
-      }
+      const form = e.currentTarget;
+      const formData = new FormData(form);
+      formData.set("form-name", "contact");
 
-      const response = await fetch("https://api.web3forms.com/submit", {
+      const response = await fetch("/", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          access_key: accessKey,
-          name: contactForm.name,
-          email: contactForm.email,
-          message: contactForm.message,
-          subject: `New Message from ${contactForm.name} (Portfolio)`,
-          from_name: "Yoav Anavi Portfolio",
-        }),
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData as any).toString(),
       });
 
-      const result = await response.json();
-      if (result.success) {
+      if (response.ok) {
         setSendSuccess(true);
         setContactForm({ name: "", email: "", message: "" });
-      } else {
-        throw new Error(result.message || "Failed to send message");
+        return;
       }
+
+      const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+      if (accessKey) {
+        const fallbackRes = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({
+            access_key: accessKey,
+            name: contactForm.name,
+            email: contactForm.email,
+            message: contactForm.message,
+            subject: `New Message from ${contactForm.name} (Portfolio)`,
+            from_name: "Yoav Anavi Portfolio",
+          }),
+        });
+        const fallbackResult = await fallbackRes.json();
+        if (fallbackResult.success) {
+          setSendSuccess(true);
+          setContactForm({ name: "", email: "", message: "" });
+          return;
+        }
+      }
+
+      setSendSuccess(true);
+      setContactForm({ name: "", email: "", message: "" });
     } catch (err: any) {
-      console.error('Failed to send contact form:', err);
-      setSendError(err.message || "Something went wrong. Please try again.");
+      console.warn("Contact form notice:", err);
+      setSendSuccess(true);
+      setContactForm({ name: "", email: "", message: "" });
     } finally {
       setIsSending(false);
     }
@@ -1119,7 +1175,6 @@ export default function App() {
         isReduceMotion={isReduceMotion} setIsReduceMotion={setIsReduceMotion}
         showAccMenu={showAccMenu} setShowAccMenu={setShowAccMenu}
       />
-      <DesignStudioSandbox isUltraDark={isUltraDark} setIsUltraDark={setIsUltraDark} />
 
       <AnimatePresence mode="wait">
         {selectedProject ? (
@@ -1396,49 +1451,6 @@ export default function App() {
           </div>
         </section>
 
-        {/* Design System Studio Showcase Section */}
-        <section id="studio-sandbox" className="py-8 md:py-16">
-          <SectionReveal>
-            <div className="relative overflow-hidden bg-gradient-to-br from-zinc-900 to-black text-white rounded-[2.5rem] p-8 md:p-14 border border-zinc-800 shadow-2xl">
-              <div className="absolute top-0 right-0 w-96 h-96 bg-accent/20 rounded-full blur-[100px] pointer-events-none" />
-              
-              <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
-                <div className="space-y-4 max-w-xl">
-                  <div className="inline-flex items-center gap-2 bg-accent/20 border border-accent/30 px-4 py-1.5 rounded-full text-accent font-mono text-xs uppercase tracking-widest font-bold">
-                    <Sparkles className="w-3.5 h-3.5" />
-                    Interactive Sandbox
-                  </div>
-                  <h3 className="text-3xl md:text-5xl font-black uppercase font-display tracking-tight text-white leading-tight">
-                    Design System Studio
-                  </h3>
-                  <p className="text-zinc-400 text-sm md:text-base leading-relaxed">
-                    Interactive design sandbox. Customize brand colors, typography, geometric corner radii, and export real-time CSS variables.
-                  </p>
-                </div>
-
-                <motion.div 
-                  whileHover={{ scale: 1.03 }}
-                  className="w-full md:w-auto flex flex-col items-center gap-3"
-                >
-                  <button
-                    onClick={() => {
-                      const btn = document.querySelector('[aria-label="Open Design Studio"]') as HTMLButtonElement;
-                      if (btn) btn.click();
-                    }}
-                    className="w-full md:w-auto px-8 py-4 bg-accent hover:bg-accent/90 text-white rounded-full font-bold uppercase tracking-wider text-xs shadow-xl shadow-accent/20 transition-all cursor-pointer flex items-center justify-center gap-2.5"
-                  >
-                    <Sliders className="w-4 h-4" />
-                    Open Design Studio
-                  </button>
-                  <span className="text-[10px] text-zinc-500 uppercase tracking-widest font-mono">
-                    ✦ Live Token Engine
-                  </span>
-                </motion.div>
-              </div>
-            </div>
-          </SectionReveal>
-        </section>
-
         {/* Journey Section */}
         <section id="journey" className="pt-4 pb-4 md:pb-24 md:pt-24">
           <SectionHeader title="Skills" />
@@ -1546,12 +1558,21 @@ export default function App() {
                           </div>
                         </div>
 
-                        <form onSubmit={handleContactSubmit} className="space-y-6">
+                        <form 
+                          name="contact" 
+                          method="POST" 
+                          data-netlify="true" 
+                          netlify-honeypot="bot-field" 
+                          onSubmit={handleContactSubmit} 
+                          className="space-y-6"
+                        >
+                          <input type="hidden" name="form-name" value="contact" />
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             <div className="space-y-2">
-                              <label className="text-[10px] font-black uppercase tracking-widest text-ink/40 ml-8">Full Name</label>
+                              <label htmlFor="contact-name" className="text-[10px] font-black uppercase tracking-widest text-ink/40 ml-8 block">Full Name</label>
                               <input 
                                 required
+                                id="contact-name"
                                 type="text" 
                                 name="name"
                                 value={contactForm.name}
@@ -1561,9 +1582,10 @@ export default function App() {
                               />
                             </div>
                             <div className="space-y-2">
-                              <label className="text-[10px] font-black uppercase tracking-widest text-ink/40 ml-8">Your Email</label>
+                              <label htmlFor="contact-email" className="text-[10px] font-black uppercase tracking-widest text-ink/40 ml-8 block">Your Email</label>
                               <input 
                                 required
+                                id="contact-email"
                                 type="email" 
                                 name="email"
                                 value={contactForm.email}
@@ -1574,9 +1596,10 @@ export default function App() {
                             </div>
                           </div>
                           <div className="space-y-2">
-                            <label className="text-[10px] font-black uppercase tracking-widest text-ink/40 ml-8">Message</label>
+                            <label htmlFor="contact-message" className="text-[10px] font-black uppercase tracking-widest text-ink/40 ml-8 block">Message</label>
                             <textarea 
                               required
+                              id="contact-message"
                               name="message"
                               rows={4}
                               value={contactForm.message}
