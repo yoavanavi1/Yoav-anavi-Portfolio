@@ -207,7 +207,14 @@ body {
 .animate-marquee-css {
   display: flex;
   width: max-content;
-  animation: marquee-infinite 30s linear infinite;
+  animation: marquee-infinite 75s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-css:hover,
+.marquee-wrapper:hover .animate-marquee-css,
+.group\/marquee:hover .animate-marquee-css {
+  animation-play-state: paused !important;
 }
 
 

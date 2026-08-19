@@ -46,7 +46,7 @@ export const PROJECTS_LIST_REFERENCE: Project[] = [
     id: "candle",
     category: "E-commerce store for desktop and mobile devices",
     description: "A beautiful and easy-to-use e-commerce website designed for my handmade candle brand.",
-    image: "https://i.postimg.cc/kGf4rwK0/Screenshot-2026-06-16-at-15-15-09.png",
+    image: "https://i.postimg.cc/rmSKQSKr/image.png",
     year: "2023",
     role: "Brand Owner & Web Designer",
     deliverables: ["UX/UI Design", "Wix Store Setup", "E-commerce Setup", "Brand Design"],

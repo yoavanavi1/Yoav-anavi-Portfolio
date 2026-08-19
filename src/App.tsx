@@ -474,24 +474,23 @@ const SectionReveal = ({ children, delay = 0, className = "" }: { children: Reac
   </motion.div>
 );
 
-const Marquee = ({ text, speed = 25 }: { text: string; speed?: number }) => {
+const Marquee = ({ text, speed = 80 }: { text: string; speed?: number }) => {
   return (
-    <div className="flex overflow-hidden whitespace-nowrap py-20 max-md:py-10 border-y border-ink/5 uppercase font-display bg-white/30 backdrop-blur-sm">
-      <motion.div 
+    <div className="marquee-wrapper group/marquee flex overflow-hidden whitespace-nowrap py-16 max-md:py-8 border-y border-ink/5 uppercase font-display bg-white/30 backdrop-blur-sm select-none cursor-pointer">
+      <div 
         className="animate-marquee-css flex items-center"
         style={{ animationDuration: `${speed}s` }}
-        whileHover={{ animationPlayState: "paused" }}
       >
-        {[...Array(2)].map((_, i) => (
+        {[...Array(4)].map((_, i) => (
           <div key={i} className="flex shrink-0">
-            {[...Array(5)].map((_, j) => (
-              <span key={j} className="text-3xl max-md:text-2xl md:text-6xl font-black px-12 flex items-center text-ink/10 hover:text-accent transition-colors duration-500">
+            {[...Array(3)].map((_, j) => (
+              <span key={j} className="text-3xl max-md:text-2xl md:text-6xl font-black px-12 flex items-center text-ink/15 group-hover/marquee:text-accent/80 hover:!text-accent transition-colors duration-500">
                 {text}
               </span>
             ))}
           </div>
         ))}
-      </motion.div>
+      </div>
     </div>
   );
 };
@@ -596,11 +595,11 @@ const ProjectItem = ({ project, index, onOpen }: { project: any, index: number, 
         
         {/* Image Container */}
         <div className={`lg:col-span-6 flex flex-col ${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
-          <div className="relative overflow-hidden rounded-2xl max-md:rounded-[1.5rem] md:rounded-[3rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] transition-all duration-700 group-hover:shadow-[0_45px_90px_-20px_rgba(21,128,61,0.2)] flex-1">
+          <div className="relative overflow-hidden rounded-2xl max-md:rounded-[1.5rem] md:rounded-[3rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] transition-all duration-700 group-hover:shadow-[0_45px_90px_-20px_rgba(21,128,61,0.2)] flex-1 bg-zinc-100/90 flex items-center justify-center p-4 sm:p-6 md:p-10">
             <img 
               src={project.image} 
               alt={project.title} 
-              className="w-full h-full object-cover aspect-[16/10] grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
+              className="w-full h-full object-contain aspect-[16/10] grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000 rounded-xl"
               referrerPolicy="no-referrer"
               onError={(e) => {
                 const target = e.currentTarget as HTMLImageElement;
@@ -609,7 +608,7 @@ const ProjectItem = ({ project, index, onOpen }: { project: any, index: number, 
             />
             {/* View Project Overlay on Desktop */}
             <div className="absolute inset-0 bg-accent/0 group-hover:bg-accent/5 transition-colors duration-500 flex items-center justify-center">
-              <span className="opacity-0 group-hover:opacity-100 bg-[#1A1A1D] text-white hover:bg-accent px-10 py-5 rounded-full text-xs md:text-sm font-black uppercase tracking-[0.2em] translate-y-4 group-hover:translate-y-0 transition-all duration-500 cursor-pointer">
+              <span className="opacity-0 group-hover:opacity-100 bg-[#1A1A1D] text-white hover:bg-accent px-10 py-5 rounded-full text-xs md:text-sm font-black uppercase tracking-[0.2em] translate-y-4 group-hover:translate-y-0 transition-all duration-500 cursor-pointer shadow-xl">
                 {project.isComingSoon ? "Coming Soon" : "View Project"}
               </span>
             </div>
@@ -1459,7 +1458,7 @@ export default function App() {
           </SectionReveal>
           
           <div className="mt-4 md:mt-16">
-            <Marquee text="Figma ✦ Generative AI ✦ UI/UX ✦ User Research ✦ Wireframing ✦ Strategy" speed={30} />
+            <Marquee text="Figma ✦ Generative AI ✦ UI/UX ✦ User Research ✦ Wireframing ✦ Strategy" speed={80} />
           </div>
         </section>
 
