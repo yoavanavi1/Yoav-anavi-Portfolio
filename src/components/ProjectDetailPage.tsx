@@ -1,21 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
-import { motion, AnimatePresence, useScroll, useSpring } from "motion/react";
+import { motion, useScroll, useSpring } from "motion/react";
 import { 
   ArrowLeft, 
   ArrowRight, 
   ArrowUpRight, 
-  ExternalLink,
   AlertCircle,
   Lightbulb,
-  Image as ImageIcon,
-  ZoomIn,
-  X,
-  Layers,
-  Sparkles,
-  Smartphone,
-  Monitor,
-  Layout,
-  Palette
+  Sparkles
 } from "lucide-react";
 
 import { Project, PROJECTS_LIST_REFERENCE } from "../utils/projectsData";
@@ -71,8 +62,6 @@ export default function ProjectDetailPage({ project, onBack, onNextProject }: Pr
 
   const [showHeader, setShowHeader] = useState(true);
   const [heroImageError, setHeroImageError] = useState(false);
-  const [activeTab, setActiveTab] = useState<"all" | "UI Screen" | "Wireframe" | "Design System">("all");
-  const [selectedLightboxImage, setSelectedLightboxImage] = useState<{ image: string; title: string; caption: string } | null>(null);
   
   const lastScrollY = useRef(0);
   
@@ -161,18 +150,6 @@ export default function ProjectDetailPage({ project, onBack, onNextProject }: Pr
     lastWord = titleWords[0] || "";
     firstWords = "";
   }
-
-  // Combine gallery screens or default to moreImages
-  const screens = project.galleryScreens || (project.moreImages || []).map((imgUrl, i) => ({
-    id: `${project.id}-screen-${i}`,
-    title: `${project.title.replace("\n", " ")} Screen Showcase #${i + 1}`,
-    type: (i % 2 === 0 ? "UI Screen" : i % 3 === 0 ? "Wireframe" : "Design System") as "UI Screen" | "Wireframe" | "Design System",
-    image: imgUrl,
-    aspectRatio: "16/9" as const,
-    caption: `Detailed interface mockup highlighting layout hierarchy and typography tokens.`
-  }));
-
-  const filteredScreens = activeTab === "all" ? screens : screens.filter(s => s.type === activeTab);
 
   return (
     <motion.div 
@@ -382,125 +359,6 @@ export default function ProjectDetailPage({ project, onBack, onNextProject }: Pr
           </section>
         )}
 
-        {/* --- EMBEDDED DESIGN WORK / SCREEN SHOWCASE GALLERY (TASK 8 FIX) --- */}
-        {!project.isComingSoon && (
-          <section className="bg-white border border-ink/5 rounded-[2.5rem] p-6 sm:p-10 shadow-[0_4px_25px_rgba(0,0,0,0.02)] space-y-8">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-zinc-100 pb-6">
-              <div>
-                <div className="flex items-center gap-2 text-accent text-xs font-bold uppercase tracking-widest mb-1">
-                  <ImageIcon className="w-4 h-4" />
-                  <span>Design Artifacts & UI Showcase</span>
-                </div>
-                <h3 className="text-2xl sm:text-3xl font-black font-display uppercase tracking-tight text-ink">
-                  Interactive Screen Showcase
-                </h3>
-                <p className="text-xs sm:text-sm text-ink/50 mt-1">
-                  Explore high-fidelity mobile & desktop mockups, wireframes, and design system components.
-                </p>
-              </div>
-
-              {/* Filter Tabs */}
-              <div className="flex items-center gap-1.5 bg-zinc-100/80 p-1.5 rounded-full overflow-x-auto self-start md:self-auto">
-                {[
-                  { id: "all", label: "All Work", icon: Layers },
-                  { id: "UI Screen", label: "UI Screens", icon: Monitor },
-                  { id: "Wireframe", label: "Wireframes", icon: Layout },
-                  { id: "Design System", label: "Tokens & System", icon: Palette },
-                ].map((tab) => {
-                  const IconComp = tab.icon;
-                  const isActive = activeTab === tab.id;
-                  return (
-                    <button
-                      key={tab.id}
-                      onClick={() => setActiveTab(tab.id as any)}
-                      className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider transition-all cursor-pointer whitespace-nowrap ${
-                        isActive 
-                          ? "bg-accent text-white shadow-md shadow-accent/20" 
-                          : "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-200/60"
-                      }`}
-                    >
-                      <IconComp className="w-3.5 h-3.5" />
-                      <span>{tab.label}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Gallery Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-              {filteredScreens.map((screen, idx) => (
-                <motion.div
-                  key={screen.id || idx}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  className="group relative bg-zinc-50 border border-zinc-200/80 rounded-[1.5rem] overflow-hidden flex flex-col justify-between hover:shadow-xl hover:shadow-accent/5 transition-all duration-500"
-                >
-                  <div 
-                    className="relative w-full aspect-[16/10] bg-zinc-900 overflow-hidden cursor-pointer"
-                    onClick={() => setSelectedLightboxImage({ image: screen.image, title: screen.title, caption: screen.caption })}
-                  >
-                    <img 
-                      src={screen.image} 
-                      alt={screen.title} 
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-95 group-hover:brightness-100"
-                      onError={(e) => {
-                        // Fallback UI preview card
-                        const target = e.currentTarget as HTMLImageElement;
-                        target.style.display = 'none';
-                      }}
-                    />
-                    
-                    {/* Hover Overlay with Lightbox trigger */}
-                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2">
-                      <span className="bg-white text-zinc-900 px-4 py-2 rounded-full text-xs font-black uppercase tracking-wider shadow-lg flex items-center gap-2">
-                        <ZoomIn className="w-4 h-4 text-accent" />
-                        <span>Enlarge Mockup</span>
-                      </span>
-                    </div>
-
-                    <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-md text-white text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full border border-white/20">
-                      {screen.type}
-                    </div>
-
-                    <div className="absolute bottom-3 right-3 bg-accent/90 text-white text-[9px] font-black uppercase tracking-widest px-2.5 py-0.5 rounded-full">
-                      1920×1080 HQ
-                    </div>
-                  </div>
-
-                  <div className="p-5 flex flex-col gap-1.5 bg-white border-t border-zinc-100">
-                    <h5 className="font-bold font-display text-base text-zinc-900 uppercase tracking-tight flex items-center justify-between">
-                      <span>{screen.title}</span>
-                      <Sparkles className="w-4 h-4 text-accent opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </h5>
-                    <p className="text-xs text-zinc-500 leading-relaxed">
-                      {screen.caption}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Note for dropping original raw assets */}
-            <div className="bg-accent/5 border border-accent/15 rounded-2xl p-4 flex items-center justify-between gap-4 text-xs text-zinc-700">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center text-accent shrink-0">
-                  <ImageIcon className="w-4 h-4" />
-                </div>
-                <div>
-                  <span className="font-bold text-accent uppercase tracking-wider block">High-Resolution Asset Slot</span>
-                  <span className="text-zinc-500">Design showcase frames prepared for 1920x1080 screen exports.</span>
-                </div>
-              </div>
-              <span className="text-[10px] font-mono bg-white px-3 py-1 rounded-full border border-zinc-200 text-zinc-500 uppercase tracking-widest">
-                Ready for Drop
-              </span>
-            </div>
-          </section>
-        )}
-
         {/* --- DESIGN PROCESS SECTION --- */}
         {!project.isComingSoon && project.details.focusAreas && (
           <section className="bg-white border border-ink/5 rounded-[1.5rem] p-6 md:p-8 shadow-[0_4px_20px_rgba(0,0,0,0.01)]">
@@ -572,49 +430,6 @@ export default function ProjectDetailPage({ project, onBack, onNextProject }: Pr
         </section>
 
       </main>
-
-      {/* Lightbox Modal for Enlarging Mockups */}
-      <AnimatePresence>
-        {selectedLightboxImage && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-md p-4 md:p-12 flex flex-col items-center justify-center overflow-y-auto"
-            onClick={() => setSelectedLightboxImage(null)}
-          >
-            <button
-              onClick={() => setSelectedLightboxImage(null)}
-              className="absolute top-6 right-6 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer"
-              aria-label="Close Lightbox Modal"
-            >
-              <X className="w-6 h-6" />
-            </button>
-
-            <motion.div
-              initial={{ scale: 0.9 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.9 }}
-              className="max-w-6xl w-full bg-zinc-950 border border-zinc-800 rounded-3xl overflow-hidden shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <img 
-                src={selectedLightboxImage.image} 
-                alt={selectedLightboxImage.title}
-                className="w-full max-h-[75vh] object-contain bg-black" 
-              />
-              <div className="p-6 bg-zinc-900 border-t border-zinc-800 flex flex-col gap-1">
-                <h4 className="text-xl font-bold font-display text-white uppercase tracking-tight">
-                  {selectedLightboxImage.title}
-                </h4>
-                <p className="text-sm text-zinc-400">
-                  {selectedLightboxImage.caption}
-                </p>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </motion.div>
   );
 }

@@ -28,6 +28,7 @@ import {
 } from "lucide-react";
 import React, { useState, useEffect, useRef, ReactNode, FormEvent } from "react";
 import ProjectDetailPage from "./components/ProjectDetailPage";
+import { CVModal } from "./components/CVModal";
 import { PROJECTS_LIST_REFERENCE } from "./utils/projectsData";
 
 // --- Components ---
@@ -975,6 +976,7 @@ const safeLocalStorage = {
 
 export default function App() {
   const [showWelcome, setShowWelcome] = useState(true);
+  const [showCVModal, setShowCVModal] = useState(false);
   
   // Accessibility states with hydration from localStorage
   const [isUltraDark, setIsUltraDark] = useState(() => safeLocalStorage.getItem("acc-ultra-dark") === "true");
@@ -1174,6 +1176,7 @@ export default function App() {
         isReduceMotion={isReduceMotion} setIsReduceMotion={setIsReduceMotion}
         showAccMenu={showAccMenu} setShowAccMenu={setShowAccMenu}
       />
+      <CVModal isOpen={showCVModal} onClose={() => setShowCVModal(false)} />
 
       <AnimatePresence mode="wait">
         {selectedProject ? (
@@ -1384,17 +1387,18 @@ export default function App() {
                   >
                     <span className="relative z-10">Get in touch</span>
                   </motion.a>
-                  <motion.a 
-                    href="/Yoav_Anavi_CV.pdf?v=3"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    download="Yoav_Anavi_CV.pdf"
+                  <motion.button 
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setShowCVModal(true);
+                    }}
                     whileHover={{ scale: 1.05, y: -5 }}
                     whileTap={{ scale: 0.95 }}
-                    className="w-[98%] max-sm:w-full max-sm:mt-2 max-sm:h-[44px] sm:w-[190px] sm:flex-none h-[40px] sm:h-[56px] bg-accent text-white rounded-full font-black uppercase tracking-[0.1em] text-[10px] sm:text-[14px] transition-all flex items-center justify-center gap-2 sm:gap-3 shadow-xl shadow-accent/20 relative z-10 mt-2 sm:mt-0"
+                    className="w-[98%] max-sm:w-full max-sm:mt-2 max-sm:h-[44px] sm:w-[190px] sm:flex-none h-[40px] sm:h-[56px] bg-accent text-white rounded-full font-black uppercase tracking-[0.1em] text-[10px] sm:text-[14px] transition-all flex items-center justify-center gap-2 sm:gap-3 shadow-xl shadow-accent/20 relative z-10 mt-2 sm:mt-0 cursor-pointer"
                   >
                     <span className="relative z-10 whitespace-nowrap">Download CV</span> <Download className="w-[12px] h-[12px] sm:w-[18px] sm:h-[18px] relative z-10" />
-                  </motion.a>
+                  </motion.button>
                 </div>
               </div>
             </SectionReveal>
