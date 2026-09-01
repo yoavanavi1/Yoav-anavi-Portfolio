@@ -285,11 +285,11 @@ export default function ProjectDetailPage({ project, onBack, onNextProject }: Pr
         </section>
 
         {/* --- HERO MOCKUP / COVER IMAGE SECTION (WITH GRACEFUL FALLBACK) --- */}
-        <section className="relative w-full bg-accent/[0.03] rounded-[2rem] p-4 sm:p-8 md:p-12 min-h-[240px] flex items-center justify-center overflow-hidden border border-zinc-200/40">
-          <div className="relative rounded-[1rem] overflow-hidden shadow-xl shadow-accent/10 w-full max-w-5xl">
+        <section className="relative w-full bg-accent/[0.03] rounded-[2rem] p-3 sm:p-6 md:p-10 flex items-center justify-center overflow-hidden border border-zinc-200/50">
+          <div className="relative rounded-[1.25rem] overflow-hidden shadow-2xl shadow-accent/10 w-full max-w-5xl border border-zinc-200/80 bg-zinc-900">
             {heroImageError ? (
               /* Graceful Fallback Container when image fails to load */
-              <div className="w-full aspect-[21/9] min-h-[250px] md:min-h-[420px] bg-gradient-to-br from-amber-950/20 via-zinc-900 to-black p-8 sm:p-12 flex flex-col items-center justify-center text-center relative overflow-hidden border border-amber-500/20 rounded-[1rem]">
+              <div className="w-full aspect-[16/9] min-h-[250px] md:min-h-[420px] bg-gradient-to-br from-amber-950/20 via-zinc-900 to-black p-8 sm:p-12 flex flex-col items-center justify-center text-center relative overflow-hidden border border-amber-500/20 rounded-[1.25rem]">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.08),transparent_70%)]" />
                 <div className="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 mb-4 z-10 shadow-lg shadow-amber-500/10">
                   <Sparkles className="w-8 h-8" />
@@ -308,8 +308,9 @@ export default function ProjectDetailPage({ project, onBack, onNextProject }: Pr
               <img 
                 src={coverImage} 
                 alt={project.title} 
+                referrerPolicy="no-referrer"
                 onError={() => setHeroImageError(true)}
-                className={`w-full object-cover aspect-[21/9] min-h-[200px] md:min-h-[420px] ${project.isComingSoon ? "grayscale brightness-75" : "brightness-95 hover:scale-[1.01] transition-transform duration-[1.5s]"}`}
+                className={`w-full h-auto object-contain md:object-cover object-top aspect-[16/10] sm:aspect-[16/9] max-h-[580px] bg-zinc-950/80 ${project.isComingSoon ? "grayscale brightness-75" : "brightness-95 hover:brightness-100 transition-all duration-700"}`}
               />
             )}
             {project.isComingSoon && (

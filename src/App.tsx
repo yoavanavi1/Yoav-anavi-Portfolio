@@ -596,11 +596,15 @@ const ProjectItem = ({ project, index, onOpen }: { project: any, index: number, 
         
         {/* Image Container */}
         <div className={`lg:col-span-6 flex flex-col ${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
-          <div className="relative overflow-hidden rounded-2xl max-md:rounded-[1.5rem] md:rounded-[3rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] transition-all duration-700 group-hover:shadow-[0_45px_90px_-20px_rgba(21,128,61,0.2)] flex-1 bg-zinc-100/90 flex items-center justify-center p-4 sm:p-6 md:p-10">
+          <div className={`relative overflow-hidden rounded-2xl max-md:rounded-[1.5rem] md:rounded-[3rem] shadow-[0_20px_50px_-15px_rgba(0,0,0,0.08)] border border-ink/5 transition-all duration-700 group-hover:shadow-[0_40px_80px_-20px_rgba(21,128,61,0.18)] flex-1 flex items-center justify-center min-h-[300px] sm:min-h-[380px] p-6 sm:p-10 md:p-14 ${project.id === 'zdr-zimark-deal-room' ? 'bg-[#FAFAFB]' : 'bg-white'}`}>
             <img 
               src={project.image} 
               alt={project.title} 
-              className="w-full h-full object-contain aspect-[16/10] grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000 rounded-xl"
+              className={`w-full h-full max-h-[260px] sm:max-h-[320px] transition-all duration-1000 ${
+                project.id === 'zdr-zimark-deal-room' 
+                  ? 'object-contain object-center scale-95 group-hover:scale-105' 
+                  : 'object-cover object-center grayscale group-hover:grayscale-0 group-hover:scale-105'
+              }`}
               referrerPolicy="no-referrer"
               onError={(e) => {
                 const target = e.currentTarget as HTMLImageElement;
@@ -608,7 +612,7 @@ const ProjectItem = ({ project, index, onOpen }: { project: any, index: number, 
               }}
             />
             {/* View Project Overlay on Desktop */}
-            <div className="absolute inset-0 bg-accent/0 group-hover:bg-accent/5 transition-colors duration-500 flex items-center justify-center">
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500 flex items-center justify-center">
               <span className="opacity-0 group-hover:opacity-100 bg-[#1A1A1D] text-white hover:bg-accent px-10 py-5 rounded-full text-xs md:text-sm font-black uppercase tracking-[0.2em] translate-y-4 group-hover:translate-y-0 transition-all duration-500 cursor-pointer shadow-xl">
                 {project.isComingSoon ? "Coming Soon" : "View Project"}
               </span>
@@ -643,15 +647,15 @@ const ProjectItem = ({ project, index, onOpen }: { project: any, index: number, 
                   {[
                     {
                       label: "Problem",
-                      text: project.problem || "Human-robot interfaces can feel unnatural and lack clear, comforting feedback."
+                      text: project.cardProblem || project.problem || "Human-robot interfaces can feel unnatural and lack clear, comforting feedback."
                     },
                     {
                       label: "Solution",
-                      text: project.solution || "Created clear sensory feedback loops and behavior scripts to make interactions more natural."
+                      text: project.cardSolution || project.solution || "Created clear sensory feedback loops and behavior scripts to make interactions more natural."
                     },
                     {
                       label: "Result",
-                      text: project.result || "Refined the robot's physical and auditory responses during field tests."
+                      text: project.cardResult || project.result || "Refined the robot's physical and auditory responses during field tests."
                     }
                   ].map((row, rIdx) => (
                     <div key={rIdx} className="flex items-stretch gap-4 text-left">

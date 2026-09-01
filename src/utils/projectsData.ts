@@ -38,9 +38,61 @@ export interface Project {
   problem?: string;
   solution?: string;
   result?: string;
+  cardProblem?: string;
+  cardSolution?: string;
+  cardResult?: string;
 }
 
 export const PROJECTS_LIST_REFERENCE: Project[] = [
+  {
+    title: "ZDR - Zimark Deal Room",
+    id: "zdr-zimark-deal-room",
+    category: "Product Designer & Builder",
+    description: "A centralized digital deal room platform connecting sales teams and clients in real time.",
+    image: "https://i.postimg.cc/wBrcxBS6/Gemini-Generated-Image-6ams0h6ams0h6ams.jpg",
+    year: "2026",
+    role: "Product manager | AI GTM Engineering",
+    deliverables: [
+      "Product Strategy",
+      "User Research",
+      "UX/UI Design",
+      "Prototyping",
+      "Design System",
+      "Lovable Build",
+      "Supabase Backend",
+      "Full-Stack Implementation"
+    ],
+    client: "Zimark",
+    coverImage: "https://i.postimg.cc/pT882Jf5/Screenshot-2026-08-30-at-9-37-05.jpg",
+    cardProblem: "Zimark’s sales process was scattered across multiple channels (email, WhatsApp, Google Drive, and CRM), leading to lost information, lack of transparency, and no single source of truth for deal tracking.",
+    cardSolution: "ZDR (Zimark Deal Room) - a centralized digital platform where each deal gets a shared, branded room. Sales reps share all necessary assets via a single link, giving clients a personalized, transparent experience while tracking activity in real time.",
+    cardResult: "Unified the entire sales workflow into a single source of truth, eliminated manual operational friction, and delivered a seamless, premium client experience.",
+    problem: "Zimark's sales process was scattered across emails, WhatsApp, Google Drive, and CRM. A salesperson managed dozens of conversations at the same time with different clients, each on a different channel. There was no single place where both sides saw the same picture - what was sent, what was done, and what the next step is. Information got lost, clients did not get a unified experience, and no one really knew where each deal stood.",
+    solution: "ZDR (Zimark Deal Room) - a platform that creates a shared digital room for each deal. The salesperson opens a room, puts inside all the content the client needs (presentations, documents, tasks, forms, questions), and sends one link. The client enters a personalized room with their logo that provides a personal experience and personal touch, sees everything organized, and works with complete transparency. The salesperson sees in real time what the client did and what is missing - and both sides are always on the same page.",
+    result: "Key results, impact, and user experience improvements.",
+    details: {
+      headline: "Case Study: ZDR - Zimark Deal Room",
+      contextLabel: "CONTEXT",
+      contextValue: "Product Designer & Builder",
+      overview: "Comprehensive overview and goals of this project will be updated here.",
+      focusAreas: [
+        {
+          title: "01 - Research, Discovery & PRD",
+          description: "Analyzed Zimark’s end-to-end sales processes, mapped out bottlenecks caused by scattered tools, and defined the complete product requirements (PRD) and MVP scope from scratch."
+        },
+        {
+          title: "02 - UX Architecture & Flows",
+          description: "Designed the user experience and complete user flow architecture for the Deal Room platform. Created an intuitive workflow that unifies sales management with a clean, transparent, and centralized client portal (Single Source of Truth)."
+        },
+        {
+          title: "03 - UI Design, AI Copilot & Business Potential",
+          description: "Built the high-fidelity product interface and UI, including customized client branding. Integrated AI capabilities as a personal assistant (Copilot) for data analysis, real-time activity tracking, and a business potential meter."
+        }
+      ],
+      figmaLink: "",
+      buttonLabel: "Open Figma Prototype"
+    }
+  },
   {
     title: "CANDLE&CO",
     id: "candle",
