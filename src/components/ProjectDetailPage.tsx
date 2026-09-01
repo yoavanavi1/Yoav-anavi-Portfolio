@@ -229,7 +229,7 @@ export default function ProjectDetailPage({ project, onBack, onNextProject }: Pr
                   whileTap={{ scale: 0.95 }}
                   className="inline-flex items-center gap-2 bg-accent hover:bg-zinc-900 text-white px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-wider transition-all duration-300 hover:shadow-lg hover:shadow-accent/20 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                 >
-                  <span>{project.id === "candle" || project.id === "tamir-carmel" ? "Visit Website" : "View Project"}</span>
+                  <span>{project.details.buttonLabel || (project.id === "candle" || project.id === "tamir-carmel" ? "Visit Website" : "View Project")}</span>
                   <ArrowUpRight className="w-4 h-4" />
                 </motion.a>
               )}

@@ -89,8 +89,8 @@ export const PROJECTS_LIST_REFERENCE: Project[] = [
           description: "Built the high-fidelity product interface and UI, including customized client branding. Integrated AI capabilities as a personal assistant (Copilot) for data analysis, real-time activity tracking, and a business potential meter."
         }
       ],
-      figmaLink: "",
-      buttonLabel: "Open Figma Prototype"
+      figmaLink: "https://www.figma.com/proto/SUl4rIeKIyDz7eUj2j9GiO/ZDR?node-id=47-2&p=f&m=draw&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=47%3A2&show-proto-sidebar=1&page-id=0%3A1&t=rzjPjPGlVdqFFn6h-1",
+      buttonLabel: "Explore Prototype"
     }
   },
   {
