@@ -48,7 +48,7 @@ export const PROJECTS_LIST_REFERENCE: Project[] = [
     title: "ZDR - Zimark Deal Room",
     id: "zdr-zimark-deal-room",
     category: "Product Designer & Builder",
-    description: "A centralized digital deal room platform connecting sales teams and clients in real time.",
+    description: "A production - deployed centralized digital deal room platform connecting sales teams and clients in real time.",
     image: "https://i.postimg.cc/wBrcxBS6/Gemini-Generated-Image-6ams0h6ams0h6ams.jpg",
     year: "2026",
     role: "Product manager | AI GTM Engineering",
