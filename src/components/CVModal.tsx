@@ -194,22 +194,22 @@ export const CVModal: React.FC<CVModalProps> = ({ isOpen, onClose }) => {
                     {/* Role 1 */}
                     <div>
                       <h3 className="text-xs sm:text-sm font-bold text-zinc-900 uppercase">
-                        AI GTM ENGINEER INTERN <span className="font-normal text-zinc-500">|</span> ZIMARK <span className="font-normal text-zinc-500">|</span> 2026 – PRESENT
+                        INTERN- Product manager & AI GTM ENGINEER <span className="font-normal text-zinc-500">|</span> ZIMARK <span className="font-normal text-zinc-500">|</span> July 2026 - September 2026
                       </h3>
-                      <ul className="mt-1.5 space-y-1 text-[11px] sm:text-xs text-zinc-700 list-disc list-outside ml-4 leading-relaxed uppercase font-medium">
-                        <li>SPEARHEADED THE END-TO-END CONCEPTUALIZATION AND BUILDING OF A CROSS-FUNCTIONAL PLATFORM IN A STARTUP, DELIVERING AN INTEGRATED SOLUTION FOR SALES TEAMS, CLIENTS, AND EXECUTIVE LEADERSHIP IN REAL TIME.</li>
-                        <li>CONDUCTED RESEARCH, INSIGHTS ANALYSIS, AND IDEATION SESSIONS USING CLAUDE AND GEMINI TO TRANSLATE COMPLEX REQUIREMENTS INTO PRECISE PRODUCT SPECIFICATIONS.</li>
-                        <li>DESIGNED USER FLOWS AND INTERACTIVE PROTOTYPES IN FIGMA, ALONGSIDE THE HANDS-ON BUILDING OF THE PLATFORM USING LOVABLE.</li>
+                      <ul className="mt-1.5 space-y-1 text-[11px] sm:text-xs text-zinc-700 list-disc list-outside ml-4 leading-relaxed font-normal">
+                        <li>Spearheaded the end-to-end conceptualization and building of a cross-functional platform in a startup, delivering an integrated solution for sales teams, clients, and executive leadership in real time.</li>
+                        <li>Conducted research, insights analysis, and ideation sessions using Claude and Gemini to translate complex requirements into precise product specifications.</li>
+                        <li>Designed 24 interactive prototypes in Figma and built the platform using Lovable.</li>
                       </ul>
                     </div>
 
                     {/* Role 2 */}
                     <div>
                       <h3 className="text-xs sm:text-sm font-bold text-zinc-900 uppercase">
-                        MANAGER OF UX/UI STUDENT CLUB <span className="font-normal text-zinc-500">|</span> REICHMAN UNIVERSITY <span className="font-normal text-zinc-500">|</span> 2024 – PRESENT
+                        Manager of UX/UI Student Club <span className="font-normal text-zinc-500">|</span> Reichman University <span className="font-normal text-zinc-500">|</span> 2025 - Present
                       </h3>
                       <ul className="mt-1.5 space-y-1 text-[11px] sm:text-xs text-zinc-700 list-disc list-outside ml-4 leading-relaxed font-normal">
-                        <li>Managed a community of 80+ students, leading strategy, branding, and ongoing club operations with students and industry professionals.</li>
+                        <li>Grew the club into one of the most sought-after communities at Reichman through strategic branding and operations. Attracted industry speakers and professors to present, significantly amplifying campus reputation.</li>
                         <li>Led digital projects and initiatives, including product requirements and UX definition for the club's central registration app to optimize user experience.</li>
                       </ul>
                     </div>
@@ -217,31 +217,31 @@ export const CVModal: React.FC<CVModalProps> = ({ isOpen, onClose }) => {
                     {/* Role 3 */}
                     <div>
                       <h3 className="text-xs sm:text-sm font-bold text-zinc-900 uppercase">
-                        OPERATIONS & LOGISTICS MANAGER (RESERVES) <span className="font-normal text-zinc-500">|</span> IDF <span className="font-normal text-zinc-500">|</span> 2023 – PRESENT
+                        Operations & Logistics Manager (Reserves) <span className="font-normal text-zinc-500">|</span> IDF <span className="font-normal text-zinc-500">|</span> 2023 - Present
                       </h3>
-                      <ul className="mt-1.5 space-y-1 text-[11px] sm:text-xs text-zinc-700 list-disc list-outside ml-4 leading-relaxed uppercase font-medium">
-                        <li>MANAGED LARGE-SCALE OPERATIONS AND LOGISTICS SYSTEMS, ENSURING RAPID DECISION-MAKING AND EXECUTING COMPLEX TASKS UNDER HIGH-PRESSURE ENVIRONMENTS AND TIGHT DEADLINES.</li>
+                      <ul className="mt-1.5 space-y-1 text-[11px] sm:text-xs text-zinc-700 list-disc list-outside ml-4 leading-relaxed font-normal">
+                        <li>Managed large-scale operations and logistics systems, ensuring rapid decision-making and executing complex tasks under high-pressure environments and tight deadlines.</li>
                       </ul>
                     </div>
 
                     {/* Role 4 */}
                     <div>
                       <h3 className="text-xs sm:text-sm font-bold text-zinc-900 uppercase">
-                        DIGITAL PROCUREMENT & TECHNOLOGY OPERATIONS <span className="font-normal text-zinc-500">|</span> UNIT 8200 <span className="font-normal text-zinc-500">|</span> 2021 – 2022
+                        Digital Procurement & Technology Operations <span className="font-normal text-zinc-500">|</span> Unit 8200 <span className="font-normal text-zinc-500">|</span> 2021 – 2022
                       </h3>
-                      <ul className="mt-1.5 space-y-1 text-[11px] sm:text-xs text-zinc-700 list-disc list-outside ml-4 leading-relaxed uppercase font-medium">
-                        <li>LED TECH PROCUREMENT PROJECTS, MAINTAINING ONGOING COORDINATION AND INTERFACE MANAGEMENT BETWEEN SENIOR COMMAND, R&D TEAMS, AND VENDORS.</li>
-                        <li>IMPLEMENTED RESOURCE MANAGEMENT MODELS THAT BRIDGED TECHNICAL SOLUTIONS WITH ORGANIZATIONAL STRATEGY.</li>
+                      <ul className="mt-1.5 space-y-1 text-[11px] sm:text-xs text-zinc-700 list-disc list-outside ml-4 leading-relaxed font-normal">
+                        <li>Led tech procurement projects, maintaining ongoing coordination and interface management between senior command, R&D teams, and vendors.</li>
+                        <li>Implemented resource management models that bridged technical solutions with organizational strategy.</li>
                       </ul>
                     </div>
 
                     {/* Role 5 */}
                     <div>
                       <h3 className="text-xs sm:text-sm font-bold text-zinc-900 uppercase">
-                        ASSISTANT TO BASE COMMANDER <span className="font-normal text-zinc-500">|</span> UNIT 8200 <span className="font-normal text-zinc-500">|</span> 2018 – 2021
+                        Assistant to Base Commander <span className="font-normal text-zinc-500">|</span> Unit 8200 <span className="font-normal text-zinc-500">|</span> 2018 – 2021
                       </h3>
-                      <ul className="mt-1.5 space-y-1 text-[11px] sm:text-xs text-zinc-700 list-disc list-outside ml-4 leading-relaxed uppercase font-medium">
-                        <li>AWARDED CERTIFICATE OF EXCELLENCE FOR MANAGING COMPLEX STAFF OPERATIONS AND CRITICAL CROSS-ORGANIZATIONAL TECHNOLOGICAL INTERFACES.</li>
+                      <ul className="mt-1.5 space-y-1 text-[11px] sm:text-xs text-zinc-700 list-disc list-outside ml-4 leading-relaxed font-normal">
+                        <li>Awarded Certificate of Excellence for managing complex staff operations and critical cross-organizational technological interfaces.</li>
                       </ul>
                     </div>
                   </div>
@@ -256,30 +256,36 @@ export const CVModal: React.FC<CVModalProps> = ({ isOpen, onClose }) => {
                   <div className="space-y-3">
                     <div>
                       <h3 className="text-xs sm:text-sm font-bold text-zinc-900 uppercase">
-                        CANDLE & CO. <span className="font-normal text-zinc-500">|</span> FOUNDER & E-COMMERCE CREATOR
+                        CANDLE & CO. <span className="font-normal text-zinc-500">|</span> Founder & E-Commerce Creator
                       </h3>
-                      <ul className="mt-1 space-y-1 text-[11px] sm:text-xs text-zinc-700 list-disc list-outside ml-4 leading-relaxed uppercase font-medium">
-                        <li>FOUNDED AND BUILT AN INDEPENDENT E-COMMERCE BRAND FOR HANDMADE CANDLES FROM SCRATCH, MANAGING THE FULL PRODUCT LIFECYCLE, END-TO-END UX/UI DESIGN, AND STOREFRONT EXECUTION.</li>
+                      <ul className="mt-1 space-y-1 text-[11px] sm:text-xs text-zinc-700 list-disc list-outside ml-4 leading-relaxed font-normal">
+                        <li>Founded and built an independent e-commerce brand for handmade candles from scratch, managing the full product lifecycle, end-to-end UX/UI design, and storefront execution.</li>
                       </ul>
                     </div>
 
                     <div>
                       <h3 className="text-xs sm:text-sm font-bold text-zinc-900 uppercase">
-                        UX/UI CLUB COMMUNITY APP <span className="font-normal text-zinc-500">|</span> RAPID EMERGENCY RESPONSE
+                        UX/UI CLUB COMMUNITY APP <span className="font-normal text-zinc-500">|</span> Rapid Emergency Response
                       </h3>
-                      <ul className="mt-1 space-y-1 text-[11px] sm:text-xs text-zinc-700 list-disc list-outside ml-4 leading-relaxed uppercase font-medium">
-                        <li>LED THE RAPID PRODUCT DEFINITION AND UX DESIGN FOR THE STUDENT COMMUNITY REGISTRATION APP, DELIVERING AN AGILE DIGITAL SOLUTION UNDER EMERGENCY CONDITIONS TO MAINTAIN COMMUNITY ENGAGEMENT.</li>
+                      <ul className="mt-1 space-y-1 text-[11px] sm:text-xs text-zinc-700 list-disc list-outside ml-4 leading-relaxed font-normal">
+                        <li>Led the rapid product definition and UX design for the student community registration app, delivering an agile digital solution under emergency conditions to maintain community engagement.</li>
                       </ul>
                     </div>
+                  </div>
+                </div>
 
-                    <div>
-                      <h3 className="text-xs sm:text-sm font-bold text-zinc-900 uppercase">
-                        ZDR SYSTEM <span className="font-normal text-zinc-500">|</span> ZIMARK PLATFORM
-                      </h3>
-                      <ul className="mt-1 space-y-1 text-[11px] sm:text-xs text-zinc-700 list-disc list-outside ml-4 leading-relaxed uppercase font-medium">
-                        <li>CONCEPTUALIZED AND BUILT A CROSS-FUNCTIONAL INTERNAL PLATFORM IN A STARTUP ENVIRONMENT, DELIVERING AN INTEGRATED, REAL-TIME SOLUTION FOR SALES TEAMS, CLIENTS, AND EXECUTIVE LEADERSHIP.</li>
-                      </ul>
-                    </div>
+                {/* EDUCATION SECTION */}
+                <div className="mb-6">
+                  <h2 className="text-base sm:text-lg font-bold text-[#0A5CA8] uppercase tracking-wide mb-3">
+                    EDUCATION
+                  </h2>
+                  <div className="space-y-1">
+                    <h3 className="text-xs sm:text-sm font-bold text-zinc-900 uppercase">
+                      Reichman University <span className="font-normal text-zinc-500">|</span> 2024 - Present
+                    </h3>
+                    <p className="text-xs sm:text-sm text-zinc-700 pl-4 font-normal">
+                      B.A. in Communications & HCI
+                    </p>
                   </div>
                 </div>
 

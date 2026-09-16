@@ -981,6 +981,34 @@ const safeLocalStorage = {
 export default function App() {
   const [showWelcome, setShowWelcome] = useState(true);
   const [showCVModal, setShowCVModal] = useState(false);
+  const [showCVMenu, setShowCVMenu] = useState(false);
+
+  const handleCVAction = async (lang: "he" | "en") => {
+    const file = lang === "en" ? "/Yoav_Anavi_CV.pdf" : "/Yoav_Anavi_CV_HE.pdf";
+    const filename = lang === "en" ? "Yoav_Anavi_CV.pdf" : "Yoav_Anavi_CV_HE.pdf";
+    try {
+      const response = await fetch(file);
+      if (!response.ok) throw new Error("Network response was not ok");
+      const blob = await response.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = blobUrl;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(blobUrl);
+    } catch (e) {
+      // High compatibility fallback
+      const link = document.createElement("a");
+      link.href = file;
+      link.download = filename;
+      link.target = "_blank";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  };
   
   // Accessibility states with hydration from localStorage
   const [isUltraDark, setIsUltraDark] = useState(() => safeLocalStorage.getItem("acc-ultra-dark") === "true");
@@ -1399,9 +1427,10 @@ export default function App() {
                     }}
                     whileHover={{ scale: 1.05, y: -5 }}
                     whileTap={{ scale: 0.95 }}
-                    className="w-[98%] max-sm:w-full max-sm:mt-2 max-sm:h-[44px] sm:w-[190px] sm:flex-none h-[40px] sm:h-[56px] bg-accent text-white rounded-full font-black uppercase tracking-[0.1em] text-[10px] sm:text-[14px] transition-all flex items-center justify-center gap-2 sm:gap-3 shadow-xl shadow-accent/20 relative z-10 mt-2 sm:mt-0 cursor-pointer"
+                    className="w-[48%] sm:w-[190px] h-[40px] max-sm:h-[44px] sm:h-[56px] bg-accent text-white rounded-full font-black uppercase tracking-[0.1em] text-[10px] sm:text-[14px] transition-all flex items-center justify-center gap-1 sm:gap-3 shadow-xl shadow-accent/20 cursor-pointer relative z-10"
                   >
-                    <span className="relative z-10 whitespace-nowrap">Download CV</span> <Download className="w-[12px] h-[12px] sm:w-[18px] sm:h-[18px] relative z-10" />
+                    <span className="relative z-10 whitespace-nowrap">Download CV</span> 
+                    <Download className="w-[12px] h-[12px] sm:w-[18px] sm:h-[18px] relative z-10" />
                   </motion.button>
                 </div>
               </div>
