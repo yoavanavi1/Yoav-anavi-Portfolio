@@ -104,7 +104,7 @@ async function createCV() {
 
   // --- PROFILE ---
   drawSectionHeader('PROFILE');
-  const profileText = "Communications and HCI student at Reichman University, blending operational and leadership background from Unit 8200 with hands-on experience in product, UX/UI, and AI workflows. Bringing business understanding, product mindset, and a proven ability to take real-world challenges and translate them into working products and solutions.";
+  const profileText = "Possesses strong design skills and a deep understanding of user experience, combining a command and operational background from Unit 8200 with the advanced application of AI tools. Proven ability to translate complex business and operational challenges into accessible and seamless digital products, leading processes from end to end and working effectively in a dynamic environment.";
   currentY = drawWrappedText(profileText, marginX, currentY, contentWidth, 8.5, fontRegular, darkInk, 1.35);
   currentY += 2;
 
@@ -113,37 +113,42 @@ async function createCV() {
   
   const experiences = [
     {
-      title: "AI GTM ENGINEER INTERN | ZIMARK | 2026 – PRESENT",
+      title: "INTERN- Product manager & AI GTM ENGINEER | ZIMARK | July2026 - September 2026",
       bullets: [
-        "SPEARHEADED THE END-TO-END CONCEPTUALIZATION AND BUILDING OF A CROSS-FUNCTIONAL PLATFORM IN A STARTUP, DELIVERING AN INTEGRATED SOLUTION FOR SALES TEAMS, CLIENTS, AND EXECUTIVE LEADERSHIP IN REAL TIME.",
-        "CONDUCTED RESEARCH, INSIGHTS ANALYSIS, AND IDEATION SESSIONS USING CLAUDE AND GEMINI TO TRANSLATE COMPLEX REQUIREMENTS INTO PRECISE PRODUCT SPECIFICATIONS.",
-        "DESIGNED USER FLOWS AND INTERACTIVE PROTOTYPES IN FIGMA, ALONGSIDE THE HANDS-ON BUILDING OF THE PLATFORM USING LOVABLE."
+        "Led the end-to-end design and development of the ZDR platform, a sales management system.",
+        "Conducted in-depth market research utilizing AI tools like Claude and Gemini.",
+        "Defined precise product requirements and developed the product into a live, functioning platform using the Lovable platform."
       ]
     },
     {
-      title: "MANAGER OF UX/UI STUDENT CLUB | REICHMAN UNIVERSITY | 2024 – PRESENT",
+      title: "Manager of UX/UI Student Club | Reichman University | 2025 - Present",
       bullets: [
-        "Managed a community of 80+ students, leading strategy, branding, and ongoing club operations with students and industry professionals.",
-        "Led digital projects and initiatives, including product requirements and UX definition for the club's central registration app to optimize user experience."
+        "Co-chair of the UX/UI Club at Reichman University, leading an expanded team of department managers.",
+        "Provides strategic leadership, develops work plans, and mentors team managers to uphold the club's core DNA.",
+        "Recruits and trains functional managers to ensure operational success and continued community growth."
       ]
     },
     {
-      title: "OPERATIONS & LOGISTICS MANAGER (RESERVES) | IDF | 2023 – PRESENT",
+      title: "Operations & Logistics Manager (Reserves) | IDF | 2023 - Present",
       bullets: [
-        "MANAGED LARGE-SCALE OPERATIONS AND LOGISTICS SYSTEMS, ENSURING RAPID DECISION-MAKING AND EXECUTING COMPLEX TASKS UNDER HIGH-PRESSURE ENVIRONMENTS AND TIGHT DEADLINES."
+        "Managed operational and logistical systems.",
+        "Performed under high-pressure conditions and met strict deadlines.",
+        "Led and supervised personnel during complex missions."
       ]
     },
     {
-      title: "DIGITAL PROCUREMENT & TECHNOLOGY OPERATIONS | UNIT 8200 | 2021 – 2022",
+      title: "Digital Procurement & Technology Operations | Unit 8200 | 2021 – 2022",
       bullets: [
-        "LED TECH PROCUREMENT PROJECTS, MAINTAINING ONGOING COORDINATION AND INTERFACE MANAGEMENT BETWEEN SENIOR COMMAND, R&D TEAMS, AND VENDORS.",
-        "IMPLEMENTED RESOURCE MANAGEMENT MODELS THAT BRIDGED TECHNICAL SOLUTIONS WITH ORGANIZATIONAL STRATEGY."
+        "Managed strategic technological procurement projects, coordinating cross-functional interfaces between senior command, R&D teams, and external suppliers.",
+        "Led resource optimization initiatives that aligned advanced technical solutions with organizational goals."
       ]
     },
     {
-      title: "ASSISTANT TO BASE COMMANDER | UNIT 8200 | 2018 – 2021",
+      title: "Assistant to Base Commander | Unit 8200 | 2018 – 2021",
       bullets: [
-        "AWARDED CERTIFICATE OF EXCELLENCE FOR MANAGING COMPLEX STAFF OPERATIONS AND CRITICAL CROSS-ORGANIZATIONAL TECHNOLOGICAL INTERFACES."
+        "Served as Deputy Base Commander, managing complex staff operations.",
+        "Directed critical cross-organizational technological interfaces to enhance operational efficiency.",
+        "Received a Certificate of Excellence for exceptional leadership."
       ]
     }
   ];
@@ -177,16 +182,20 @@ async function createCV() {
   
   const projects = [
     {
-      title: "CANDLE & CO. | FOUNDER & E-COMMERCE CREATOR",
-      bullet: "FOUNDED AND BUILT AN INDEPENDENT E-COMMERCE BRAND FOR HANDMADE CANDLES FROM SCRATCH, MANAGING THE FULL PRODUCT LIFECYCLE, END-TO-END UX/UI DESIGN, AND STOREFRONT EXECUTION."
+      title: "CANDLE & CO. | Founder & E-Commerce Creator",
+      bullets: [
+        "End-to-end establishment and management of an independent e-commerce brand for handmade candles, with full responsibility for the entire product lifecycle.",
+        "Comprehensive UX/UI optimization, with a focus on streamlining the checkout process to reduce site abandonment.",
+        "Utilization of high-quality imagery to showcase fine details and increase the store's conversion rate."
+      ]
     },
     {
-      title: "UX/UI CLUB COMMUNITY APP | RAPID EMERGENCY RESPONSE",
-      bullet: "LED THE RAPID PRODUCT DEFINITION AND UX DESIGN FOR THE STUDENT COMMUNITY REGISTRATION APP, DELIVERING AN AGILE DIGITAL SOLUTION UNDER EMERGENCY CONDITIONS TO MAINTAIN COMMUNITY ENGAGEMENT."
-    },
-    {
-      title: "ZDR SYSTEM | ZIMARK PLATFORM",
-      bullet: "CONCEPTUALIZED AND BUILT A CROSS-FUNCTIONAL INTERNAL PLATFORM IN A STARTUP ENVIRONMENT, DELIVERING AN INTEGRATED, REAL-TIME SOLUTION FOR SALES TEAMS, CLIENTS, AND EXECUTIVE LEADERSHIP."
+      title: "UX/UI CLUB COMMUNITY APP | Rapid Emergency Response",
+      bullets: [
+        "End-to-end UX/UI design and onboarding flow optimization for the UX/UI Club mobile application.",
+        "Spearheaded the rapid development of an efficient digital solution under emergency constraints, successfully maintaining high community engagement.",
+        "Defined intuitive user flows and interactive wireframes to ensure a seamless and accessible registration experience for community members."
+      ]
     }
   ];
 
@@ -200,23 +209,47 @@ async function createCV() {
     });
     currentY -= 11.5;
     
-    page.drawText('•', {
-      x: marginX + 4,
-      y: currentY,
-      size: 8,
-      font: fontBold,
-      color: darkInk
+    proj.bullets.forEach(bullet => {
+      page.drawText('•', {
+        x: marginX + 4,
+        y: currentY,
+        size: 8,
+        font: fontBold,
+        color: darkInk
+      });
+      currentY = drawWrappedText(bullet, marginX + 14, currentY, contentWidth - 14, 8, fontRegular, darkInk, 1.32);
+      currentY += 1.5;
     });
-    currentY = drawWrappedText(proj.bullet, marginX + 14, currentY, contentWidth - 14, 8, fontRegular, darkInk, 1.32);
-    currentY -= 1;
+    currentY -= 2;
   });
+
+  // --- EDUCATION ---
+  drawSectionHeader('EDUCATION');
+  
+  page.drawText("Reichman University | 2024 - Present", {
+    x: marginX,
+    y: currentY,
+    size: 8.5,
+    font: fontBold,
+    color: darkInk
+  });
+  currentY -= 11.5;
+  page.drawText("B.A. in Communications & HCI", {
+    x: marginX,
+    y: currentY,
+    size: 8,
+    font: fontRegular,
+    color: darkInk
+  });
+  currentY -= 14;
 
   // --- SKILLS & TOOLS ---
   drawSectionHeader('SKILLS & TOOLS');
   
   const skills = [
-    { label: "Design & Product: ", detail: "Figma, UI/UX Principles, Wireframing, Prototyping, Product Definition." },
-    { label: "AI & Tech: ", detail: "Claude, Gemini, Lovable, AI Workflows." },
+    { label: "Product and Design: ", detail: "Figma, UX/UI philosophies, wireframing, interactive prototyping, and brand transformation." },
+    { label: "AI and Technology: ", detail: "Advanced AI integration (Gemini, Claude), Lovable workflows, and AI-driven development." },
+    { label: "Management and Leadership: ", detail: "Project management, multidisciplinary teamwork, GTM strategy, and startup ecosystem collaboration." },
     { label: "Languages: ", detail: "Hebrew (Native), English (Fluent)." }
   ];
 

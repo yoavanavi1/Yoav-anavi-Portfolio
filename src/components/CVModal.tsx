@@ -177,10 +177,7 @@ export const CVModal: React.FC<CVModalProps> = ({ isOpen, onClose }) => {
                     PROFILE
                   </h2>
                   <p className="text-xs sm:text-sm text-zinc-800 leading-relaxed font-normal">
-                    Communications and HCI student at Reichman University, blending operational and leadership background from
-                    Unit 8200 with hands-on experience in product, UX/UI, and AI workflows. Bringing business understanding,
-                    product mindset, and a proven ability to take real-world challenges and translate them into working products
-                    and solutions.
+                    Possesses strong design skills and a deep understanding of user experience, combining a command and operational background from Unit 8200 with the advanced application of AI tools. Proven ability to translate complex business and operational challenges into accessible and seamless digital products, leading processes from end to end and working effectively in a dynamic environment.
                   </p>
                 </div>
 
@@ -194,12 +191,12 @@ export const CVModal: React.FC<CVModalProps> = ({ isOpen, onClose }) => {
                     {/* Role 1 */}
                     <div>
                       <h3 className="text-xs sm:text-sm font-bold text-zinc-900 uppercase">
-                        INTERN- Product manager & AI GTM ENGINEER <span className="font-normal text-zinc-500">|</span> ZIMARK <span className="font-normal text-zinc-500">|</span> July 2026 - September 2026
+                        INTERN- Product manager & AI GTM ENGINEER <span className="font-normal text-zinc-500">|</span> ZIMARK <span className="font-normal text-zinc-500">|</span> July2026 - September 2026
                       </h3>
                       <ul className="mt-1.5 space-y-1 text-[11px] sm:text-xs text-zinc-700 list-disc list-outside ml-4 leading-relaxed font-normal">
-                        <li>Spearheaded the end-to-end conceptualization and building of a cross-functional platform in a startup, delivering an integrated solution for sales teams, clients, and executive leadership in real time.</li>
-                        <li>Conducted research, insights analysis, and ideation sessions using Claude and Gemini to translate complex requirements into precise product specifications.</li>
-                        <li>Designed 24 interactive prototypes in Figma and built the platform using Lovable.</li>
+                        <li>Led the end-to-end design and development of the ZDR platform, a sales management system.</li>
+                        <li>Conducted in-depth market research utilizing AI tools like Claude and Gemini.</li>
+                        <li>Defined precise product requirements and developed the product into a live, functioning platform using the Lovable platform.</li>
                       </ul>
                     </div>
 
@@ -209,8 +206,9 @@ export const CVModal: React.FC<CVModalProps> = ({ isOpen, onClose }) => {
                         Manager of UX/UI Student Club <span className="font-normal text-zinc-500">|</span> Reichman University <span className="font-normal text-zinc-500">|</span> 2025 - Present
                       </h3>
                       <ul className="mt-1.5 space-y-1 text-[11px] sm:text-xs text-zinc-700 list-disc list-outside ml-4 leading-relaxed font-normal">
-                        <li>Grew the club into one of the most sought-after communities at Reichman through strategic branding and operations. Attracted industry speakers and professors to present, significantly amplifying campus reputation.</li>
-                        <li>Led digital projects and initiatives, including product requirements and UX definition for the club's central registration app to optimize user experience.</li>
+                        <li>Co-chair of the UX/UI Club at Reichman University, leading an expanded team of department managers.</li>
+                        <li>Provides strategic leadership, develops work plans, and mentors team managers to uphold the club's core DNA.</li>
+                        <li>Recruits and trains functional managers to ensure operational success and continued community growth.</li>
                       </ul>
                     </div>
 
@@ -220,7 +218,9 @@ export const CVModal: React.FC<CVModalProps> = ({ isOpen, onClose }) => {
                         Operations & Logistics Manager (Reserves) <span className="font-normal text-zinc-500">|</span> IDF <span className="font-normal text-zinc-500">|</span> 2023 - Present
                       </h3>
                       <ul className="mt-1.5 space-y-1 text-[11px] sm:text-xs text-zinc-700 list-disc list-outside ml-4 leading-relaxed font-normal">
-                        <li>Managed large-scale operations and logistics systems, ensuring rapid decision-making and executing complex tasks under high-pressure environments and tight deadlines.</li>
+                        <li>Managed operational and logistical systems.</li>
+                        <li>Performed under high-pressure conditions and met strict deadlines.</li>
+                        <li>Led and supervised personnel during complex missions.</li>
                       </ul>
                     </div>
 
@@ -230,8 +230,8 @@ export const CVModal: React.FC<CVModalProps> = ({ isOpen, onClose }) => {
                         Digital Procurement & Technology Operations <span className="font-normal text-zinc-500">|</span> Unit 8200 <span className="font-normal text-zinc-500">|</span> 2021 – 2022
                       </h3>
                       <ul className="mt-1.5 space-y-1 text-[11px] sm:text-xs text-zinc-700 list-disc list-outside ml-4 leading-relaxed font-normal">
-                        <li>Led tech procurement projects, maintaining ongoing coordination and interface management between senior command, R&D teams, and vendors.</li>
-                        <li>Implemented resource management models that bridged technical solutions with organizational strategy.</li>
+                        <li>Managed strategic technological procurement projects, coordinating cross-functional interfaces between senior command, R&D teams, and external suppliers.</li>
+                        <li>Led resource optimization initiatives that aligned advanced technical solutions with organizational goals.</li>
                       </ul>
                     </div>
 
@@ -241,7 +241,9 @@ export const CVModal: React.FC<CVModalProps> = ({ isOpen, onClose }) => {
                         Assistant to Base Commander <span className="font-normal text-zinc-500">|</span> Unit 8200 <span className="font-normal text-zinc-500">|</span> 2018 – 2021
                       </h3>
                       <ul className="mt-1.5 space-y-1 text-[11px] sm:text-xs text-zinc-700 list-disc list-outside ml-4 leading-relaxed font-normal">
-                        <li>Awarded Certificate of Excellence for managing complex staff operations and critical cross-organizational technological interfaces.</li>
+                        <li>Served as Deputy Base Commander, managing complex staff operations.</li>
+                        <li>Directed critical cross-organizational technological interfaces to enhance operational efficiency.</li>
+                        <li>Received a Certificate of Excellence for exceptional leadership.</li>
                       </ul>
                     </div>
                   </div>
@@ -259,7 +261,9 @@ export const CVModal: React.FC<CVModalProps> = ({ isOpen, onClose }) => {
                         CANDLE & CO. <span className="font-normal text-zinc-500">|</span> Founder & E-Commerce Creator
                       </h3>
                       <ul className="mt-1 space-y-1 text-[11px] sm:text-xs text-zinc-700 list-disc list-outside ml-4 leading-relaxed font-normal">
-                        <li>Founded and built an independent e-commerce brand for handmade candles from scratch, managing the full product lifecycle, end-to-end UX/UI design, and storefront execution.</li>
+                        <li>End-to-end establishment and management of an independent e-commerce brand for handmade candles, with full responsibility for the entire product lifecycle.</li>
+                        <li>Comprehensive UX/UI optimization, with a focus on streamlining the checkout process to reduce site abandonment.</li>
+                        <li>Utilization of high-quality imagery to showcase fine details and increase the store's conversion rate.</li>
                       </ul>
                     </div>
 
@@ -268,7 +272,9 @@ export const CVModal: React.FC<CVModalProps> = ({ isOpen, onClose }) => {
                         UX/UI CLUB COMMUNITY APP <span className="font-normal text-zinc-500">|</span> Rapid Emergency Response
                       </h3>
                       <ul className="mt-1 space-y-1 text-[11px] sm:text-xs text-zinc-700 list-disc list-outside ml-4 leading-relaxed font-normal">
-                        <li>Led the rapid product definition and UX design for the student community registration app, delivering an agile digital solution under emergency conditions to maintain community engagement.</li>
+                        <li>End-to-end UX/UI design and onboarding flow optimization for the UX/UI Club mobile application.</li>
+                        <li>Spearheaded the rapid development of an efficient digital solution under emergency constraints, successfully maintaining high community engagement.</li>
+                        <li>Defined intuitive user flows and interactive wireframes to ensure a seamless and accessible registration experience for community members.</li>
                       </ul>
                     </div>
                   </div>
@@ -299,13 +305,19 @@ export const CVModal: React.FC<CVModalProps> = ({ isOpen, onClose }) => {
                     <p className="flex items-start gap-2 text-zinc-800">
                       <span className="text-zinc-400">•</span>
                       <span>
-                        <strong className="font-bold text-zinc-900">Design & Product:</strong> Figma, UI/UX Principles, Wireframing, Prototyping, Product Definition.
+                        <strong className="font-bold text-zinc-900">Product and Design:</strong> Figma, UX/UI philosophies, wireframing, interactive prototyping, and brand transformation.
                       </span>
                     </p>
                     <p className="flex items-start gap-2 text-zinc-800">
                       <span className="text-zinc-400">•</span>
                       <span>
-                        <strong className="font-bold text-zinc-900">AI & Tech:</strong> Claude, Gemini, Lovable, AI Workflows.
+                        <strong className="font-bold text-zinc-900">AI and Technology:</strong> Advanced AI integration (Gemini, Claude), Lovable workflows, and AI-driven development.
+                      </span>
+                    </p>
+                    <p className="flex items-start gap-2 text-zinc-800">
+                      <span className="text-zinc-400">•</span>
+                      <span>
+                        <strong className="font-bold text-zinc-900">Management and Leadership:</strong> Project management, multidisciplinary teamwork, GTM strategy, and startup ecosystem collaboration.
                       </span>
                     </p>
                     <p className="flex items-start gap-2 text-zinc-800">
