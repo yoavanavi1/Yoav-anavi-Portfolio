@@ -125,46 +125,48 @@ export const CVModal: React.FC<CVModalProps> = ({ isOpen, onClose }) => {
                 <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-[#0A5CA8]/20 pb-6 mb-6">
                   <div>
                     <h1 className="text-3xl sm:text-4xl font-extrabold text-[#0A5CA8] tracking-tight mb-1">
-                      YOAV ANAVI
+                      Yoav Anavi
                     </h1>
                   </div>
 
                   <div className="text-right sm:text-right flex flex-col gap-1 text-[11px] sm:text-xs font-semibold text-zinc-700">
                     <p className="flex items-center gap-1.5 sm:justify-end">
-                      <span>TEL AVIV-YAFO</span>
+                      <span>Address: 10 Moshe Perlok St., Tel Aviv</span>
                       <span>|</span>
-                      <a href="tel:0543455947" className="hover:text-[#0A5CA8] transition-colors">054-3455947</a>
-                      <span>|</span>
+                      <span>Phone: <a href="tel:0543455947" className="hover:text-[#0A5CA8] transition-colors">054-3455947</a></span>
+                    </p>
+                    <p className="flex items-center gap-1.5 sm:justify-end">
+                      <span>Email: </span>
                       <button 
                         onClick={handleCopyEmail}
                         className="hover:text-[#0A5CA8] transition-colors inline-flex items-center gap-1"
                         title="Click to copy email"
                       >
-                        YOAVANAVI1@GMAIL.COM
+                        yoavanavi1@gmail.com
                         {copiedEmail ? <Check className="w-3 h-3 text-green-600" /> : <Copy className="w-2.5 h-2.5 opacity-50" />}
                       </button>
                     </p>
                     <p className="flex items-center gap-1.5 sm:justify-end">
-                      <span>PORTFOLIO:</span>
+                      <span>Portfolio:</span>
                       <a 
                         href="https://yoavanaviportfolio.netlify.app" 
                         target="_blank" 
                         rel="noopener noreferrer" 
                         className="text-[#0A5CA8] underline hover:opacity-80 transition-opacity flex items-center gap-0.5"
                       >
-                        YOAVANAVIPORTFOLIO.NETLIFY.APP
+                        yoavanaviportfolio.netlify.app
                         <ArrowUpRight className="w-3 h-3" />
                       </a>
                     </p>
                     <p className="flex items-center gap-1.5 sm:justify-end">
-                      <span>LINKEDIN:</span>
+                      <span>LinkedIn:</span>
                       <a 
                         href="https://linkedin.com/in/yoav-anavi" 
                         target="_blank" 
                         rel="noopener noreferrer" 
                         className="text-[#0A5CA8] underline hover:opacity-80 transition-opacity flex items-center gap-0.5"
                       >
-                        LINKEDIN.COM/IN/YOAV-ANAVI
+                        linkedin.com/in/yoav-anavi
                         <ArrowUpRight className="w-3 h-3" />
                       </a>
                     </p>
@@ -177,107 +179,8 @@ export const CVModal: React.FC<CVModalProps> = ({ isOpen, onClose }) => {
                     PROFILE
                   </h2>
                   <p className="text-xs sm:text-sm text-zinc-800 leading-relaxed font-normal">
-                    Possesses strong design skills and a deep understanding of user experience, combining a command and operational background from Unit 8200 with the advanced application of AI tools. Proven ability to translate complex business and operational challenges into accessible and seamless digital products, leading processes from end to end and working effectively in a dynamic environment.
+                    Communications student specializing in HCI at Reichman University, with experience leading digital products from requirements to a working version. Combines design thinking, business understanding and advanced use of AI tools, together with management experience from Unit 8200.
                   </p>
-                </div>
-
-                {/* EXPERIENCE SECTION */}
-                <div className="mb-6">
-                  <h2 className="text-base sm:text-lg font-bold text-[#0A5CA8] uppercase tracking-wide mb-3">
-                    EXPERIENCE
-                  </h2>
-
-                  <div className="space-y-4">
-                    {/* Role 1 */}
-                    <div>
-                      <h3 className="text-xs sm:text-sm font-bold text-zinc-900 uppercase">
-                        INTERN- Product manager & AI GTM ENGINEER <span className="font-normal text-zinc-500">|</span> ZIMARK <span className="font-normal text-zinc-500">|</span> July2026 - September 2026
-                      </h3>
-                      <ul className="mt-1.5 space-y-1 text-[11px] sm:text-xs text-zinc-700 list-disc list-outside ml-4 leading-relaxed font-normal">
-                        <li>Led the end-to-end design and development of the ZDR platform, a sales management system.</li>
-                        <li>Conducted in-depth market research utilizing AI tools like Claude and Gemini.</li>
-                        <li>Defined precise product requirements and developed the product into a live, functioning platform using the Lovable platform.</li>
-                      </ul>
-                    </div>
-
-                    {/* Role 2 */}
-                    <div>
-                      <h3 className="text-xs sm:text-sm font-bold text-zinc-900 uppercase">
-                        Manager of UX/UI Student Club <span className="font-normal text-zinc-500">|</span> Reichman University <span className="font-normal text-zinc-500">|</span> 2025 - Present
-                      </h3>
-                      <ul className="mt-1.5 space-y-1 text-[11px] sm:text-xs text-zinc-700 list-disc list-outside ml-4 leading-relaxed font-normal">
-                        <li>Co-chair of the UX/UI Club at Reichman University, leading an expanded team of department managers.</li>
-                        <li>Provides strategic leadership, develops work plans, and mentors team managers to uphold the club's core DNA.</li>
-                        <li>Recruits and trains functional managers to ensure operational success and continued community growth.</li>
-                      </ul>
-                    </div>
-
-                    {/* Role 3 */}
-                    <div>
-                      <h3 className="text-xs sm:text-sm font-bold text-zinc-900 uppercase">
-                        Operations & Logistics Manager (Reserves) <span className="font-normal text-zinc-500">|</span> IDF <span className="font-normal text-zinc-500">|</span> 2023 - Present
-                      </h3>
-                      <ul className="mt-1.5 space-y-1 text-[11px] sm:text-xs text-zinc-700 list-disc list-outside ml-4 leading-relaxed font-normal">
-                        <li>Managed operational and logistical systems.</li>
-                        <li>Performed under high-pressure conditions and met strict deadlines.</li>
-                        <li>Led and supervised personnel during complex missions.</li>
-                      </ul>
-                    </div>
-
-                    {/* Role 4 */}
-                    <div>
-                      <h3 className="text-xs sm:text-sm font-bold text-zinc-900 uppercase">
-                        Digital Procurement & Technology Operations <span className="font-normal text-zinc-500">|</span> Unit 8200 <span className="font-normal text-zinc-500">|</span> 2021 – 2022
-                      </h3>
-                      <ul className="mt-1.5 space-y-1 text-[11px] sm:text-xs text-zinc-700 list-disc list-outside ml-4 leading-relaxed font-normal">
-                        <li>Managed strategic technological procurement projects, coordinating cross-functional interfaces between senior command, R&D teams, and external suppliers.</li>
-                        <li>Led resource optimization initiatives that aligned advanced technical solutions with organizational goals.</li>
-                      </ul>
-                    </div>
-
-                    {/* Role 5 */}
-                    <div>
-                      <h3 className="text-xs sm:text-sm font-bold text-zinc-900 uppercase">
-                        Assistant to Base Commander <span className="font-normal text-zinc-500">|</span> Unit 8200 <span className="font-normal text-zinc-500">|</span> 2018 – 2021
-                      </h3>
-                      <ul className="mt-1.5 space-y-1 text-[11px] sm:text-xs text-zinc-700 list-disc list-outside ml-4 leading-relaxed font-normal">
-                        <li>Served as Deputy Base Commander, managing complex staff operations.</li>
-                        <li>Directed critical cross-organizational technological interfaces to enhance operational efficiency.</li>
-                        <li>Received a Certificate of Excellence for exceptional leadership.</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-                {/* PROJECTS SECTION */}
-                <div className="mb-6">
-                  <h2 className="text-base sm:text-lg font-bold text-[#0A5CA8] uppercase tracking-wide mb-3">
-                    PROJECTS
-                  </h2>
-
-                  <div className="space-y-3">
-                    <div>
-                      <h3 className="text-xs sm:text-sm font-bold text-zinc-900 uppercase">
-                        CANDLE & CO. <span className="font-normal text-zinc-500">|</span> Founder & E-Commerce Creator
-                      </h3>
-                      <ul className="mt-1 space-y-1 text-[11px] sm:text-xs text-zinc-700 list-disc list-outside ml-4 leading-relaxed font-normal">
-                        <li>End-to-end establishment and management of an independent e-commerce brand for handmade candles, with full responsibility for the entire product lifecycle.</li>
-                        <li>Comprehensive UX/UI optimization, with a focus on streamlining the checkout process to reduce site abandonment.</li>
-                        <li>Utilization of high-quality imagery to showcase fine details and increase the store's conversion rate.</li>
-                      </ul>
-                    </div>
-
-                    <div>
-                      <h3 className="text-xs sm:text-sm font-bold text-zinc-900 uppercase">
-                        UX/UI CLUB COMMUNITY APP <span className="font-normal text-zinc-500">|</span> Rapid Emergency Response
-                      </h3>
-                      <ul className="mt-1 space-y-1 text-[11px] sm:text-xs text-zinc-700 list-disc list-outside ml-4 leading-relaxed font-normal">
-                        <li>End-to-end UX/UI design and onboarding flow optimization for the UX/UI Club mobile application.</li>
-                        <li>Spearheaded the rapid development of an efficient digital solution under emergency constraints, successfully maintaining high community engagement.</li>
-                        <li>Defined intuitive user flows and interactive wireframes to ensure a seamless and accessible registration experience for community members.</li>
-                      </ul>
-                    </div>
-                  </div>
                 </div>
 
                 {/* EDUCATION SECTION */}
@@ -285,45 +188,122 @@ export const CVModal: React.FC<CVModalProps> = ({ isOpen, onClose }) => {
                   <h2 className="text-base sm:text-lg font-bold text-[#0A5CA8] uppercase tracking-wide mb-3">
                     EDUCATION
                   </h2>
-                  <div className="space-y-1">
-                    <h3 className="text-xs sm:text-sm font-bold text-zinc-900 uppercase">
-                      Reichman University <span className="font-normal text-zinc-500">|</span> 2024 - Present
-                    </h3>
-                    <p className="text-xs sm:text-sm text-zinc-700 pl-4 font-normal">
-                      B.A. in Communications & HCI
-                    </p>
+                  <div className="space-y-4">
+                    <div>
+                      <h3 className="text-xs sm:text-sm font-bold text-zinc-900">
+                        B.A. in Communications, HCI specialization (3rd year) <span className="font-normal text-zinc-500">|</span> Reichman University <span className="font-normal text-zinc-500">|</span> 2024 - Present
+                      </h3>
+                    </div>
+                    <div>
+                      <h3 className="text-xs sm:text-sm font-bold text-zinc-900">
+                        Head of the UX/UI Club <span className="font-normal text-zinc-500">|</span> Reichman University <span className="font-normal text-zinc-500">|</span> 2025 - Present
+                      </h3>
+                      <ul className="mt-1.5 space-y-1 text-[11px] sm:text-xs text-zinc-700 list-disc list-outside ml-4 leading-relaxed font-normal">
+                        <li>Lead the club's strategy and team management: building work plans, recruiting and training department managers, and preserving the community's culture</li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
 
-                {/* SKILLS & TOOLS SECTION */}
+                {/* PROFESSIONAL EXPERIENCE SECTION */}
+                <div className="mb-6">
+                  <h2 className="text-base sm:text-lg font-bold text-[#0A5CA8] uppercase tracking-wide mb-3">
+                    PROFESSIONAL EXPERIENCE
+                  </h2>
+
+                  <div className="space-y-4">
+                    {/* Role 1 */}
+                    <div>
+                      <h3 className="text-xs sm:text-sm font-bold text-zinc-900 uppercase">
+                        Product Management & AI GTM Engineering Intern <span className="font-normal text-zinc-500">|</span> Zimark <span className="font-normal text-zinc-500">|</span> Jul 2026 - Sep 2026
+                      </h3>
+                      <ul className="mt-1.5 space-y-1 text-[11px] sm:text-xs text-zinc-700 list-disc list-outside ml-4 leading-relaxed font-normal">
+                        <li>Identified a fragmented sales process (20+ messages per deal across email, WhatsApp and Drive) and built ZDR, an internal platform for the sales and marketing teams that centralizes files, tasks and client communication in one shared link. From writing the PRD and designing 24 screens in Figma to a working app with users, permissions and a database, built with AI.</li>
+                        <li>Conducted competitive research and led feedback and improvement cycles with internal stakeholders.</li>
+                      </ul>
+                    </div>
+
+                    {/* Role 2 */}
+                    <div>
+                      <h3 className="text-xs sm:text-sm font-bold text-zinc-900 uppercase">
+                        CANDLE & CO <span className="font-normal text-zinc-500">|</span> Founder & Designer
+                      </h3>
+                      <ul className="mt-1.5 space-y-1 text-[11px] sm:text-xs text-zinc-700 list-disc list-outside ml-4 leading-relaxed font-normal">
+                        <li>Founded an independent candle brand and designed its full brand identity, including the logo. Built a Wix catalog of 50-60 products that replaced searching through Instagram posts, making ordering faster and clearer for customers.</li>
+                      </ul>
+                    </div>
+
+                    {/* Role 3 */}
+                    <div>
+                      <h3 className="text-xs sm:text-sm font-bold text-zinc-900 uppercase">
+                        UX/UI Club Community App
+                      </h3>
+                      <ul className="mt-1.5 space-y-1 text-[11px] sm:text-xs text-zinc-700 list-disc list-outside ml-4 leading-relaxed font-normal">
+                        <li>Led the end-to-end design of the sign-up and onboarding flow under emergency conditions, creating a simple experience that kept the community active.</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                {/* MILITARY SERVICE SECTION */}
+                <div className="mb-6">
+                  <h2 className="text-base sm:text-lg font-bold text-[#0A5CA8] uppercase tracking-wide mb-3">
+                    MILITARY SERVICE
+                  </h2>
+
+                  <div className="space-y-4">
+                    {/* Role 1 */}
+                    <div>
+                      <h3 className="text-xs sm:text-sm font-bold text-zinc-900 uppercase">
+                        Operations & Logistics Manager <span className="font-normal text-zinc-500">|</span> Reserves <span className="font-normal text-zinc-500">|</span> 2023 - Present
+                      </h3>
+                    </div>
+
+                    {/* Role 2 */}
+                    <div>
+                      <h3 className="text-xs sm:text-sm font-bold text-zinc-900 uppercase">
+                        Digital Procurement & Technology Operations Manager <span className="font-normal text-zinc-500">|</span> Unit 8200 <span className="font-normal text-zinc-500">|</span> 2021 - 2022
+                      </h3>
+                      <ul className="mt-1.5 space-y-1 text-[11px] sm:text-xs text-zinc-700 list-disc list-outside ml-4 leading-relaxed font-normal">
+                        <li>Led complex technology procurement projects, matching the right technology to the organization's needs.</li>
+                      </ul>
+                    </div>
+
+                    {/* Role 3 */}
+                    <div>
+                      <h3 className="text-xs sm:text-sm font-bold text-zinc-900 uppercase">
+                        Base Commander Assistant & Deputy <span className="font-normal text-zinc-500">|</span> Unit 8200 <span className="font-normal text-zinc-500">|</span> 2018 - 2021
+                      </h3>
+                      <ul className="mt-1.5 space-y-1 text-[11px] sm:text-xs text-zinc-700 list-disc list-outside ml-4 leading-relaxed font-normal">
+                        <li>Coordinated technology projects across departments to improve operations. Received an award of excellence for managing strategic projects.</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                {/* SKILLS SECTION */}
                 <div>
                   <h2 className="text-base sm:text-lg font-bold text-[#0A5CA8] uppercase tracking-wide mb-3">
-                    SKILLS & TOOLS
+                    SKILLS
                   </h2>
 
                   <div className="space-y-1.5 text-xs sm:text-sm">
                     <p className="flex items-start gap-2 text-zinc-800">
                       <span className="text-zinc-400">•</span>
                       <span>
-                        <strong className="font-bold text-zinc-900">Product and Design:</strong> Figma, UX/UI philosophies, wireframing, interactive prototyping, and brand transformation.
+                        <strong className="font-bold text-zinc-900">Product Design & Building:</strong> Figma, UX/UI, prototyping, AI tools (Lovable, Claude)
                       </span>
                     </p>
                     <p className="flex items-start gap-2 text-zinc-800">
                       <span className="text-zinc-400">•</span>
                       <span>
-                        <strong className="font-bold text-zinc-900">AI and Technology:</strong> Advanced AI integration (Gemini, Claude), Lovable workflows, and AI-driven development.
+                        <strong className="font-bold text-zinc-900">Product Management:</strong> Writing PRDs, defining requirements, QA, managing teams and stakeholders
                       </span>
                     </p>
                     <p className="flex items-start gap-2 text-zinc-800">
                       <span className="text-zinc-400">•</span>
                       <span>
-                        <strong className="font-bold text-zinc-900">Management and Leadership:</strong> Project management, multidisciplinary teamwork, GTM strategy, and startup ecosystem collaboration.
-                      </span>
-                    </p>
-                    <p className="flex items-start gap-2 text-zinc-800">
-                      <span className="text-zinc-400">•</span>
-                      <span>
-                        <strong className="font-bold text-zinc-900">Languages:</strong> Hebrew (Native), English (Fluent).
+                        <strong className="font-bold text-zinc-900">Languages:</strong> Hebrew (native), English (fluent)
                       </span>
                     </p>
                   </div>

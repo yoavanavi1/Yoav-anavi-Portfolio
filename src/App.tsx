@@ -1423,7 +1423,7 @@ export default function App() {
                     type="button"
                     onClick={(e) => {
                       e.preventDefault();
-                      setShowCVModal(true);
+                      handleCVAction("en");
                     }}
                     whileHover={{ scale: 1.05, y: -5 }}
                     whileTap={{ scale: 0.95 }}
